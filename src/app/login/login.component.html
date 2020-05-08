@@ -1,0 +1,56 @@
+<!-- App Capsule -->
+<div id="appCapsule" class="pt-0">
+
+    <div class="login-form mt-1">
+        <div class="section">
+            <img src="assets/img/sample/photo/vector4.png" alt="image" class="form-image">
+        </div>
+        <div class="section mt-1">
+            <h1>Get started</h1>
+            <h4>{{note}} {{loading}}</h4>
+        </div>
+        <div class="section mt-1 mb-5">
+            <form (ngSubmit)="onSubmit()" #myForm="ngForm">
+                <div class="form-group boxed">
+                    <div class="input-wrapper">
+                        <input type="email" class="form-control" id="email" required [(ngModel)]="model.email"
+                            name="email" #email="ngModel" [ngModelOptions]="{standalone: true}"
+                            placeholder="Email Address">
+                        <i class="clear-input">
+                            <ion-icon name="close-circle"></ion-icon>
+                        </i>
+                    </div>
+                    <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
+                        email is required
+                    </div>
+                </div>
+
+                <div class="form-group boxed">
+                    <div class="input-wrapper">
+                        <input type="password" class="form-control" id="password" required [(ngModel)]="model.password"
+                            name="password" #password="ngModel" [ngModelOptions]="{standalone: true}"
+                            placeholder="Password">
+                        <i class="clear-input">
+                            <ion-icon name="close-circle"></ion-icon>
+                        </i>
+                    </div>
+                    <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
+                        pass is required
+                    </div>
+                </div>
+
+                <div class="form-links mt-2">
+                    <div><a href="javascript:;" class="text-muted">Forgot Password?</a></div>
+                </div>
+
+                <div class="form-button-group">
+                    <button type="submit" class="btn btn-success" [disabled]="!myForm.form.valid"
+                        class="btn btn-primary btn-block btn-lg">Log in</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+</div>
+<!-- * App Capsule -->
