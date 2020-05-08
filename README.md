@@ -1,3 +1,9 @@
+# android CRM SalesTrax Hybrid System
+1. cordova
+2. angular 8
+3. ng-Bootstrap
+4. template Mobilekit - Bootstrap 4 Based HTML Template
+
 # Ng8
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.3.
