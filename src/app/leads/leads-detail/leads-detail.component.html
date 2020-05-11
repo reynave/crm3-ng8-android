@@ -417,7 +417,7 @@
 
 
 
-                    <ul class="listview image-listview flush transparent pt-1" *ngFor="let x of product; let i = index">
+                    <ul class="listview image-listview flush transparent pt-1 image-listview-products" *ngFor="let x of product; let i = index">
                         <li class="border-bottom">
                             <a href="javascript:;" class="item">
                                 <div class="in">
@@ -425,6 +425,7 @@
                                         {{x.product}}
                                         <div class="text-muted">Price : {{x.currency}} {{x.price | number}}</div>
                                     </div>
+                                    <span class="badge badge-danger"  (click)="fn_deleteProduct(x);"><ion-icon name="trash-outline"></ion-icon></span>
                                 </div>
                             </a>
                         </li>
@@ -518,8 +519,8 @@
                 <a href="javascript:;" data-dismiss="modal">Close</a>
             </div>
             <div class="modal-body">
-                <!-- <app-price-list-modal (uploaded)="requestEmit($event)"></app-price-list-modal> -->
-                On Progress component
+                <app-price-list-modal (uploaded)="requestEmit($event)"></app-price-list-modal>
+                 
             </div>
         </div>
     </div>

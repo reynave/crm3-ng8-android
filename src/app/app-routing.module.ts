@@ -5,6 +5,9 @@ import { LeadsComponent } from './leads/leads.component';
 import { PagesNotFoundComponent } from './pages-not-found/pages-not-found.component';
 import { HomeComponent } from './home/home.component';
 import { LeadsDetailComponent } from './leads/leads-detail/leads-detail.component';
+import { PriceListComponent } from './price-list/price-list.component';
+import { ContactComponent } from './contact/contact.component';
+import { ContactDetailComponent } from './contact/contact-detail/contact-detail.component';
 
 
 const routes: Routes = [
@@ -14,6 +17,12 @@ const routes: Routes = [
   
   { path: 'lead', component: LeadsComponent },
   { path: 'lead/:id', component: LeadsDetailComponent },
+
+  { path: 'contact', component: ContactComponent },
+  { path: 'contact/:id', component: ContactDetailComponent },
+
+  { path: 'priceList', component: PriceListComponent },  
+  
 
   { path: '**', component: PagesNotFoundComponent },
 ];

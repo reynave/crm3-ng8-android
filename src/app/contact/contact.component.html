@@ -1,0 +1,86 @@
+<!-- App Header -->
+<div class="appHeader bg-twitter text-light">
+    <div class="left">
+        <a [routerLink]="[ '/home' ]" class="headerButton">
+            <ion-icon name="arrow-back-outline"></ion-icon>
+        </a>
+    </div>
+    <div class="pageTitle">Contacts</div>
+    
+    <div class="right">
+        <a href="javascript:;" class="headerButton toggle-searchbox">
+            <ion-icon name="search-outline"></ion-icon>
+        </a>
+        <a href="javascript:;" class="headerButton" data-toggle="modal" data-target="#newContact">
+            <ion-icon name="add-outline"></ion-icon>
+        </a>
+
+    </div>
+</div>
+<!-- * App Header -->
+
+<!-- Search Component -->
+<div id="search" class="appHeader">
+    <form class="search-form">
+        <div class="form-group searchbox">
+            <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="search" [ngModelOptions]="{standalone: true}">
+            <i class="input-icon">
+                <ion-icon name="search-outline"></ion-icon>
+            </i>
+            <a href="javascript:;" class="ml-1 close toggle-searchbox">
+                <ion-icon name="close-circle"></ion-icon>
+            </a>
+        </div>
+    </form>
+</div>
+<!-- * Search Component -->
+
+
+<!-- App Capsule -->
+<div id="appCapsule">
+    <ul class="listview image-listview media flush">
+        <li *ngFor="let x of items  | searchPipe:'name':search  ">
+            <a [routerLink]="[ '/contact', x.id ]" class="item">
+
+                <div class="in">
+                    <div>
+                        <header> {{x.company}}</header>
+                        {{x.name}}
+                        <footer> {{x.position}}</footer>
+                    </div>
+                    <span class="text-muted">view</span>
+                </div>
+            </a>
+        </li>
+    </ul>
+
+    <div class="row" [hidden]="!loading">
+        <div class="col-12 text-center py-5">
+            <div class="spinner-border text-primary" role="status"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Basic -->
+<div class="modal fade modalbox" id="newContact" data-backdrop="static" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">New Contact</h5>
+                <a href="javascript:;" data-dismiss="modal">Close</a>
+            </div>
+
+            <div class="modal-body">  
+                <app-contact-new (uploaded)="requestEmit($event)"></app-contact-new>
+            </div> 
+
+        </div>
+
+    </div>
+
+
+</div>
+<!-- * Modal Basic -->
+
+
+<app-app-bottom-menu></app-app-bottom-menu>

@@ -278,8 +278,9 @@ export class LeadsDetailComponent implements OnInit {
   }
 
   requestEmit(event) {
+    $('#priceListModal').modal('hide');
     this.httpGet();
-   // this.modalService.dismissAll();
+   
   }
 
   fn_newActivity() {

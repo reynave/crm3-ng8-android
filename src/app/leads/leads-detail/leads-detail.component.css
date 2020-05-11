@@ -1,0 +1,4 @@
+.image-listview-products > li a.item:after {
+    background-image: none;
+    
+}

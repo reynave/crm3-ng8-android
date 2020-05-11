@@ -17,6 +17,13 @@ import { HomeComponent } from './home/home.component';
 import { AppBottomMenuComponent } from './global/app-bottom-menu/app-bottom-menu.component';
 import { LeadsDetailComponent } from './leads/leads-detail/leads-detail.component';
 import { SearchPipe } from './pipe/search.pipe';
+import { PriceListComponent } from './price-list/price-list.component';
+import { CompanyComponent } from './company/company.component';
+import { PriceListModalComponent } from './price-list/price-list-modal/price-list-modal.component';
+import { ContactComponent } from './contact/contact.component';
+import { CompanyDetailComponent } from './company/company-detail/company-detail.component';
+import { ContactDetailComponent } from './contact/contact-detail/contact-detail.component';
+import { ContactNewComponent } from './contact/contact-new/contact-new.component';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "right",
@@ -39,6 +46,13 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     AppBottomMenuComponent,
     LeadsDetailComponent,
     SearchPipe,
+    PriceListComponent,
+    CompanyComponent,
+    PriceListModalComponent,
+    ContactComponent,
+    CompanyDetailComponent,
+    ContactDetailComponent,
+    ContactNewComponent,
     
   ],
   imports: [

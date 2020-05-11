@@ -1,0 +1,46 @@
+<input type="text" class="form-control" placeholder="Search..."  [(ngModel)]="search"  [ngModelOptions]="{standalone: true}" >
+<small>Selected ({{total}})</small>
+<div>
+
+    <span class="border px-1 bg-white mr-1 shadow-sm mb-1 addlist" *ngFor="let x of addProduct"><small>
+            {{x.name}}</small> <a href="javascript:;" class="text-danger" (click)="removeList(x);">
+            <small class="px-1"> <i class="fas fa-times"></i></small> </a></span>
+
+</div>
+
+
+<!-- App Capsule -->
+<div id="appCapsule">
+
+    <ul class="listview image-listview media flush transparent pt-1">
+        <li *ngFor="let x of items  | searchPipe:'name':search" (click)="addList(x);">
+            <span class="item">
+               
+                <div class="in">
+                    <div>
+                       <small>  {{x.sku}} </small>
+                       <div> {{x.name}}</div>
+                        <div class="text-muted">{{x.currency}} {{x.price | number}}</div>
+                    </div>
+                    <span class="badge badge-light">{{x.qty}}</span>
+                </div>
+            </span>
+        </li>
+
+    </ul>
+  
+
+    <div class="row" [hidden]="!loading">
+        <div class="col-12 text-center py-5">
+            <div class="spinner-border text-primary" role="status"></div>
+        </div>
+    </div>
+</div>
+<!-- * App Capsule -->
+
+
+
+<div class="appBottomMenu">
+    <button type="button" class="btn btn-primary btn-block" (click)="save();" [disabled]="total < 1">Next</button>
+
+</div>

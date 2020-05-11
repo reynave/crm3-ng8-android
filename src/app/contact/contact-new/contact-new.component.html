@@ -1,0 +1,124 @@
+<form (ngSubmit)="onSubmit()" #myForm="ngForm">
+    <div class="modal-content pt-0 mt-0">
+        <div class="modal-body ">
+
+            <div class="section full">
+                <div class="row ">
+                    <div class="col-3">
+                        <div class="form-group basic animated">
+                            <div class="input-wrapper">
+                                <label class="label" for="h77">title</label>
+                                <select class="form-control" [(ngModel)]="modelContact.id_title" name="id_title" id="h77">
+                                    <option value="" [hidden]="modelContact.id_title"> - </option>
+                                    <option [ngValue]="x.id" *ngFor="let x of title">{{x.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <div class="form-group basic animated">
+                            <div class="input-wrapper">
+                                <label class="label" for="h1">First Name</label>
+                                <input type="text" class="form-control required" [(ngModel)]="modelContact.first_name" name="first_name" #first_name="ngModel" id="h1" required placeholder="First Name">
+                                <small [hidden]="first_name.valid || first_name.pristine" class="text-danger"> First name is required</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group basic animated">
+                    <div class="input-wrapper">
+                        <label class="label" for="h2">Last Name</label>
+                        <input type="text" class="form-control " id="h2" [(ngModel)]="modelContact.last_name" name="last_name" placeholder="Last Name">
+                    </div>
+                </div>
+
+
+
+                <div class="form-group basic animated">
+                    <div class="input-wrapper">
+                        <label class="label" for="h3">Email</label>
+                        <input type="email" class="form-control " id="h3" [(ngModel)]="modelContact.email" name="email" placeholder="Email">
+                    </div>
+                </div>
+
+
+
+                <div class="form-group basic animated">
+                    <div class="input-wrapper">
+                        <label for="h110" class="label">Mobile</label>
+                        <input type="text" class="form-control " id="h110" [(ngModel)]="modelContact.mobile" name="mobile" placeholder="Mobile">
+                    </div>
+                </div>
+
+
+                <div class="form-group basic animated">
+                    <div class="input-wrapper">
+                        <label for="h4" class="label">Phone</label>
+                        <input type="text" class="form-control " id="h4" [(ngModel)]="modelContact.phone" name="phone" placeholder="Phone">
+
+                    </div>
+                </div>
+
+
+                <div class="form-group basic animated">
+                    <div class="input-wrapper">
+                        <label for="hb2" class="label">Position</label>
+                        <input type="text" class="form-control " id="hb2" [(ngModel)]="modelContact.position" name="position" placeholder="Position">
+                    </div>
+                </div>
+
+                <div class="form-group basic animated">
+                    <div class="input-wrapper">
+                        <label for="ha1" class="label">Department</label>
+                        <input type="text" class="form-control " id="ha1" [(ngModel)]="modelContact.department" name="department" placeholder="Department">
+                    </div>
+                </div>
+
+                <div class="form-group basic animated">
+                    <div class="input-wrapper">
+                        <label for="h4" class="label">Lead source </label>
+                        <select class="form-control required" #id_lead_source="ngModel" id="h14" [(ngModel)]="modelContact.id_lead_source" name="id_lead_source" required>
+                            <option value="">- Lead Source - </option>
+                            <option [ngValue]="x.id" *ngFor="let x of lead_source">{{x.name}}</option>
+                        </select>
+                        <small [hidden]="id_lead_source.valid || id_lead_source.pristine" class="text-danger"> Lead Source is required</small>
+                    </div>
+                </div>
+
+                <div class="form-group basic animated">
+                    <div class="input-wrapper">
+                        <label for="h4" class="label"> Account Manager </label>
+
+                        <select class="form-control " [(ngModel)]="modelContact.id_user" name="id_user" #id_user="ngModel" required>
+                            <option [ngValue]="x.id" *ngFor="let x of user">{{x.name}}</option>
+                        </select>
+                        <small [hidden]="id_user.valid || id_user.pristine" class="text-danger"> Contact owner is
+                            required</small>
+
+                    </div>
+                </div>
+
+                <div class="form-group basic animated">
+                    <div class="input-wrapper">
+                        <label for="h4" class="label"> Company </label>
+                        <select class="form-control" [(ngModel)]="modelContact.id_company" name="id_company">
+                            <option value="0" [hidden]="modelContact.id_company">- Select Company-</option>
+                            <option [ngValue]="x.id" *ngFor="let x of company">{{x.name}}</option>
+                        </select>
+                        <a href="javascript:;" (click)="modelContact.id_company = 0;"><small> Remove </small> </a>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="close()">Cancel</button>
+            <button type="submit" class="btn btn-primary m-1" [disabled]="!myForm.form.valid">{{saveLabel}}</button>
+        </div>
+    </div>
+
+</form>

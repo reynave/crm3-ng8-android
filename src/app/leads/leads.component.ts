@@ -18,6 +18,7 @@ export class LeadsComponent implements OnInit {
   items: any = [];
   id_user: string;
   model: any;
+  dbCompany:boolean=false;
   selectedCompany: any = [];
   selected: any = [];
   search : string;
