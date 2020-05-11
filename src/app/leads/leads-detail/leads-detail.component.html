@@ -1,5 +1,5 @@
 <!-- App Header -->
-<div class="appHeader bg-twitter text-light">
+<div class="appHeader bg-success text-light">
     <div class="left">
         <a [routerLink]="[ '/lead' ]" class="headerButton goBack">
             <ion-icon name="chevron-back-outline"></ion-icon>
@@ -9,12 +9,51 @@
     <div class="right">
         <a href="javascript:;" class="headerButton" data-toggle="modal" data-target="#actionSheetInset">
             <ion-icon name="ellipsis-vertical-outline"></ion-icon>
-        </a>
-
-
+        </a> 
     </div>
 </div>
 <!-- * App Header -->
+
+
+<!-- Default Action Sheet Inset -->
+<div class="modal fade action-sheet inset" id="actionSheetInset" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Lead detail modify</h5>
+            </div>
+            <div class="modal-body">
+                <ul class="action-button-list">
+                    <li>
+                        <a href="javascript:;" (click)="edit();" class="btn btn-list text-primary" data-dismiss="modal">
+                            <span>Edit</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="javascript:;" class="btn btn-list" data-toggle="modal" data-target="#converModal" data-dismiss="modal">
+                            <span>Convert to Opportunity</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="javascript:;" class="btn btn-list" data-dismiss="modal" (click)="fn_delete();">
+                            <span>Delete</span>
+                        </a>
+                    </li>
+
+                    <li class="action-divider"></li>
+                    <li>
+                        <a href="javascript:;" class="btn btn-list text-danger" data-dismiss="modal">
+                            <span>Close</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- * Default Action Sheet Inset -->
 
 <form (ngSubmit)="fn_update()" #mainForm="ngForm">
     <!-- App Capsule -->
@@ -467,47 +506,6 @@
     <app-app-bottom-menu></app-app-bottom-menu>
 </span>
 
-
-
-<!-- Default Action Sheet Inset -->
-<div class="modal fade action-sheet inset" id="actionSheetInset" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Lead detail modify</h5>
-            </div>
-            <div class="modal-body">
-                <ul class="action-button-list">
-                    <li>
-                        <a href="javascript:;" (click)="edit();" class="btn btn-list text-primary" data-dismiss="modal">
-                            <span>Edit</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="javascript:;" class="btn btn-list" data-toggle="modal" data-target="#converModal" data-dismiss="modal">
-                            <span>Convert to Opportunity</span>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="javascript:;" class="btn btn-list" data-dismiss="modal" (click)="fn_delete();">
-                            <span>Delete</span>
-                        </a>
-                    </li>
-
-                    <li class="action-divider"></li>
-                    <li>
-                        <a href="javascript:;" class="btn btn-list text-danger" data-dismiss="modal">
-                            <span>Close</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- * Default Action Sheet Inset -->
 
 
 <!-- Modal Price list -->

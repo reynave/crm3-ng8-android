@@ -24,6 +24,7 @@ import { ContactComponent } from './contact/contact.component';
 import { CompanyDetailComponent } from './company/company-detail/company-detail.component';
 import { ContactDetailComponent } from './contact/contact-detail/contact-detail.component';
 import { ContactNewComponent } from './contact/contact-new/contact-new.component';
+import { OpportunityComponent } from './opportunity/opportunity.component';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "right",
@@ -53,6 +54,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     CompanyDetailComponent,
     ContactDetailComponent,
     ContactNewComponent,
+    OpportunityComponent,
     
   ],
   imports: [

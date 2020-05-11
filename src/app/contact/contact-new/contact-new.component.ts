@@ -5,6 +5,8 @@ import { ConfigService } from './../../service/config.service';
 import { NewContact } from './../contact';
 import { environment } from 'src/environments/environment';
 
+declare var $;
+
 @Component({
   selector: 'app-contact-new',
   templateUrl: './contact-new.component.html',
