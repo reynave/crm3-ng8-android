@@ -1,1 +1,275 @@
-<p>company works!</p>
+<!-- App Header -->
+<div class="appHeader bg-linkedin text-light">
+    <div class="left">
+        <a [routerLink]="[ '/home' ]" class="headerButton">
+            <ion-icon name="arrow-back-outline"></ion-icon>
+        </a>
+    </div>
+    <div class="pageTitle">Companies</div>
+
+    <div class="right">
+        <a href="javascript:;" class="headerButton toggle-searchbox">
+            <ion-icon name="search-outline"></ion-icon>
+        </a>
+        <a href="javascript:;" class="headerButton" data-toggle="modal" data-target="#newCompany">
+            <ion-icon name="add-outline"></ion-icon>
+        </a>
+
+    </div>
+</div>
+<!-- * App Header -->
+
+
+<!-- Search Component -->
+<div id="search" class="appHeader">
+    <form class="search-form">
+        <div class="form-group searchbox">
+            <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="search" [ngModelOptions]="{standalone: true}">
+            <i class="input-icon">
+                <ion-icon name="search-outline"></ion-icon>
+            </i>
+            <a href="javascript:;" class="ml-1 close toggle-searchbox">
+                <ion-icon name="close-circle"></ion-icon>
+            </a>
+        </div>
+    </form>
+</div>
+<!-- * Search Component -->
+
+
+<!-- App Capsule -->
+<div id="appCapsule">
+    <ul class="listview image-listview media flush">
+        <li *ngFor="let x of items  | searchPipe:'name':search  ">
+            <a [routerLink]="[ '/company', x.id ]" class="item">
+
+                <div class="in">
+                    <div>
+                        <header> {{x.class}}</header>
+                        {{x.name}}
+                        <footer> {{x.industry}}</footer>
+                    </div>
+                    <span class="text-muted">view</span>
+                </div>
+            </a>
+        </li>
+    </ul>
+
+    <div class="row" [hidden]="!loading">
+        <div class="col-12 text-center py-5">
+            <div class="spinner- text-primary" role="status"></div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal Basic -->
+<div class="modal fade modalbox" id="newCompany" data-backdrop="static" tabindex="-1" role="dialog">
+    <form (ngSubmit)="onSubmit()" #myForm="ngForm">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">New Company</h5>
+                    <a href="javascript:;" data-dismiss="modal">Close</a>
+                </div>
+
+
+                <div class="modal-body ">
+                    <div class="section full">
+
+                        <div class="form-group basic animated">
+                            <div class="input-wrapper">
+                                <label for="h2" class="label"> Name</label>
+                                <input type="text" class="form-control required" [(ngModel)]="model.name" name="name" #name="ngModel" id="h1" required placeholder="Company Name">
+                                <small [hidden]="name.valid || name.pristine" class="text-danger"> Company name is required</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group basic animated">
+                            <div class="input-wrapper">
+                                <label for="h3" class="label">Email</label>
+                                <input type="email" class="form-control " [(ngModel)]="model.email" name="email" id="h3" placeholder="Email">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group basic animated">
+                            <div class="input-wrapper">
+                                <label for="h4" class="label">Phone</label>
+                                <input type="text" class="form-control " [(ngModel)]="model.phone" name="phone" id="h4" placeholder="Phone">
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group basic animated">
+                            <div class="input-wrapper">
+                                <label for="h4" class="label">Fax</label>
+                                <input type="text" class="form-control " [(ngModel)]="model.fax" name="fax" id="h4" placeholder="Fax">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group basic animated">
+                            <div class="input-wrapper">
+                                <label for="h23s" class="label"> Website </label>
+                                <input type="text" class="form-control " [(ngModel)]="model.website" name="website" id="h23s" placeholder="Website">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group basic animated">
+                            <div class="input-wrapper">
+                                <label for="h24x" class="label">Industry</label>
+                                <select class="form-control " id="h24x" [(ngModel)]="model.id_industry" name="id_industry">
+                                    <option value="" [hidden]="model.id_company_class">Industry</option>
+                                    <option [ngValue]="x.id" *ngFor="let x of selected.industry">{{x.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group basic animated">
+                            <div class="input-wrapper">
+                                <label for="h24y" class="label">Company Class</label>
+                                <select class="form-control " id="h24y" [(ngModel)]="model.id_company_class" name="id_company_class">
+                                    <option value="" [hidden]="model.id_company_class">Company Class</option>
+                                    <option [ngValue]="x.id" *ngFor="let x of selected.company_class">{{x.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group basic animated">
+                            <div class="input-wrapper">
+                                <label for="h24z" class="label">Company Owner</label>
+
+                                <select class="form-control " id="h24z" [(ngModel)]="model.id_user" name="id_user">
+                                    <option [ngValue]="x.id" *ngFor="let x of selected.user">{{x.name}}</option>
+                                </select>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+ 
+                    <div class="section full mt-3 border  rounded shadow-sm p-2">
+                        <div>
+                            <b><small> Address Bill </small></b>
+                        </div>
+
+                        <div class="form-group basic animated">
+                            <div class="input-wrapper">
+                                <label for="h11" class="label">Bill to Street</label>
+                                <input type="text" class="form-control" [(ngModel)]="model.bill_street" name="bill_street" maxlength="250" id="h11" placeholder="Bill to Street">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group basic animated">
+                            <div class="input-wrapper">
+                                <label for="h12" class="label">Bill to City</label>
+                                <input type="text" class="form-control" [(ngModel)]="model.bill_city" name="bill_city" maxlength="250" id="h12" placeholder="Bill to City">
+                            </div>
+                        </div>
+
+                        <div class="form-group basic animated">
+                            <div class="input-wrapper">
+                                <label for="h13" class="label">Bill to State</label>
+                                <input type="text" class="form-control" [(ngModel)]="model.bill_state" name="bill_state" maxlength="250" id="h13" placeholder="Bill to State">
+                            </div>
+                        </div>
+
+                        <div class="form-group basic animated">
+                            <div class="input-wrapper">
+                                <label for="h14" class="label">Bill to Postal Code</label>
+                                <input type="text" class="form-control" [(ngModel)]="model.bill_code" name="bill_code" maxlength="250" id="h14" placeholder="Bill to Postal Code">
+
+                            </div>
+                        </div>
+
+                        <div class="form-group basic animated">
+                            <div class="input-wrapper">
+                                <label for="h14" class="label">Bill to Country</label>
+                                <input type="text" class="form-control" [(ngModel)]="model.bill_country" name="bill_country" maxlength="250" id="h14" placeholder="Bill to Country">
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="section full mt-3 border  rounded shadow-sm p-2 mt-3">
+                        <div>
+                            <b><small> Address Ship </small></b>
+                            <div>  <a href="javascript:;" (click)="copyAddress();"><small>Copy from Address Bill</small></a></div>
+                        </div>
+
+                        <div class="form-group basic animated">
+                            <div class="input-wrapper">
+                                <label for="h11" class="label">Ship to Street</label>
+                                <input type="text" class="form-control" [(ngModel)]="model.ship_street" name="ship_street" maxlength="250" id="h11" placeholder="Ship to Street">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group basic animated">
+                            <div class="input-wrapper">
+                                <label for="h12" class="label">Ship to City</label>
+                                <input type="text" class="form-control" [(ngModel)]="model.ship_city" name="ship_city" maxlength="250" id="h12" placeholder="Ship to City">
+                            </div>
+                        </div>
+
+                        <div class="form-group basic animated">
+                            <div class="input-wrapper">
+                                <label for="h13" class="label">Ship to State</label>
+                                <input type="text" class="form-control" [(ngModel)]="model.ship_state" name="ship_state" maxlength="250" id="h13" placeholder="Ship to State">
+                            </div>
+                        </div>
+
+                        <div class="form-group basic animated">
+                            <div class="input-wrapper">
+                                <label for="h14" class="label">Ship to Postal Code</label>
+                                <input type="text" class="form-control" [(ngModel)]="model.ship_code" name="ship_code" maxlength="250" id="h14" placeholder="Ship to Postal Code">
+
+                            </div>
+                        </div>
+
+                        <div class="form-group basic animated">
+                            <div class="input-wrapper">
+                                <label for="h14" class="label">Ship to Country</label>
+                                <input type="text" class="form-control" [(ngModel)]="model.ship_country" name="ship_country" maxlength="250" id="h14" placeholder="Ship to Country">
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-dark" (click)="close()">Cancel</button>
+                    <button type="submit" class="btn btn-primary m-1" [disabled]="!myForm.form.valid">Save</button>
+                </div>
+
+
+
+
+            </div>
+
+
+        </div>
+    </form>
+
+</div>
+<!-- * Modal Basic -->
+
+
+<app-app-bottom-menu></app-app-bottom-menu>

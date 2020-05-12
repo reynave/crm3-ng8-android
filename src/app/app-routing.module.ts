@@ -8,6 +8,8 @@ import { LeadsDetailComponent } from './leads/leads-detail/leads-detail.componen
 import { PriceListComponent } from './price-list/price-list.component';
 import { ContactComponent } from './contact/contact.component';
 import { ContactDetailComponent } from './contact/contact-detail/contact-detail.component';
+import { CompanyComponent } from './company/company.component';
+import { CompanyDetailComponent } from './company/company-detail/company-detail.component';
 
 
 const routes: Routes = [
@@ -20,6 +22,11 @@ const routes: Routes = [
 
   { path: 'contact', component: ContactComponent },
   { path: 'contact/:id', component: ContactDetailComponent },
+
+  { path: 'company', component: CompanyComponent },
+  { path: 'company/:id', component: CompanyDetailComponent },
+
+
 
   { path: 'priceList', component: PriceListComponent },  
   

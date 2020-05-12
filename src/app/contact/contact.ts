@@ -191,6 +191,8 @@ export class UpdateContact {
         public phone: string,
         public position: string,
         public department: string,
+        public sex: string,
+        public birthdate: any,
         
     ) { }
 

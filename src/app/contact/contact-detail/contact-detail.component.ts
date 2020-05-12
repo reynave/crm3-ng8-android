@@ -30,7 +30,13 @@ export class ContactDetailComponent implements OnInit {
   index: number;
   searchText: string;
   selectedCompany: any = [];
-  model: any = [];
+  model: any = {
+    birthdate: {
+      year : 1990,
+      month : 1,
+      day : 1
+    }
+  };;
   dataOpportunity: any = [];
   dataOpportunityStage: any = [];
   loadingSelected: boolean = false;
@@ -104,9 +110,10 @@ export class ContactDetailComponent implements OnInit {
           data['result']['data']['phone'],
           data['result']['data']['position'],
           data['result']['data']['department'],
-
+          data['result']['data']['sex'],
+          data['result']['data']['birthdate'],
         );
-        console.log(this.model);
+ 
         console.log(data);
         this.loading = false;
 
@@ -119,29 +126,15 @@ export class ContactDetailComponent implements OnInit {
 
 
   open(content) {
-    this.modalService.open(content, { size: 'lg' }).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
+    this.modalService.open(content, { size: 'lg' });
   }
-
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
-
+ 
 
   fn_update() {
-
+    
     this.loading = true;
     console.log(this.model);
+    console.log(environment.api + 'contact/update');
     this.http.post(environment.api + 'contact/update',
       {
         "id": this.id,

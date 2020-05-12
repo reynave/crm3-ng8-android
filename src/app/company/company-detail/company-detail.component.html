@@ -1,1 +1,349 @@
-<p>company-detail works!</p>
+<div class="appHeader bg-linkedin text-light">
+    <div class="left">
+        <a [routerLink]="[ '/company' ]" class="headerButton">
+            <ion-icon name="arrow-back-outline"></ion-icon>
+        </a>
+    </div>
+    <div class="pageTitle">Company Detail</div>
+
+    <div class="right">
+        <a href="javascript:;" class="headerButton" data-toggle="modal" data-target="#actionSheetInset">
+            <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+        </a>
+    </div>
+</div>
+<!-- * App Header -->
+
+
+<!-- Default Action Sheet Inset -->
+<div class="modal fade action-sheet inset" id="actionSheetInset" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Actions</h5>
+            </div>
+            <div class="modal-body">
+                <ul class="action-button-list">
+                    <li>
+                        <a href="javascript:;" (click)="edit();" class="btn btn-list text-primary" data-dismiss="modal">
+                            <span>Edit</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="javascript:;" class="btn btn-list" data-toggle="modal" data-target="#converModal" data-dismiss="modal">
+                            <span>New Opportunity</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="javascript:;" class="btn btn-list" data-dismiss="modal" (click)="fn_delete();">
+                            <span>Delete</span>
+                        </a>
+                    </li>
+
+                    <li class="action-divider"></li>
+                    <li>
+                        <a href="javascript:;" class="btn btn-list text-danger" data-dismiss="modal">
+                            <span>Close</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- * Default Action Sheet Inset -->
+
+
+<form (ngSubmit)="fn_update()" #mainForm="ngForm">
+     <!-- App Capsule -->
+     <div id="appCapsule">
+
+        <div class="row" [hidden]="!loading">
+            <div class="col-12 text-center py-5">
+                <div class="spinner-border text-primary" role="status"></div>
+            </div>
+        </div>
+
+        <div class="section mt-2">
+            <div class="profile-head">
+
+                <div class="in">
+                    <h3 class="name"> {{items['name']}}</h3>
+                    <h5 class="subtext">{{items['company_class']}} - {{items['industry']}}</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="section full mt-2">
+            <div class="profile-stats pl-2 pr-2" [hidden]="!isReadOnly">
+                <span class="item">
+                    <strong> {{items['phone']}} &nbsp;</strong>
+                    <div> Phone</div>
+                </span>
+                <span class="item">
+                    <strong> {{items['email']}}&nbsp;</strong>
+                    <div>Email </div>
+                </span>
+
+
+            </div>
+
+
+
+
+        </div>
+
+
+
+
+
+        <div class="section full">
+            <div class="wide-block transparent p-0">
+                <ul class="nav nav-tabs lined iconed" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#activities" role="tab">
+                            <ion-icon name="list-circle-outline"></ion-icon>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#details" role="tab">
+                            <ion-icon name="document-text-outline"></ion-icon>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#related" role="tab">
+                            <ion-icon name="pricetags-outline"></ion-icon>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#opportunity" role="tab">
+                            <ion-icon name="cash-outline"></ion-icon>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+
+        <!-- tab content -->
+        <div class="section full">
+            <div class="tab-content">
+
+                <!-- activities -->
+                <div class="tab-pane fade show active" id="activities" role="tabpanel">
+                    <div class="mt-2 pr-2 pl-2">
+                        activities
+                    </div>
+
+                </div>
+                <!-- * activities -->
+
+                <!-- * details -->
+                <div class="tab-pane fade" id="details" role="tabpanel">
+
+                    <div class="section full mt-2 mb-2">
+                        <div class="col-12 bg-light">
+                            <strong>Contact</strong>
+                        </div>
+                        {{model |json}}
+                        <div class="wide-block pb-1 pt-1">
+
+                            <div class="form-group basic">
+                                <div class="input-wrapper">
+                                    <label class="label">Company Class</label>
+                                    <select class="form-control form-modal" [(ngModel)]="model.id_company_class" [ngModelOptions]="{standalone: true}">
+                                        <option value="{{x.id}}" *ngFor="let x of company_class"> {{x.name}} </option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <!-- <div class="form-group basic">
+                                <div class="input-wrapper">
+                                    <label class="label">Company Name</label>
+                                    <input type="text" class="form-control form-modal" id="name" required [(ngModel)]="model.name" name="Company Name" #name="ngModel" [readonly]="isReadOnly">
+                                    <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                                        Name is required
+                                    </div>
+                                </div>
+                            </div>
+
+ 
+                            <div class="form-group basic">
+                                <div class="input-wrapper">
+                                    <label class="label">Email</label>
+                                    <input type="text" class="form-control form-modal" id="email" [(ngModel)]="model.email" name="email" [readonly]="isReadOnly">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group basic">
+                                <div class="input-wrapper">
+                                    <label class="label">Phone</label>
+                                    <input type="text" class="form-control form-modal" id="phone" [(ngModel)]="model.phone" name="phone" [readonly]="isReadOnly">
+                                </div>
+                            </div>
+ 
+
+                            <div class="form-group basic">
+                                <div class="input-wrapper">
+                                    <label class="label">Lead Source</label>
+
+                                    <select class="form-control form-modal" id="lead_source" required [(ngModel)]="model.id_lead_source" name="id_lead_source" [disabled]="isReadOnly">
+                                        <option *ngFor="let x of lead_source" value="{{x.id}}"> {{x.name}} </option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-group basic">
+                                <div class="input-wrapper">
+                                    <label class="label">Lead Owner </label>
+
+                                    <select class="form-control form-modal" id="id_user" [(ngModel)]="model.id_user" name="id_user" required [disabled]="isReadOnly">
+                                        <option *ngFor="let x of user" value="{{x.id}}"> {{x.name}} </option>
+                                    </select>
+                                </div>
+                            </div> -->
+
+                           
+                        </div>
+
+                    </div>
+
+
+                   
+
+                </div>
+                <!-- * details -->
+
+                <!--  related -->
+                <div class="tab-pane fade" id="related" role="tabpanel">
+                    <div class="pt-2 pr-2 pl-2 bg-white">
+                        <div class="col-12 bg-light">
+                            <strong>Attachment</strong>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-8 text-right">
+                                <input class="form-control form-control-sm" type="file" (change)="onFileSelected($event)">
+                            </div>
+                            <div class="col-4">
+                                <button type="button" class="btn btn-dark btn-block btn-sm" (click)="onUpload('company');">Upload</button>
+                            </div>
+
+
+
+                            <div class="col-12">
+
+                                <ul class="listview image-listview media flush transparent pt-1">
+                                    <li *ngFor="let x of attachment">
+                                        <span class="item">
+                                            <div class="in">
+                                                <div>
+                                                    <a href="{{x.url}}" target="_blank"> {{x.file_name}}</a>
+                                                    <div class="text-muted"> {{x.size }} </div>
+                                                </div>
+                                                <span class="badge badge-primary" [hidden]="isReadOnly" (click)="fn_attach_delete(x);">
+                                                    <ion-icon name="trash-outline"></ion-icon>
+                                                </span>
+
+                                            </div>
+                                        </span>
+                                    </li>
+                                </ul>
+
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- * related -->
+
+
+                <div class="tab-pane fade  bg-white" id="opportunity" role="tabpanel">
+
+
+                    <div class="p-2">
+                        <button class="btn btn-danger btn-block " data-toggle="modal" data-target="#newOpportunity">
+                            <ion-icon name="add-outline"></ion-icon> New Opportunity
+                        </button>
+                    </div>
+ 
+                    <ul class="listview image-listview flush transparent pt-1 image-listview-products" *ngFor="let x of dataOpportunity; let i = index">
+                        <li class="border-bottom">
+                            <a href="javascript:;" [routerLink]="[ '/opportunity/',x.id ]" class="item">
+                                <div class="in">
+                                    <div>
+                                        {{x.name}}
+                                        <div class="text-muted">Stage : <b>{{x.stage}} </b>
+                                            <div>
+                                                <small>Created Date : {{x.input_date | date}}</small>
+                                            </div> 
+                                        </div>
+                                    </div> 
+                                </div>
+                            </a>
+                        </li>
+                    </ul> 
+
+                </div>
+
+
+            </div>
+        </div>
+        <!-- * tab content -->
+
+    </div>
+    <!-- * App Capsule -->
+
+
+
+
+    <span [hidden]="isReadOnly">
+        <!-- App Bottom Menu -->
+        <div class="appBottomMenu">
+            <div class="row">
+                <div class="col-6">
+                    <button type="button" class="btn btn-outline-primary" (click)="isReadOnly=true;httpGet();"> Cancel </button>
+                </div>
+                <div class="col-6">
+                    <button type="submit" class="btn btn-primary" (click)="isReadOnly=true" [disabled]="!mainForm.form.valid"> Save </button>
+                </div>
+            </div>
+
+        </div>
+        <!-- * App Bottom Menu -->
+    </span>
+
+</form>
+
+
+
+<span [hidden]="!isReadOnly">
+    <app-app-bottom-menu></app-app-bottom-menu>
+</span>
+
+
+<div class="modal fade modalbox" id="newOpportunity" data-backdrop="static" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">New Opportunity</h5>
+                <a href="javascript:;" data-dismiss="modal">Close</a>
+            </div>
+            <div class="modal-body">
+               fsdfasdf
+            </div>
+        </div>
+    </div>
+</div>
+ 
