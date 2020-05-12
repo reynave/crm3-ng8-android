@@ -16,7 +16,7 @@ export class CompanyComponent implements OnInit {
   public label: any;
   public items: any;
   public itemsSelected: any = [];
-  public loading: boolean = true;
+  loading: boolean = true;
   loadingSelected: boolean = true;
   selected: any = [];
   public id: number;
@@ -25,7 +25,8 @@ export class CompanyComponent implements OnInit {
   modalTitle: string = "";
   modalStatus: number;
   objIndex: any;
-  searchText: string;
+ 
+  search: string;
   selectModal: string = "0";
   id_user: string = "1";
   total: string = "";
@@ -86,7 +87,7 @@ export class CompanyComponent implements OnInit {
   }
 
   httpGet() {
-    this.loading = false;
+   
     this.http.get<any>(environment.api + 'company/index/', {
       headers: this.configService.headers()
     }).subscribe(data => {
