@@ -57,8 +57,8 @@
 
 
 <form (ngSubmit)="fn_update()" #mainForm="ngForm">
-     <!-- App Capsule -->
-     <div id="appCapsule">
+    <!-- App Capsule -->
+    <div id="appCapsule">
 
         <div class="row" [hidden]="!loading">
             <div class="col-12 text-center py-5">
@@ -112,6 +112,13 @@
                             <ion-icon name="document-text-outline"></ion-icon>
                         </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#users" role="tab">
+                            <ion-icon name="people-outline"></ion-icon>
+                        </a>
+                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#related" role="tab">
                             <ion-icon name="pricetags-outline"></ion-icon>
@@ -121,6 +128,12 @@
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" href="#opportunity" role="tab">
                             <ion-icon name="cash-outline"></ion-icon>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#priceList" role="tab">
+                            <ion-icon name="basket-outline"></ion-icon>
                         </a>
                     </li>
 
@@ -145,79 +158,158 @@
                 <!-- * details -->
                 <div class="tab-pane fade" id="details" role="tabpanel">
 
-                    <div class="section full mt-2 mb-2">
-                        <div class="col-12 bg-light">
-                            <strong>Contact</strong>
-                        </div>
-                        {{model |json}}
+                    <div class="section full">
+
                         <div class="wide-block pb-1 pt-1">
 
                             <div class="form-group basic">
                                 <div class="input-wrapper">
                                     <label class="label">Company Class</label>
-                                    <select class="form-control form-modal" [(ngModel)]="model.id_company_class" [ngModelOptions]="{standalone: true}">
+                                    <select class="form-control " [(ngModel)]="model.id_company_class" [ngModelOptions]="{standalone: true}" [disabled]="isReadOnly">
                                         <option value="{{x.id}}" *ngFor="let x of company_class"> {{x.name}} </option>
                                     </select>
                                 </div>
                             </div>
 
-
-                            <!-- <div class="form-group basic">
+                            <div class="form-group basic ">
                                 <div class="input-wrapper">
-                                    <label class="label">Company Name</label>
-                                    <input type="text" class="form-control form-modal" id="name" required [(ngModel)]="model.name" name="Company Name" #name="ngModel" [readonly]="isReadOnly">
-                                    <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
-                                        Name is required
-                                    </div>
+                                    <label class="label">Customer Code</label>
+                                    <input type="text" class="form-control " id="code_number" [(ngModel)]="model.code_number" name="code_number" [readonly]="isReadOnly">
                                 </div>
                             </div>
 
- 
                             <div class="form-group basic">
                                 <div class="input-wrapper">
-                                    <label class="label">Email</label>
-                                    <input type="text" class="form-control form-modal" id="email" [(ngModel)]="model.email" name="email" [readonly]="isReadOnly">
+                                    <label class="label">email</label>
+                                    <input type="email" class="form-control " id="email" [(ngModel)]="model.email" name="email" [readonly]="isReadOnly">
                                 </div>
                             </div>
 
+                            <div class="form-group basic">
+                                <div class="input-wrapper">
+                                    <label class="label">email</label>
+                                    <input type="email" class="form-control " id="email" [(ngModel)]="model.email" name="email" [readonly]="isReadOnly">
+                                </div>
+                            </div>
 
                             <div class="form-group basic">
                                 <div class="input-wrapper">
                                     <label class="label">Phone</label>
-                                    <input type="text" class="form-control form-modal" id="phone" [(ngModel)]="model.phone" name="phone" [readonly]="isReadOnly">
+                                    <input type="text" class="form-control " id="phone" [(ngModel)]="model.phone" name="phone" [readonly]="isReadOnly">
+                                </div>
+                            </div>
+
+                            <div class="form-group basic">
+                                <div class="input-wrapper">
+                                    <label class="label">Fax</label>
+                                    <input type="text" class="form-control" id="fax" [(ngModel)]="model.fax" name="fax" [readonly]="isReadOnly">
                                 </div>
                             </div>
  
-
                             <div class="form-group basic">
                                 <div class="input-wrapper">
-                                    <label class="label">Lead Source</label>
-
-                                    <select class="form-control form-modal" id="lead_source" required [(ngModel)]="model.id_lead_source" name="id_lead_source" [disabled]="isReadOnly">
-                                        <option *ngFor="let x of lead_source" value="{{x.id}}"> {{x.name}} </option>
+                                    <label class="label">Website</label>
+                                    <input type="text" class="form-control" id="website" [(ngModel)]="model.website" name="website" [readonly]="isReadOnly">
+                                </div>
+                            </div>
+ 
+                            <div class="form-group basic">
+                                <div class="input-wrapper">
+                                    <label class="label">Industry</label>
+                                    <select class="form-control" [(ngModel)]="model.id_industry" [ngModelOptions]="{standalone: true}" [disabled]="isReadOnly">
+                                        <option value="{{x.id}}" *ngFor="let x of industry"> {{x.name}} </option>
                                     </select>
                                 </div>
                             </div>
+  
 
+                        </div>
 
+                        <div class="wide-block pb-1 pt-1">
+
+                            <strong>Address Bill</strong>
+                            <div class="form-group basic">
+                                <div class="input-wrapper">
+                                    <label class="label">Website</label>
+                                    <textarea class="form-control" rows="4" [(ngModel)]="model.bill_street1" placeholder="Street" name="bill_street1" id="h21a" [readonly]="isReadOnly"> </textarea>
+                                </div>
+                            </div>
 
                             <div class="form-group basic">
                                 <div class="input-wrapper">
-                                    <label class="label">Lead Owner </label>
-
-                                    <select class="form-control form-modal" id="id_user" [(ngModel)]="model.id_user" name="id_user" required [disabled]="isReadOnly">
-                                        <option *ngFor="let x of user" value="{{x.id}}"> {{x.name}} </option>
-                                    </select>
+                                    <label class="label">City</label>
+                                    <input type="text" class="form-control" maxlength="250" [(ngModel)]="model.bill_city" placeholder="City" name="bill_city" id="h21b" [readonly]="isReadOnly">
                                 </div>
-                            </div> -->
+                            </div>
 
-                           
+                            <div class="form-group basic">
+                                <div class="input-wrapper">
+                                    <label class="label">State</label>
+                                    <input type="text" class="form-control" maxlength="250" [(ngModel)]="model.bill_state" placeholder="State" name="bill_state" id="h21c" [readonly]="isReadOnly">
+                                </div>
+                            </div>
+
+                            <div class="form-group basic">
+                                <div class="input-wrapper">
+                                    <label class="label">Postal Code</label>
+                                    <input type="text" class="form-control" maxlength="250" [(ngModel)]="model.bill_code" placeholder="Postal Code" name="bill_code" id="h21e" [readonly]="isReadOnly">
+                                </div>
+                            </div>
+
+                            <div class="form-group basic">
+                                <div class="input-wrapper">
+                                    <label class="label">Country</label>
+                                    <input type="text" class="form-control" maxlength="250" [(ngModel)]="model.bill_country" placeholder="Country" name="bill_country" id="h21d" [readonly]="isReadOnly">
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="wide-block pb-1 pt-1">
+
+                            <strong>Address Ship</strong>
+                            <div class="form-group basic">
+                                <div class="input-wrapper">
+                                    <label class="label">Website</label>
+                                    <textarea class="form-control" rows="4" [(ngModel)]="model.ship_street1" placeholder="Street" name="ship_street1" id="h21a" [readonly]="isReadOnly"> </textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group basic">
+                                <div class="input-wrapper">
+                                    <label class="label">City</label>
+                                    <input type="text" class="form-control" maxlength="250" [(ngModel)]="model.ship_city" placeholder="City" name="ship_city" id="h21b" [readonly]="isReadOnly">
+                                </div>
+                            </div>
+
+                            <div class="form-group basic">
+                                <div class="input-wrapper">
+                                    <label class="label">State</label>
+                                    <input type="text" class="form-control" maxlength="250" [(ngModel)]="model.ship_state" placeholder="State" name="ship_state" id="h21c" [readonly]="isReadOnly">
+                                </div>
+                            </div>
+
+                            <div class="form-group basic">
+                                <div class="input-wrapper">
+                                    <label class="label">Postal Code</label>
+                                    <input type="text" class="form-control" maxlength="250" [(ngModel)]="model.ship_code" placeholder="Postal Code" name="ship_code" id="h21e" [readonly]="isReadOnly">
+                                </div>
+                            </div>
+
+                            <div class="form-group basic">
+                                <div class="input-wrapper">
+                                    <label class="label">Country</label>
+                                    <input type="text" class="form-control" maxlength="250" [(ngModel)]="model.ship_country" placeholder="Country" name="ship_country" id="h21d" [readonly]="isReadOnly">
+                                </div>
+                            </div>
+
                         </div>
 
                     </div>
 
 
-                   
+
 
                 </div>
                 <!-- * details -->
@@ -269,6 +361,30 @@
                 <!-- * related -->
 
 
+                <!-- users -->
+                <div class="tab-pane fade  " id="users" role="tabpanel">
+                    <div class="px-2 py-1">
+                        <button class="btn btn-success btn-block" data-toggle="modal" data-target="#newContact"><ion-icon name="add-outline"></ion-icon> New Contact</button>  
+                    </div>
+                     
+                    <ul class="listview image-listview media  ">
+                        <li *ngFor="let x of myContact ">
+                            <span class="item">
+                                <div class="in">
+                                    <div>
+                                        <a [routerLink]="[ '/contact', x.id ]">
+                                            <header> {{x.department}}</header>
+                                            {{x.name}}
+                                            <footer>{{x.position}}</footer>
+                                        </a>
+                                    </div>
+                                </div>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <!-- * users -->
+
                 <div class="tab-pane fade  bg-white" id="opportunity" role="tabpanel">
 
 
@@ -277,7 +393,7 @@
                             <ion-icon name="add-outline"></ion-icon> New Opportunity
                         </button>
                     </div>
- 
+
                     <ul class="listview image-listview flush transparent pt-1 image-listview-products" *ngFor="let x of myOpportunity; let i = index">
                         <li class="border-bottom">
                             <a href="javascript:;" [routerLink]="[ '/opportunity/',x.id ]" class="item">
@@ -287,23 +403,51 @@
                                         <div class="text-muted">Stage : <b>{{x.stage}} </b>
                                             <div>
                                                 <small>Created Date : {{x.input_date | date}}</small>
-                                            </div> 
+                                            </div>
                                         </div>
-                                    </div> 
+                                    </div>
                                 </div>
                             </a>
                         </li>
-                    </ul> 
+                    </ul>
 
                 </div>
 
-
+                <!-- pricelist -->
+                <div class="tab-pane fade" id="priceList" role="tabpanel">
+                    <div class="appHeader">
+                        <form class="search-form">
+                            <div class="form-group searchbox">
+                                <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="search" [ngModelOptions]="{standalone: true}">
+                                <i class="input-icon">
+                                    <ion-icon name="search-outline"></ion-icon>
+                                </i> 
+                            </div>
+                        </form>
+                    </div>
+                    <ul class="listview image-listview media  ">
+                        <li *ngFor="let x of priceList    | searchPipe:'name':search  ">
+                            <span class="item">
+                                <div class="in">
+                                    <div>
+                                        <header> {{x.sku}} ({{x.product_type}})</header>
+                                        {{x.name}}
+                                        <footer>{{x.currency}} {{x.price | number}}</footer>
+                                    </div>
+                                </div>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <!-- * priceList -->
             </div>
         </div>
         <!-- * tab content -->
 
     </div>
     <!-- * App Capsule -->
+
+
 
 
 
@@ -333,6 +477,29 @@
 </span>
 
 
+<!-- Modal Basic -->
+<div class="modal fade modalbox" id="newContact" data-backdrop="static" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">New Contact</h5>
+                <a href="javascript:;" data-dismiss="modal">Close</a>
+            </div>
+
+            <div class="modal-body">  
+                <app-contact-new (uploaded)="requestEmit($event)"></app-contact-new>
+            </div> 
+
+        </div>
+
+    </div>
+
+
+</div>
+<!-- * Modal Basic -->
+
+
+
 <div class="modal fade modalbox" id="newOpportunity" data-backdrop="static" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -341,9 +508,8 @@
                 <a href="javascript:;" data-dismiss="modal">Close</a>
             </div>
             <div class="modal-body">
-               fsdfasdf
+                fsdfasdf
             </div>
         </div>
     </div>
 </div>
- 

@@ -10,12 +10,18 @@ import { ContactComponent } from './contact/contact.component';
 import { ContactDetailComponent } from './contact/contact-detail/contact-detail.component';
 import { CompanyComponent } from './company/company.component';
 import { CompanyDetailComponent } from './company/company-detail/company-detail.component';
+import { DashboardLeadComponent } from './dashboard/dashboard-lead/dashboard-lead.component';
+import { ActivityComponent } from './activity/activity.component';
 
 
 const routes: Routes = [
   
   { path: '', component: LoginComponent },  
   { path: 'home', component: HomeComponent },  
+  
+  { path: 'dashLead', component: DashboardLeadComponent },
+  
+  { path: 'activity', component: ActivityComponent },
   
   { path: 'lead', component: LeadsComponent },
   { path: 'lead/:id', component: LeadsDetailComponent },

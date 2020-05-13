@@ -1,0 +1,111 @@
+<!-- App Header -->
+<div class="appHeader bg-whatsapp text-light">
+    <div class="left">
+        <a [routerLink]="[ '/home' ]" class="headerButton">
+            <ion-icon name="arrow-back-outline"></ion-icon>
+        </a>
+    </div>
+    <div class="pageTitle">Acitivies</div>
+
+    <div class="right">
+        <a href="javascript:;" class="headerButton toggle-searchbox">
+            <ion-icon name="search-outline"></ion-icon>
+        </a>
+        <a href="javascript:;" class="headerButton" data-toggle="modal" data-target="#actionSheetInset">
+            <ion-icon name="add-outline"></ion-icon>
+        </a>
+
+    </div>
+</div>
+<!-- * App Header -->
+
+<!-- Default Action Sheet Inset -->
+<div class="modal fade action-sheet inset" id="actionSheetInset" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Actions</h5>
+            </div>
+            <div class="modal-body">
+
+                <div class="p-2">
+                    <div class="form-group basic ">
+                        <div class="input-wrapper">
+                            <label class="label" for="h1">Select User</label>
+                            <select class="form-control" id="h1" [(ngModel)]="filter.id_user">
+                                <option value="0">All User</option>
+                                <option *ngFor="let x of user" value="{{x.id}}">{{x.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group basic ">
+                        <div class="input-wrapper">
+                            <label class="label" for="h2">Activity Type</label>
+                            <select class="form-control" id="h2" [(ngModel)]="filter.id_activity_type">
+                                <option value="0">All</option>
+                                <option value="1">Task</option>
+                                <option value="200">Visit</option>
+                                <option value="300">Event</option>
+                                <option value="400">Note</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group basic ">
+                        <div class="input-wrapper">
+                            <div class="px-4">
+                                <input type="checkbox" class="custom-control-input" id="h7" [(ngModel)]="filter.comments">
+                                <label class="custom-control-label" for="h7">Filter With Comments</label>
+                            </div>
+                      
+                        </div>
+                    </div>
+
+
+                    <div class="form-group basic ">
+                        <div class="input-wrapper">
+                            <label class="label" for="h3">Date From</label>
+                            <select class="form-control" id="h3" [(ngModel)]="filter.date_select">
+                                <option value="0">All</option>
+                                <option value="1">Today</option>
+                                <option value="7">1 Week Before</option>
+                                <option value="31">1 Month Before</option>
+                                <option value="62">2 Month Before</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group basic ">
+                        <div class="input-wrapper">
+                            <label class="label" for="h9">Related to </label>
+                            <select class="form-control" id="h9" [(ngModel)]="filter.id_related">
+                                <option value="0">All</option>
+                                <option value="200">Lead</option>
+                                <option value="500">Opportunity</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn  btn-whatsapp btn-block" (click)="fn_filter();">Filter</button>
+                </div>
+
+  
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- * Default Action Sheet Inset -->
+
+<!-- App Capsule -->
+<div id="appCapsule" class="border rounded px-1  bg-white">
+    <app-widget-activity  #childcomp ></app-widget-activity> 
+</div>
+
+
+<app-app-bottom-menu></app-app-bottom-menu>

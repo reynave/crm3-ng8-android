@@ -54,7 +54,7 @@ export class CompanyDetailComponent implements OnInit {
   }
 
   requestEmit(event) {
-    console.log('requestEmit cd : ',event);
+    $('#newContact').modal('hide');
     
     if(event == 'fn_newOpportunity'){
       this.httpGet();
@@ -62,7 +62,7 @@ export class CompanyDetailComponent implements OnInit {
     else if(event=='contact'){
       this.httpGet();
     }
-   // this.modalService.dismissAll();
+ 
   }
 
 

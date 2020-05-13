@@ -95,10 +95,7 @@
 
         </div>
 
-
-
-
-
+ 
         <div class="section full">
             <div class="wide-block transparent p-0">
                 <ul class="nav nav-tabs lined iconed" role="tablist">
@@ -154,7 +151,7 @@
                             <div class="form-group basic">
                                 <div class="input-wrapper">
                                     <label class="label">Company</label>
-                                    <select class="form-control form-modal" [(ngModel)]="model.id_company" [ngModelOptions]="{standalone: true}">
+                                    <select class="form-control form-modal" [(ngModel)]="model.id_company" [ngModelOptions]="{standalone: true}"  [disabled]="isReadOnly">
                                         <option value="{{x.id}}" *ngFor="let x of company"> {{x.name}} </option>
                                     </select>
                                 </div>

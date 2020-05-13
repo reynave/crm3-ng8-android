@@ -25,6 +25,11 @@ import { CompanyDetailComponent } from './company/company-detail/company-detail.
 import { ContactDetailComponent } from './contact/contact-detail/contact-detail.component';
 import { ContactNewComponent } from './contact/contact-new/contact-new.component';
 import { OpportunityComponent } from './opportunity/opportunity.component';
+import { OpportunityDetailComponent } from './opportunity/opportunity-detail/opportunity-detail.component';
+import { OpportunityNewComponent } from './opportunity/opportunity-new/opportunity-new.component';
+import { ActivityComponent } from './activity/activity.component';
+import { WidgetActivityComponent } from './activity/widget-activity/widget-activity.component';
+import { DashboardLeadComponent } from './dashboard/dashboard-lead/dashboard-lead.component';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "right",
@@ -55,6 +60,11 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     ContactDetailComponent,
     ContactNewComponent,
     OpportunityComponent,
+    OpportunityDetailComponent,
+    OpportunityNewComponent,
+    ActivityComponent,
+    WidgetActivityComponent,
+    DashboardLeadComponent,
     
   ],
   imports: [

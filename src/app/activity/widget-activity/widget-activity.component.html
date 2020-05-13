@@ -1,0 +1,495 @@
+<div id="activityTabs" [hidden]="module == 'activity'">
+
+    <div class="border p-2 my-2 bg-light shadow-sm">
+
+        <form (ngSubmit)="onInsert()" #callForm="ngForm">
+            <ngb-tabset (tabChange)="tabEvent($event)">
+
+                <!-- CALL  -->
+                <ngb-tab title="Log a Call" id="100">
+                    <ng-template ngbTabContent>
+                        <div class="border border-top-0 px-3 bg-white pb-3">
+
+                            <div class="row">
+                                <div class="col-12 py-1">
+                                    <label class="py-1"> <b>Subject </b> </label>
+                                    <input type="text" [(ngModel)]="model.subject" name="subject" class="form-control" required (click)="showNewActivity=true;">
+                                </div>
+                            </div>
+
+                            <div class="row" [hidden]="!showNewActivity">
+                                <div class="col-12 py-1">
+                                    <label class="py-1"> <b> Notes</b> </label>
+                                    <textarea class="form-control" rows="4" [(ngModel)]="model.description" name="description"></textarea>
+                                </div>
+
+                                <div class="col-6 py-1">
+                                    <label class="py-1"><b>Date and Time</b></label>
+                                    <div class="row no-gutters">
+                                        <div class="col-4">
+                                            <input type="text" class="form-control border" [(ngModel)]="model.due_date" readonly placeholder="YYYY-MM-DD" name="due_date" ngbDatepicker #due_date="ngbDatepicker" (click)="due_date.toggle()">
+                                        </div>
+                                        <div class="col-1 text-center">
+                                            :
+                                        </div>
+                                        <div class="col-3">
+                                            <input type="time" class="form-control" [(ngModel)]="model.start_time" name="start_time">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-6 py-1">
+                                    <label class="py-1"> <b> Name</b></label>
+                                    <select class="form-control" [(ngModel)]="model.id_person" required [ngModelOptions]="{standalone: true}">
+                                        <option value="{{x.id}}" *ngFor="let x of items.person"> {{x.name}}</option>
+                                    </select>
+                                </div>
+
+
+                                <div class="col-6 py-1 d-none">
+                                    <label class="py-1"><b> Assigned To</b></label>
+                                    <select class="form-control" [(ngModel)]="model.id_user" [ngModelOptions]="{standalone: true}">
+                                        <option value="{{x.id}}" *ngFor="let x of user"> {{x.name}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-12 py-3 text-right">
+                                    <button type="button" class="btn btn-classic btn-sm px-5 " (click)="showNewActivity=false">Cancel</button>
+                                    <button type="submit" class="btn btn-primary btn-sm px-5 mx-1" [disabled]="!callForm.form.valid">Save</button>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                    </ng-template>
+                </ngb-tab>
+
+                <!-- TASK -->
+                <ngb-tab title="New Task" id="1">
+                    <ng-template ngbTabContent>
+                        <div class="border border-top-0 px-3 bg-white pb-3">
+                            <div class="row">
+                                <div class="col-12 py-1">
+                                    <label class="py-1"> <b>Subject</b></label>
+                                    <input type="text" [(ngModel)]="model.subject" name="subject" class="form-control" required (click)="showNewActivity=true;">
+                                </div>
+                            </div>
+
+                            <div class="row" [hidden]="!showNewActivity">
+                                <div class="col-6 py-1">
+                                    <label class="py-1"> <b> Due Date</b></label>
+                                    <input type="text" class="form-control border" [(ngModel)]="model.due_date" readonly placeholder="YYYY-MM-DD" name="due_date" ngbDatepicker #due_date="ngbDatepicker" (click)="due_date.toggle()">
+                                </div>
+                                <div class="col-6 py-1">
+                                    <label class="py-1"><b> Assigned To</b></label>
+                                    <select class="form-control" [(ngModel)]="model.id_user" [ngModelOptions]="{standalone: true}">
+                                        <option value="{{x.id}}" *ngFor="let x of user"> {{x.name}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-6 py-1">
+                                    <label class="py-1"><b> Name</b></label>
+                                    <select class="form-control" [(ngModel)]="model.id_person" [ngModelOptions]="{standalone: true}">
+                                        <option value="{{x.id}}" *ngFor="let x of items.person"> {{x.name}}</option>
+                                    </select>
+                                </div>
+
+
+
+
+                                <div class="col-12 py-1">
+                                    <label><b> Notes</b></label>
+                                    <textarea class="form-control" rows="4" [(ngModel)]="model.description" name="description"></textarea>
+                                </div>
+
+                                <div class="col-12 py-2 mb-3 text-right">
+                                    <button type="button" class="btn btn-classic btn-sm px-5 " (click)="showNewActivity=false">Cancel</button>
+                                    <button type="submit" class="btn btn-primary btn-sm px-5 mx-1" [disabled]="!callForm.form.valid">Save</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </ng-template>
+                </ngb-tab>
+
+                <!-- VISIT -->
+                <ngb-tab title="Visit" id="200">
+                    <ng-template ngbTabContent>
+                        <div class="border border-top-0 px-3 bg-white pb-3">
+                            <div class="row">
+                                <div class="col-12 py-1">
+                                    <label class="py-1"> <b> Subject</b></label>
+                                    <input type="text" [(ngModel)]="model.subject" name="subject" class="form-control" required (click)="showNewActivity=true;">
+                                </div>
+                            </div>
+                            <div class="row" [hidden]="!showNewActivity">
+
+                                <div class="col-12 py-1">
+                                    <label class="py-1"> <b> Description</b></label>
+                                    <textarea class="form-control" rows="4" [(ngModel)]="model.description" name="description"></textarea>
+                                </div>
+
+                                <div class="col-3 py-1 mt-1">
+                                    <label class="py-1" id="j1"> <b> Budget Amount (IDR)</b></label>
+                                </div>
+
+                                <div class="col-9 py-1 mt-1">
+                                    <input type="text" name="amount" class="form-control text-right w-25" [(ngModel)]="model.amount" j1="h1" currencyMask (click)="showNewActivity=true;">
+                                </div>
+
+
+
+                                <div class="col-6 py-1">
+                                    <label class="py-1"><b> Check In Date and Time</b></label>
+                                    <div class="row no-gutters">
+                                        <div class="col-4">
+                                            <input type="text" class="form-control border" readonly placeholder="YYYY-MM-DD" name="start_date" [(ngModel)]="model.start_date" ngbDatepicker #start_date="ngbDatepicker" (click)="start_date.toggle()">
+                                        </div>
+                                        <div class="col-1 text-center">
+                                            :
+                                        </div>
+                                        <div class="col-3">
+
+                                            <input type="time" class="form-control" [(ngModel)]="model.start_time" name="start_time">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-6 py-1">
+                                    <label class="py-1"> <b> Check Out Date and TIme</b></label>
+                                    <div class="row no-gutters">
+                                        <div class="col-4">
+
+                                            <input type="text" class="form-control border" readonly placeholder="YYYY-MM-DD" name="end_date" [(ngModel)]="model.end_date" ngbDatepicker #end_date="ngbDatepicker" (click)="end_date.toggle()">
+                                        </div>
+                                        <div class="col-1 text-center">
+                                            :
+                                        </div>
+                                        <div class="col-3">
+                                            <input type="time" class="form-control" [(ngModel)]="model.end_time" name="end_time">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-6 py-1">
+                                    <label class="py-1"> <b>Name </b></label>
+                                    <select class="form-control" [(ngModel)]="model.id_person" [ngModelOptions]="{standalone: true}">
+                                        <option value="{{x.id}}" *ngFor="let x of items.person"> {{x.name}}</option>
+                                    </select>
+                                </div>
+
+
+
+
+                                <div class="col-6 py-1">
+                                    <label class="py-1"> <b> Assigned To</b></label>
+                                    <select class="form-control" [(ngModel)]="model.id_user" [ngModelOptions]="{standalone: true}">
+                                        <option value="{{x.id}}" *ngFor="let x of user"> {{x.name}}</option>
+                                    </select>
+                                </div>
+
+
+                                <div class="col-12 py-2 mb-3 text-right">
+                                    <button type="button" class="btn btn-classic btn-sm px-5 " (click)="showNewActivity=false">Cancel</button>
+                                    <button type="submit" class="btn btn-primary btn-sm px-5 mx-1" [disabled]="!callForm.form.valid">Save</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </ng-template>
+                </ngb-tab>
+
+                <!-- EVENT -->
+                <ngb-tab title="New Event" id="300">
+                    <ng-template ngbTabContent>
+                        <div class="border border-top-0 px-3 bg-white pb-3">
+                            <div class="row">
+                                <div class="col-12 py-1">
+                                    <label class="py-1"> <b>Subject</b></label>
+                                    <input type="text" [(ngModel)]="model.subject" name="subject" class="form-control" required (click)="showNewActivity=true;">
+                                </div>
+                            </div>
+                            <div class="row" [hidden]="!showNewActivity">
+
+                                <div class="col-12 py-1">
+                                    <label class="py-1"> <b>Description</b></label>
+                                    <textarea class="form-control" rows="4" [(ngModel)]="model.description" name="description"></textarea>
+                                </div>
+
+
+                                <div class="col-3 py-1 mt-1">
+                                    <label class="py-1" id="j1"> <b>Budget Amount (IDR)</b> </label>
+                                </div>
+
+                                <div class="col-9 py-1 mt-1">
+                                    <input type="text" name="amount" class="form-control text-right w-25" [(ngModel)]="model.amount" j1="h1" currencyMask (click)="showNewActivity=true;">
+                                </div>
+
+
+                                <div class="col-6 py-1">
+                                    <label class="py-1"><b> Event Start Date and Time </b></label>
+                                    <div class="row no-gutters">
+                                        <div class="col-4">
+
+                                            <input type="text" class="form-control border" readonly placeholder="YYYY-MM-DD" name="start_date" [(ngModel)]="model.start_date" ngbDatepicker #start_date="ngbDatepicker" (click)="start_date.toggle()">
+                                        </div>
+                                        <div class="col-1 text-center">
+                                            :
+                                        </div>
+                                        <div class="col-3">
+
+                                            <input type="time" class="form-control" [(ngModel)]="model.start_time" name="start_time">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-6 py-1">
+                                    <label class="py-1"> <b>Event End Date and Time</b></label>
+                                    <div class="row no-gutters">
+                                        <div class="col-4">
+                                            <input type="text" class="form-control border" readonly placeholder="YYYY-MM-DD" name="end_date" [(ngModel)]="model.end_date" ngbDatepicker #end_date="ngbDatepicker" (click)="end_date.toggle()">
+                                        </div>
+                                        <div class="col-1 text-center">
+                                            :
+                                        </div>
+                                        <div class="col-3">
+                                            <input type="time" class="form-control" [(ngModel)]="model.end_time" name="end_time">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-6 py-1">
+                                    <label class="py-1"> <b>Name</b> </label>
+                                    <select class="form-control" [(ngModel)]="model.id_person" [ngModelOptions]="{standalone: true}">
+                                        <option value="{{x.id}}" *ngFor="let x of items.person"> {{x.name}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-6 py-1">
+                                    <label class="py-1"><b> Assigned To</b></label>
+                                    <select class="form-control" [(ngModel)]="model.id_user" [ngModelOptions]="{standalone: true}">
+                                        <option value="{{x.id}}" *ngFor="let x of user"> {{x.name}}</option>
+                                    </select>
+                                </div>
+
+
+                                <div class="col-12 py-2 mb-3 text-right">
+                                    <button type="button" class="btn btn-classic btn-sm px-5 " (click)="showNewActivity=false">Cancel</button>
+                                    <button type="submit" class="btn btn-primary btn-sm px-5 mx-1" [disabled]="!callForm.form.valid">Save</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </ng-template>
+                </ngb-tab>
+
+                <!-- NOTE -->
+                <ngb-tab title="Note" id="400">
+                    <ng-template ngbTabContent>
+                        <div class="border border-top-0 px-3 bg-white pb-3">
+                            <div class="row">
+                                <div class="col-12 py-1">
+                                    <label class="py-1"> <b>Subject</b></label>
+                                    <input type="text" [(ngModel)]="model.subject" name="subject" class="form-control" required (click)="showNewActivity=true;">
+                                </div>
+                            </div>
+                            <div class="row" [hidden]="!showNewActivity">
+                                <div class="col-12 py-1">
+                                    <label> <b> Notes</b></label>
+                                    <textarea class="form-control" rows="4" [(ngModel)]="model.description" name="description"></textarea>
+                                </div>
+
+                                <div class="col-12 py-2 mb-3 text-right">
+                                    <button type="button" class="btn btn-classic btn-sm px-5 " (click)="showNewActivity=false">Cancel</button>
+                                    <button type="submit" class="btn btn-primary btn-sm px-5 mx-1" [disabled]="!callForm.form.valid">Save</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </ng-template>
+                </ngb-tab>
+
+            </ngb-tabset>
+        </form>
+
+    </div>
+
+</div>
+
+
+<div class="my-4">
+    <div class="text-center" [hidden]="!loading"><small> Loading...</small> </div>
+    <h5 class="inline-text"><span class="text-warning">Activities</span></h5>
+
+
+
+    <div class="bg-light px-2 mb-2"> <strong> Latest Activities</strong> </div>
+    <div class="activity-log act-{{x.activity_type.id}}" *ngFor="let x of activityLatest; let i = index">
+
+        <div class="icon" [innerHTML]="x.activity_type.fas"></div>
+        <div class="content">
+            <div class="row">
+                <div class="col-12 col-md-9">
+                    <a href="javascript:;" (click)="x.description ? showLatest(i) : false;"> <b class="text-primary">{{x.subject}}</b> </a>
+                    <a class="ml-2 text-gray py-0" [hidden]="!x.description" (click)="x.description ? showLatest(i) : false;"><ion-icon name="caret-down-outline"></ion-icon></a>
+                </div>
+
+                <div class="col-12  col-md-3 text-right">
+                    <small> {{x.due_date | date:'mediumDate'}} </small>
+
+                </div>
+
+            </div>
+
+            <div>
+
+                <small class="btn btn-sm btn-classic py-0 mr-2" [hidden]="!x.person.origin">{{x.person.origin}}</small>
+                <small>Assigned To <span class="text-primary"> {{x.user}}</span> for <span class="text-primary">
+                        {{x.person.name}} </span> <span [hidden]="!x.person.company"> ({{x.person.company}}) </span> </small>
+
+            </div>
+
+
+            <div style="line-height: 90%;">
+                <span [hidden]="id_user != x.id_user">
+
+                    <a href="javascript:;" (click)="fn_closed_area(i);"> <small>Closed {{x.activity_type.name}}</small> </a>
+                    <small class="mx-1"> &bull; </small>
+
+                    <a href="javascript:;" (click)="fn_remove(x);"> <small class="text-danger">Remove
+                            {{x.activity_type.name}}</small> </a>
+                    <small class="mx-1"> &bull; </small>
+
+                </span>
+                <a href="javascript:;" (click)="showLatest(i);"> <small class="text-success">Reply</small> </a>
+
+                <div class="py-2" [hidden]="x.activity_comment.length < 1"> 
+                    <a href="javascript:;" (click)="showLatest(i);">   <ion-icon name="chatbox-ellipses-outline"></ion-icon>
+                            {{x.activity_comment.length}} comments </a>
+                </div>
+            </div>
+
+            <div [hidden]="!x.closed_area" class="text-right">
+
+                <textarea class="form-control form-control-sm my-2 p-1" rows="8" [(ngModel)]="x.comment" placeholder="Closed this activity. Note your comment"></textarea>
+                <button class="btn btn-sm btn-classic" (click)="fn_closed(x)">Closed</button>
+
+
+            </div>
+
+
+            <div [hidden]="!x.show">
+                <div class="p-2 mt-2 border rounded">
+                    <div class="text" [innerHTML]="x.description" [hidden]="!x.description" style=" white-space: pre-line; font-size: 14px;"></div>
+                    <small [innerHTML]="x.log"></small>
+                </div>
+
+                <div class=" mt-2 ml-3" *ngFor="let a of x.activity_comment">
+                    <div class="p-2 border rounded">
+                        <small [innerHTML]="a.comment"></small>
+                    </div>
+                    <small> {{a.input_date | date:'mediumDate'}}, {{a.input_date | date:'shortTime'}} </small>
+                </div>
+
+            </div>
+
+
+            <div [hidden]="!x.show" class="mt-3">
+                <div class="ml-3">
+                    <textarea class="form-control p-1" rows="4" [(ngModel)]="x.comments"></textarea>
+                </div>
+                <div class="mt-1 text-right">
+                    <a href="javascript:;" (click)="x.show = false" class="px-3 py-0 btn btn-sm btn-classic mx-1">Cancel</a> <a href="javascript:;" class="px-3 py-0 btn btn-sm btn-primary" (click)="fn_comments(x.comments,x.id,i,0); x.comments = ''">Post</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+    <div [hidden]="module == 'activity'" class="bg-light px-2 mb-2"> <strong> History Activities</strong> </div>
+    <div [hidden]="module == 'activity'" class="activity-log act-{{x.activity_type.id}}" *ngFor="let x of activityHistory; let i = index">
+        <div class="icon" [innerHTML]="x.activity_type.fas"></div>
+        <div class="content">
+            <div class="row">
+                <div class="col-12 col-md-9">
+                    <a href="javascript:;" (click)="showHistory(i)"> <b class="text-primary">{{x.subject}}</b> </a>
+
+                    <a class="ml-2 text-gray py-0" [hidden]="!x.description && !x.comment" (click)="showHistory(i)"><ion-icon name="caret-down-outline"></ion-icon></a>
+                </div>
+
+                <div class="col-12  col-md-3 text-right">
+                    <small> {{x.due_date | date:'mediumDate'}} <span [hidden]="x.activity_type.id != 100"> {{x.due_date | date:'shortTime'}} </span></small>
+
+                </div>
+            </div>
+
+
+            <div>
+
+                <small class="btn btn-sm btn-classic py-0 mr-2" [hidden]="!x.person.origin">{{x.person.origin}}</small>
+                <small>Assigned To <span class="text-primary"> {{x.user}}</span> for <span class="text-primary">
+                        {{x.person.name}} </span> <span [hidden]="!x.person.company"> ({{x.person.company}}) </span> </small>
+
+            </div>
+
+
+            <div style="line-height: 90%;">
+                <a href="javascript:;" (click)="showHistory(i)"> <small class="text-success">Reply</small> </a>
+            </div>
+
+
+            <div [hidden]="x.activity_comment.length < 1">
+                <a href="javascript:;" (click)="x.description ? showHistory(i) : false;"> <small> <ion-icon name="chatbox-ellipses-outline"></ion-icon>
+                        {{x.activity_comment.length}} comments</small></a>
+            </div>
+
+
+
+            <div [hidden]="!x.show">
+                <div class="p-2 mt-2 border rounded">
+                    <div class="text" [innerHTML]="x.description" [hidden]="!x.description" style=" white-space: pre-line; font-size: 14px;"></div>
+
+
+                    <fieldset class="border p-2 bg-light" [hidden]="!x.comment">
+                        <legend class="w-auto"> <small>Closed Note </small></legend>
+                        {{x.comment}}
+                    </fieldset>
+
+                    <small [innerHTML]="x.log"></small>
+                </div>
+
+                <div class=" mt-2 ml-3" *ngFor="let a of x.activity_comment">
+                    <div class="p-2 border rounded">
+                        <small [innerHTML]="a.comment"></small>
+                    </div>
+                    <small> {{a.input_date | date:'mediumDate'}}, {{a.input_date | date:'shortTime'}} </small>
+                </div>
+
+            </div>
+
+
+            <div [hidden]="!x.show" class="mt-3">
+                <div class="ml-3">
+                    <textarea class="form-control p-1" rows="4" [(ngModel)]="x.comments"></textarea>
+                </div>
+                <div class="mt-1 text-right">
+                    <a href="javascript:;" (click)="x.show = false" class="px-3 py-0 btn btn-sm btn-classic mx-1">Cancel</a> <a href="javascript:;" class="px-3 py-0 btn btn-sm btn-primary" (click)="fn_comments(x.comments,x.id,i,1); x.comments = ''">Post</a>
+                </div>
+            </div>
+
+
+
+
+
+
+        </div>
+    </div>
+
+</div>

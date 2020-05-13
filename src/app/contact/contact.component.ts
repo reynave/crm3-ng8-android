@@ -133,38 +133,4 @@ export class ContactComponent implements OnInit {
 
 
 
-  fn_check(x) {
-    this.objIndex = this.items.findIndex((obj => obj.id == x.id));
-    if (this.items[this.objIndex]['check'] == true) {
-      this.items[this.objIndex]['check'] = false;
-    } else {
-      this.items[this.objIndex]['check'] = true;
-    }
-    var object = {
-      'id': x.id,
-      'name': x.name,
-      'company': x.company,
-    }
-    var objectSelect = this.itemsSelected.findIndex((obj => obj.id == x.id));
-    if (objectSelect == -1) {
-      this.itemsSelected.push(object);
-    } else {
-      this.itemsSelected.splice(objectSelect, 1);
-    }
-    //  console.log(this.itemsSelected);
-  }
-
-  fn_removeItemSelected(x) {
-    this.objIndex = this.items.findIndex((obj => obj.id == x.id));
-    var objectSelect = this.itemsSelected.findIndex((obj => obj.id == x.id));
-    if (this.items[this.objIndex]['check'] == false) {
-      this.items[this.objIndex]['check'] = true;
-    } else {
-      this.items[this.objIndex]['check'] = false;
-    }
-    this.itemsSelected.splice(objectSelect, 1);
-  }
-
-
-
 }
