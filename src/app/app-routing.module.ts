@@ -20,6 +20,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },  
   
   { path: 'dashLead', component: DashboardLeadComponent },
+  { path: 'dashLead/:period', component: DashboardLeadComponent },
   
   { path: 'activity', component: ActivityComponent },
   

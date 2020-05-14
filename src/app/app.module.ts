@@ -1,7 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
- 
+import { ChartsModule } from 'ng2-charts';
 import { CurrencyMaskConfig, CurrencyMaskModule, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask';
 
 
@@ -73,7 +73,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     FormsModule,
     HttpClientModule,
     NgbModule,
-    CurrencyMaskModule
+    CurrencyMaskModule,
+    ChartsModule
   ],
   providers: [
     { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig }
