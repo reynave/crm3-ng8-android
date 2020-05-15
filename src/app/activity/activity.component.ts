@@ -65,6 +65,9 @@ export class ActivityComponent implements OnInit {
     
       this.user = data['result']['user']; 
       this.loading = false;
+    },() =>{
+      this.loading = false;
+      this.configService.errorConnection(); 
     });
   }
 

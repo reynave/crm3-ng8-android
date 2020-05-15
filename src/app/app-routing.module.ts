@@ -12,6 +12,7 @@ import { CompanyComponent } from './company/company.component';
 import { CompanyDetailComponent } from './company/company-detail/company-detail.component';
 import { DashboardLeadComponent } from './dashboard/dashboard-lead/dashboard-lead.component';
 import { ActivityComponent } from './activity/activity.component';
+import { ErrorConnectionComponent } from './global/error-connection/error-connection.component';
 
 
 const routes: Routes = [
@@ -37,6 +38,8 @@ const routes: Routes = [
 
   { path: 'priceList', component: PriceListComponent },  
   
+  { path: 'error/connection', component: ErrorConnectionComponent },
+
 
   { path: '**', component: PagesNotFoundComponent },
 ];

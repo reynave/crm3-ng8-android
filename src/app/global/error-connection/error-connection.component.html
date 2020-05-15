@@ -1,0 +1,32 @@
+<!-- App Capsule -->
+<div id="appCapsule">
+
+    <div class="error-page">
+        <img src="assets/img/no-connection.png" alt="alt" class="imaged square w200">
+        <h1 class="title">Whoops</h1>
+        <div class="text mb-5">
+            <p>Slow or no internet connection <br>Please check your internet settings</p>
+
+            <div [hidden]="!loading">
+                <div class="spinner-border text-warning" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <div>
+                    <strong> Reconnecting...</strong>
+                </div>
+
+            </div>
+            <div [hidden]="loading">
+                <a href="javascript:;" (click)="reconnecting();loading=true;" class="btn btn-warning btn-lg ">
+                    <ion-icon name="refresh-outline"></ion-icon> Reconnect
+                </a>
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+<!-- * App Capsule -->

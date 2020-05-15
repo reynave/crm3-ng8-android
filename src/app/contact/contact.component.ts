@@ -75,6 +75,9 @@ export class ContactComponent implements OnInit {
         position: row[3],
       }));
       console.log(this.items);
+    }, () =>{
+      this.loading = false;
+      this.configService.errorConnection(); 
     });
   }
 

@@ -14,6 +14,7 @@ declare var $;
   styleUrls: ['./company-detail.component.css']
 })
 export class CompanyDetailComponent implements OnInit {
+  search :string = "";
   public label: any;
   public items: any = [];
   myContact:any = [];
@@ -114,6 +115,8 @@ export class CompanyDetailComponent implements OnInit {
     },error => {
       console.log(error);
       console.log(error.error.text);
+      this.loading = false;
+      this.configService.errorConnection(); 
     });
   }
 

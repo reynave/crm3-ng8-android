@@ -21,45 +21,47 @@
         <div class="modal-content">
 
             <div class="modal-header">
-                <h5 class="modal-title">   <ion-icon name="settings-outline"></ion-icon> Select Period or User</h5>
+                <h5 class="modal-title">
+                    <ion-icon name="settings-outline"></ion-icon> Select Period or User
+                </h5>
             </div>
             <div class="modal-body">
 
-               
-                    <div class="row no-gutters">
 
-                        
-                        <div class="col-12 mb-3">
-                            <div class="m2-3"> Select User : </div>
-                            <select class="form-control form-control-sm" (change)="onUser($event.target.value)" [(ngModel)]="id_user_select">
-                                <option value="0">All Group</option>
-                                <option *ngFor="let x of user" value="{{x.id}}"> {{x.name}} </option>
-                            </select>
+                <div class="row no-gutters">
+
+
+                    <div class="col-12 mb-3">
+                        <div class="m2-3"> Select User : </div>
+                        <select class="form-control form-control-sm" (change)="onUser($event.target.value)" [(ngModel)]="id_user_select">
+                            <option value="0">All Group</option>
+                            <option *ngFor="let x of user" value="{{x.id}}"> {{x.name}} </option>
+                        </select>
+                    </div>
+
+
+
+                    <div class="col-12 ">
+                        <b> Select Period : </b>
+                    </div>
+
+                    <div class="row my-3">
+                        <div class="col-4">
+                            <button type="button" class="btn  btn-block" [ngClass]="{'btn-primary': period === 'month', 'btn-light'  : period != 'month' }" (click)="onPeriod('month');" [routerLink]="[ '/dashLead/month' ]">This Month</button>
                         </div>
-
-
-
-                        <div class="col-12 ">
-                            <b> Select Period : </b>
+                        <div class="col-4">
+                            <button type="button" class="btn   btn-block" [ngClass]="{'btn-primary': period === 'quarter', 'btn-light'  : period != 'quarter' }" (click)="onPeriod('quarter');" [routerLink]="[ '/dashLead/quarter' ]">This Quarter </button>
                         </div>
- 
-                        <div class="row my-3">
-                            <div class="col-4">
-                                <button type="button" class="btn  btn-block" [ngClass]="{'btn-primary': period === 'month', 'btn-light'  : period != 'month' }" (click)="onPeriod('month');" [routerLink]="[ '/dashLead/month' ]">This Month</button>
-                            </div>
-                            <div class="col-4">
-                                <button type="button" class="btn   btn-block" [ngClass]="{'btn-primary': period === 'quarter', 'btn-light'  : period != 'quarter' }" (click)="onPeriod('quarter');" [routerLink]="[ '/dashLead/quarter' ]">This Quarter </button>
-                            </div>
-                            <div class="col-4">
-                                <button type="button" class="btn  btn-block " [ngClass]="{'btn-primary': period === 'year', 'btn-light'  : period != 'year' }" (click)="onPeriod('year');" [routerLink]="[ '/dashLead/year' ]">This Year</button>
-                            </div>
-
+                        <div class="col-4">
+                            <button type="button" class="btn  btn-block " [ngClass]="{'btn-primary': period === 'year', 'btn-light'  : period != 'year' }" (click)="onPeriod('year');" [routerLink]="[ '/dashLead/year' ]">This Year</button>
                         </div>
-
-
 
                     </div>
- 
+
+
+
+                </div>
+
 
 
 
@@ -80,7 +82,7 @@
 <div id="appCapsule" class=" mt-2">
 
     <div class="header-large-title">
-        <h3>Leads  by {{period}}</h3>
+        <h3>Leads by {{period}}</h3>
     </div>
 
     <div class="section mb-2">
@@ -117,12 +119,17 @@
     </div>
 
     <div class="section mb-2">
-        <h3>Leads Test works! </h3>
-        <div class=" border bg-white py-2">
-          
-            <div class="chart-wrapper">
-                <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
-                </canvas>
+        <h3>Sales Pipeline this year </h3>
+        <div class=" border bg-white p-2">
+
+            <div id="funnel" class="text-center">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <div>
+                    <small>Loading funnel chart</small>
+                </div>
+                
             </div>
         </div>
     </div>
@@ -132,7 +139,7 @@
     <div class="section mb-2 ">
         <h3> Leads By Source Per Quarter </h3>
         <div class="border bg-white py-2">
-          
+
             <div class="chart-wrapper">
                 <canvas baseChart [data]="leadPerDistributionData" [labels]="leadPerDistributionLabels" [chartType]="pie">
                 </canvas>
@@ -145,7 +152,7 @@
     <div class="section mb-2 ">
         <h3> Leads By Industry Per Quarter </h3>
         <div class="border bg-white py-2">
-     
+
             <div class="chart-wrapper">
                 <canvas baseChart [data]="leadPerIndustryData" [labels]="leadPerIndustryLabels" [chartType]="pie">
                 </canvas>

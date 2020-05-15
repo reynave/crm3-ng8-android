@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'; 
 import { environment } from './../../environments/environment';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ export class ConfigService {
 
   constructor(
     private http: HttpClient,
+    private router: Router,
   ) { 
     this.varToken = localStorage.getItem('cmr3ng8Token'); 
   }
@@ -45,6 +47,11 @@ export class ConfigService {
 
   id_user() {
     return this.varToken;
+  }
+
+  errorConnection(){
+    alert("Please check internet connection !"); 
+    this.router.navigate(['/error/connection/']);
   }
 
 }

@@ -61,6 +61,10 @@ export class PriceListComponent implements OnInit {
         }));
       
       console.log(this.items);
+    }, error=>{
+      
+      this.loading = false;
+      this.configService.errorConnection(); 
     });
 
   }

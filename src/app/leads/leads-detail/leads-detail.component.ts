@@ -146,6 +146,8 @@ export class LeadsDetailComponent implements OnInit {
     }, error => {
       console.log(error);
       console.log(error.error.text);
+      this.loading = false;
+      this.configService.errorConnection(); 
     });
   }
 

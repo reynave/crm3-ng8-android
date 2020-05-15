@@ -101,6 +101,9 @@ export class CompanyComponent implements OnInit {
         class: row[5],
       }));
       console.log(this.items);
+    }, () => {
+      this.loading = false;
+      this.configService.errorConnection(); 
     });
   }
   httpSelected() {

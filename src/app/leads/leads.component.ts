@@ -18,10 +18,10 @@ export class LeadsComponent implements OnInit {
   items: any = [];
   id_user: string;
   model: any;
-  dbCompany:boolean=false;
+  dbCompany: boolean = false;
   selectedCompany: any = [];
   selected: any = [];
-  search : string;
+  search: string;
   constructor(
     private configService: ConfigService,
     private router: Router,
@@ -48,7 +48,7 @@ export class LeadsComponent implements OnInit {
         $("#search .form-control").focus();
       }
     });
-     
+
     // Input
     $(".clear-input").click(function () {
       $(this).parent(".input-wrapper").find(".form-control").focus();
@@ -89,6 +89,9 @@ export class LeadsComponent implements OnInit {
         color: row[8],
       }));
       console.log(this.items);
+    }, error => { 
+      this.loading = false;
+      this.configService.errorConnection(); 
     });
   }
 
@@ -112,16 +115,16 @@ export class LeadsComponent implements OnInit {
     });
   }
 
-  fnSearch(){
+  fnSearch() {
     alert(this.search)
     //$("#loader").show();
   }
 
 
-  fnRequestCompanyData(){
- 
+  fnRequestCompanyData() {
+
     this.loading = true;
-    this.http.get(environment.api + 'lead/getCompany/?id='+this.model['id_company'], {
+    this.http.get(environment.api + 'lead/getCompany/?id=' + this.model['id_company'], {
       headers: this.configService.headers()
     }).subscribe(data => {
       this.loading = false;
@@ -137,36 +140,35 @@ export class LeadsComponent implements OnInit {
       this.model['address_city'] = data['result']['data'][0]['bill_city'];
       this.model['address_state'] = data['result']['data'][0]['bill_state'];
       this.model['address_code'] = data['result']['data'][0]['bill_code'];
-      this.model['address_country'] = data['result']['data'][0]['bill_country']; 
+      this.model['address_country'] = data['result']['data'][0]['bill_country'];
 
-    
-     // this.selectedCompany = data['result']['data'];
+
+      // this.selectedCompany = data['result']['data'];
       // console.log(this.selectedCompany);
     });
   }
 
-  submit:boolean= false;
+  submit: boolean = false;
   onSubmit() {
-    this.submit= true;
+    this.submit = true;
     this.http.post(environment.api + 'lead/insert',
       {
         "data": this.model
       }, {
-        headers: this.configService.headers()
-      }).subscribe(
-        data => { 
-          this.submit= false;
-          $('#ModalBasic').modal('hide');
+      headers: this.configService.headers()
+    }).subscribe(
+      data => {
+        this.submit = false;
+        $('#ModalBasic').modal('hide');
+        this.router.navigate(['/lead/', data['result']['id_lead']]);
 
-            this.router.navigate(['/lead/',data['result']['id_lead'] ]);
-            
-           // this.modalService.dismissAll(); 
 
-        },
-        error => {
-           console.log(error);
-           console.log(error.error.text);
-        }
-      );
+
+      },
+      error => {
+        console.log(error);
+        console.log(error.error.text);
+      }
+    );
   }
 }

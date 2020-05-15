@@ -6,7 +6,9 @@ import { Color, Label } from 'ng2-charts';
 import { ConfigService } from './../../service/config.service';
 import { environment } from 'src/environments/environment';
 
-declare var $;
+declare var $; 
+declare var Chart;
+declare var D3Funnel;
 
 @Component({
   selector: 'app-dashboard-lead',
@@ -50,17 +52,21 @@ export class DashboardLeadComponent implements OnInit {
   
 
 
-  barChartOptions: ChartOptions = {
-    responsive: true,
-  };
-  barChartLabels: Label[] = ['Apple', 'Banana', 'Kiwifruit', 'Blueberry', 'Orange', 'Grapes'];
-  barChartType: any = 'bar';
-  barChartLegend = true;
-  barChartPlugins = [];
+  // barChartOptions: ChartOptions = {
+  //   responsive: true,
+  // };
+  // barChartLabels: Label[] = ['Apple', 'Banana', 'Kiwifruit', 'Blueberry', 'Orange', 'Grapes'];
+  // barChartType: any = 'bar';
+  // barChartLegend = true;
+  // barChartPlugins = [];
 
-  barChartData: ChartDataSets[] = [
-    { data: [45, 37, 60, 70, 46, 33], label: 'Best Fruits' }
-  ];
+  // barChartData: ChartDataSets[] = [
+  //   { data: [45, 37, 60, 70, 46, 33], label: 'Best Fruits' }
+  // ];
+
+
+
+ 
 
   constructor(
     private http: HttpClient,
@@ -121,12 +127,36 @@ export class DashboardLeadComponent implements OnInit {
       this.leadPerIndustryData =  data['result']['leadPerIndustry']['datasets'][0]['data'];
       
     
-
+      this.funnel(data['result']['funnel']);
 
       this.loading = false;
+    }, () =>{
+      this.loading = false;
+      this.configService.errorConnection(); 
     });
   }
 
+  funnel(dataFunnel) {
+
+
+    const options = {
+      block: {
+        dynamicHeight: true,
+        minHeight: 15,
+        highlight: true,
+        barOverlay: true,
+      },
+      chart: {
+        bottomPinch: true,
+        curve: {
+          enabled: true,
+        }
+      }
+    };
+
+    const chart = new D3Funnel('#funnel');
+    chart.draw(dataFunnel, options);
+  }
 
   
 

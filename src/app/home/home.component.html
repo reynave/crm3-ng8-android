@@ -3,15 +3,82 @@
      
     <div class="pageTitle">Sales Trax</div>
     <div class="right">
-        <a href="javascript:;" class="headerButton">
-            <ion-icon name="mail-outline"></ion-icon>
-        </a>
-        <a href="javascript:;" class="headerButton">
-            <ion-icon name="person-add-outline"></ion-icon>
+        <a href="#" class="headerButton" data-toggle="modal" data-target="#sidebarPanel">
+            <ion-icon name="menu-outline"></ion-icon>
         </a>
     </div>
 </div>
 <!-- * App Header -->
+
+
+ <!-- App Sidebar -->
+ <div class="modal fade panelbox panelbox-left" id="sidebarPanel" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+
+                <!-- profile box -->
+                <div class="profileBox bg-instagram">
+                    <div class="image-wrapper">
+                        <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="imaged rounded">
+                    </div>
+                    <div class="in">
+                        <strong>My Name</strong>
+                        <div class="text-muted">
+                            <ion-icon name="location"></ion-icon>
+                            Jakarta
+                        </div>
+                    </div>
+                    <a href="javascript:;" class="close-sidebar-button" data-dismiss="modal">
+                        <ion-icon name="close"></ion-icon>
+                    </a>
+                </div>
+                <!-- * profile box -->
+
+                <ul class="listview flush transparent no-line image-listview mt-2">
+                    <li>
+                        <a href="index.html" class="item">
+                            <div class="icon-box bg-instagram">
+                                <ion-icon name="person-circle-outline"></ion-icon>
+                            </div>
+                            <div class="in">
+                                Profile
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="index.html" class="item">
+                            <div class="icon-box bg-instagram">
+                                <ion-icon name="settings-outline"></ion-icon>
+                            </div>
+                            <div class="in">
+                                Setting
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="app-components.html" class="item">
+                            <div class="icon-box bg-instagram">
+                                <ion-icon name="log-out-outline"></ion-icon>
+                            </div>
+                            <div class="in">
+                                Logout
+                            </div>
+                        </a>
+                    </li>
+                     
+                </ul>
+
+             
+
+            </div>
+
+            
+        </div>
+    </div>
+</div>
+<!-- * App Sidebar -->
+
 
 <!-- App Capsule -->
 <div id="appCapsule">
@@ -19,30 +86,18 @@
 
     <div class="section  mt-3 mb-3">
       
+
+
         <div class="row">
-            <div class="col-12"> 
-                <a [routerLink]="[ '/lead' ]">Leads</a>  
-            </div>
-
-            <div class="col-12"> 
-                <a [routerLink]="[ '/priceList' ]">Products</a>  
-            </div>
-
-            <div class="col-12"> 
-                <a [routerLink]="[ '/company' ]">Companies</a>  
-            </div>
-
-            <div class="col-12"> 
-                <a [routerLink]="[ '/contact' ]">Contacts</a>  
-            </div>
-
-            <div class="col-12"> 
-                <a [routerLink]="[ '/activity' ]">activity</a>  
-            </div>
-
-            <div class="col-12"> 
-                <a [routerLink]="[ '/dashLead' ]">dashboard lead</a>  
-            </div>
+            <div class="col-4" *ngFor="let x of links"> 
+                <div class="{{iconClass}}">
+                    <a [routerLink]="[ '/',x.routerLink ]">
+                        <img [src]="x.icon" width="30">
+                        <div><small>{{x.name}}</small> </div>
+                    </a>  
+                </div>
+               
+            </div> 
         </div>
     </div>
 
