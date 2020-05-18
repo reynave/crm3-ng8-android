@@ -91,7 +91,7 @@ export class CompanyComponent implements OnInit {
     this.http.get<any>(environment.api + 'company/index/', {
       headers: this.configService.headers()
     }).subscribe(data => {
-      console.log(data['data']);
+
       this.loading = false;
 
       this.items = data['data'].map(row => ({
@@ -100,7 +100,7 @@ export class CompanyComponent implements OnInit {
         industry: row[4],
         class: row[5],
       }));
-      console.log(this.items);
+  
     }, () => {
       this.loading = false;
       this.configService.errorConnection(); 
@@ -111,14 +111,14 @@ export class CompanyComponent implements OnInit {
     this.http.get<any>(environment.api + 'company/selected', {
       headers: this.configService.headers()
     }).subscribe(data => {
-      console.log(data);
+
       this.id_user = data['result']['id_user'];
       this.model['id_user'] = data['result']['id_user'];
       this.user = data['result']['user'];
       this.company_class = data['result']['company_class'];
       this.loadingSelected = false;
       this.selected = data['result'];
-      //  console.log(this.selected);
+ 
     });
   }
 
@@ -136,7 +136,7 @@ export class CompanyComponent implements OnInit {
       headers: this.configService.headers()
     }).subscribe(
       data => {
-        //  console.log(data);
+ 
         this.submit = false;
         if (value == 'next') {
           this.httpGet();
@@ -151,8 +151,7 @@ export class CompanyComponent implements OnInit {
 
       },
       error => {
-        console.log(error);
-        console.log(error.error.text);
+       
       }
     );
   }
@@ -167,14 +166,13 @@ export class CompanyComponent implements OnInit {
       headers: this.configService.headers()
     }).subscribe(
       data => {
-        //  console.log(data);
+      
         this.httpGet();
         $('#newCompany').modal('hide');
 
       },
       error => {
-        console.log(error);
-        console.log(error.error.text);
+     
       }
     );
 

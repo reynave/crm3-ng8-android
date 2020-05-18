@@ -37,12 +37,12 @@ export class ConfigService {
     return new HttpHeaders({
       'Content-Type': 'application/json',
       'Key': this.varKey,
-      'Token': this.varToken,
+      'Token':  localStorage.getItem('cmr3ng8Token'),
     });
   }
 
   token() {
-    return this.varToken;
+    return  localStorage.getItem('cmr3ng8Token');
   }
 
   id_user() {

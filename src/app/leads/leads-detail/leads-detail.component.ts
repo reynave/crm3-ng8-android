@@ -80,7 +80,6 @@ export class LeadsDetailComponent implements OnInit {
     this.http.get<LeadDetail[]>(environment.api + 'lead/detail/' + this.id, {
       headers: this.configService.headers()
     }).subscribe(data => {
-      console.log(data);
 
       if (data['error'] != 0) {
         this.router.navigate(['warning/access/user']);
@@ -144,8 +143,6 @@ export class LeadsDetailComponent implements OnInit {
       }
       this.loading = false;
     }, error => {
-      console.log(error);
-      console.log(error.error.text);
       this.loading = false;
       this.configService.errorConnection(); 
     });
@@ -179,8 +176,7 @@ export class LeadsDetailComponent implements OnInit {
 
       },
       error => {
-        // console.log(error);
-        // console.log(error.error.text);
+      
       }
     );
   }
@@ -205,8 +201,7 @@ export class LeadsDetailComponent implements OnInit {
 
         },
         error => {
-          // console.log(error);
-          // console.log(error.error.text);
+         
         }
       );
 
@@ -227,8 +222,7 @@ export class LeadsDetailComponent implements OnInit {
       data => {
       },
       error => {
-        console.log(error);
-        console.log(error.error.text);
+   
       }
     );
   }
@@ -245,15 +239,14 @@ export class LeadsDetailComponent implements OnInit {
       headers: this.configService.headers()
     }).subscribe(
       data => {
-        console.log(data);
+      
         this.loadingConvert = false;
         this.loading = false;
       //  this.modalService.dismissAll('just closed');
         this.router.navigate(['/lead/converted/', this.id]);
       },
       error => {
-        console.log(error);
-        console.log(error.error.text);
+     
       }
     );
   }
@@ -272,8 +265,6 @@ export class LeadsDetailComponent implements OnInit {
       },
       error => {
         this.loading = false;
-        console.log(error);
-        console.log(error.error.text);
       }
     );
 
@@ -302,7 +293,6 @@ export class LeadsDetailComponent implements OnInit {
     fd.append('module', target);
     fd.append('id', this.id);
 
-    console.log(fd, this.configService.token());
     this.http.post(environment.api + 'upload/attachment', fd, { 
     })
       .subscribe( 
@@ -325,14 +315,12 @@ export class LeadsDetailComponent implements OnInit {
       headers: this.configService.headers()
     }).subscribe(
       data => {
-        console.log(data);
         this.loading = false;
         var objIndex = this.attachment.findIndex((obj => obj.id == x.id));
         this.attachment.splice(objIndex, 1);
       },
       error => {
-        console.log(error);
-        console.log(error.error.text);
+      
       }
     );
   }

@@ -65,7 +65,6 @@ export class ContactComponent implements OnInit {
     this.http.get<any>(environment.api + 'contact/index/', {
       headers: this.configService.headers()
     }).subscribe(data => {
-      console.log(data['data']);
       this.loading = false;
 
       this.items = data['data'].map(row => ({
@@ -74,7 +73,7 @@ export class ContactComponent implements OnInit {
         company: row[2],
         position: row[3],
       }));
-      console.log(this.items);
+
     }, () =>{
       this.loading = false;
       this.configService.errorConnection(); 
@@ -99,7 +98,6 @@ export class ContactComponent implements OnInit {
     }).subscribe(data => {
       this.loadingSelected = false;
       this.selected = data['result'];
-      //  console.log(this.selected);
     });
   }
 
@@ -116,13 +114,10 @@ export class ContactComponent implements OnInit {
       headers: this.configService.headers()
     }).subscribe(
       data => {
-        //  console.log(data);
         this.httpGet();
        // this.modalService.dismissAll();
       },
       error => {
-        //  console.log(error);
-        //  console.log(error.error.text);
       }
     );
 

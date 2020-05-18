@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
 
   deviceready() { 
     document.addEventListener("deviceready",  () => {
-      console.log("deviceready android Only");
+       
     }, false);
   }
 }

@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core'; 
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
+import { ConfigService } from './../service/config.service';
+//import { $ } from 'protractor';
+
+declare var $;
 
 @Component({
   selector: 'app-home',
@@ -45,10 +52,20 @@ export class HomeComponent implements OnInit {
     
   ]
 
-  constructor() {  }
+  constructor(
+    private configService: ConfigService,
+    private router: Router,
+    private http: HttpClient,
+  ) {  }
 
   ngOnInit() {
-     
+     console.log("localStorage : "+localStorage.getItem("cmr3ng8Token"))
+  }
+
+  logout(){
+    localStorage.removeItem("cmr3ng8Token");
+    $('#sidebarPanel').modal("hide");
+    window.location.href=  '';
   }
 
 }

@@ -69,7 +69,7 @@ export class ContactNewComponent implements OnInit {
   httpGet() {
     this.loading = true;
     var url =  environment.api + 'contact/widget_new_contact/' + this.module + '/' + this.id;
-    console.log(url);
+
     this.http.get(url, {
       headers: this.configService.headers()
     }).subscribe(data => {
@@ -88,11 +88,9 @@ export class ContactNewComponent implements OnInit {
         '',
         data['result']['data']['id_user'],
         data['result']['data']['id_company'],'','');
-      console.log(data);
+ 
       this.loading = false;
     }, error => {
-      console.log(error);
-      console.log(error.error.text);
       this.configService.errorConnection(); 
     });
   }
@@ -106,7 +104,7 @@ export class ContactNewComponent implements OnInit {
       headers: this.configService.headers()
     }).subscribe(
       data => {
-        console.log(data);
+
         this.loading = false;
         if (this.module == 'company') {  
           this.uploaded.emit('contact');
@@ -116,8 +114,7 @@ export class ContactNewComponent implements OnInit {
 
       },
       error => {
-        console.log(error);
-        console.log(error.error.text);
+       
       }
     );
   }

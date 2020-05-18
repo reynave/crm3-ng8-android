@@ -8,3 +8,10 @@ export class Login {
       
       ) {  }
 }
+
+export class Repass {
+  constructor(
+      public email: string, 
+    ) {  }
+}
+

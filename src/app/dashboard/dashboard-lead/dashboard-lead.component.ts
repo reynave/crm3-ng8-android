@@ -106,7 +106,6 @@ export class DashboardLeadComponent implements OnInit {
     this.http.get(url, {
       headers: this.configService.headers()
     }).subscribe(data => {
-      console.log(data);
   
       this.currency = data['result']['currency'];
       this.id_user_select = id;

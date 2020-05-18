@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-import { Login } from './login';
+import { Login, Repass } from './login';
 import { ConfigService } from './../service/config.service';
 import { environment } from './../../environments/environment';
 
+declare var $;
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,8 @@ import { environment } from './../../environments/environment';
 })
 export class LoginComponent implements OnInit {
   model = new Login("", "", false, "", "android");
-  loading: boolean = true;
+  repass = new Repass("");
+  loading: boolean = false;
   note: string;
   constructor(
     private configService: ConfigService,
@@ -22,45 +24,46 @@ export class LoginComponent implements OnInit {
     private http: HttpClient,
   ) { }
 
-  ngOnInit() {
-    console.log(this.configService.getToken());
-    if( this.configService.getToken()  ){
-      
-      this.configService.checkSession().subscribe(data=>{
-        console.log(data);
+  ngOnInit() { 
+    if( this.configService.getToken()  ){ 
+      this.configService.checkSession().subscribe(data=>{ 
         if(data['login'] == true){
           this.route.navigate(['home']);
         }else{
           this.note = 'Your session login is expired, please login again';
         }
-      });
- 
-
+      }); 
     }   
+  }
+  goHome(){
+    $('#DialogIconedSuccess').modal('hide');
+    this.route.navigate(['home']);
   }
 
   onSubmit() {
-    console.log(this.model);
-    console.log(environment.api + 'login/signin');
+    this.loading = true
     this.http.post<any>(environment.api + 'login/signin', {
       email: this.model['email'],
       password: this.model['password'],
       remember: this.model['remember'],
       player_id: this.model['player_id'],
       device: this.model['device']
-    }).subscribe(data => {
-      console.log(data);
-      this.loading = false;
+    }).subscribe(data => { 
       if (data['data']['login'] ) {
+        $('#DialogIconedSuccess').modal('show');
         this.configService.setToken(data['data']['token']);
-        this.route.navigate(['leads']);
+        this.loading = false;
+
       } else {
+        this.loading = false;
         this.note = data['data']['note'];
-      }
-
-
+      } 
     });
 
   }
 
+  onResetPass(){
+    this.loading = true;
+    console.log(this.repass);
+  }
 }

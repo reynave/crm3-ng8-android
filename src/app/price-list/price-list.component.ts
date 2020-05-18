@@ -44,11 +44,11 @@ export class PriceListComponent implements OnInit {
   httpGet() {
     
     var formatter = new Intl.NumberFormat('id-ID', );
-    console.log( environment.api + "pricelist/index/");
+
     this.http.get<any>(environment.api + "pricelist/index/", {
       headers: this.configService.headers()
     }).subscribe(data => {
-      console.log(data);
+
       this.loading = false;
         this.items = data['data'].map(row => ({
           id: row[0],
@@ -60,7 +60,7 @@ export class PriceListComponent implements OnInit {
           qty: row[6],
         }));
       
-      console.log(this.items);
+
     }, error=>{
       
       this.loading = false;

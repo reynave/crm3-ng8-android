@@ -73,9 +73,7 @@ export class ActivityComponent implements OnInit {
 
   fn_filter(){
    var obj =  btoa(JSON.stringify(this.filter));  
-    
     this.childcomp.httpHistoryFilter(obj);
-
     this.router.navigate(['/activity/',obj ]);
    
   }

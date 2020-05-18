@@ -114,13 +114,10 @@ export class ContactDetailComponent implements OnInit {
           data['result']['data']['birthdate'],
         );
  
-        console.log(data);
         this.loading = false;
 
       }
     }, error => {
-      console.log(error);
-      console.log(error.error.text);
       this.configService.errorConnection(); 
     });
   }
@@ -134,8 +131,6 @@ export class ContactDetailComponent implements OnInit {
   fn_update() {
     
     this.loading = true;
-    console.log(this.model);
-    console.log(environment.api + 'contact/update');
     this.http.post(environment.api + 'contact/update',
       {
         "id": this.id,
@@ -144,13 +139,11 @@ export class ContactDetailComponent implements OnInit {
       headers: this.configService.headers()
     }).subscribe(
       data => {
-        console.log(data);
+      
         this.httpGet();
         this.loading = false;
       },
       error => {
-        console.log(error);
-        console.log(error.error.text);
       }
     );
   }
@@ -166,13 +159,10 @@ export class ContactDetailComponent implements OnInit {
         headers: this.configService.headers()
       }).subscribe(
         data => {
-          console.log(data);
           this.router.navigate(['/contact/']);
 
         },
         error => {
-          // console.log(error);
-          // console.log(error.error.text);
         }
       );
 
@@ -182,7 +172,6 @@ export class ContactDetailComponent implements OnInit {
 
   fn_newOpportunity() {
     this.loading = true;
-    console.log(this.model);
     this.http.post(environment.api + 'opportunity/fn_newOpportunity',
       {
         "id": this.id,
@@ -191,12 +180,11 @@ export class ContactDetailComponent implements OnInit {
       headers: this.configService.headers()
     }).subscribe(
       data => {
-        console.log(data);
+
         this.loading = false;
       },
       error => {
-        console.log(error);
-        console.log(error.error.text);
+      
       }
     );
   }
@@ -211,8 +199,6 @@ export class ContactDetailComponent implements OnInit {
     fd.append('token', this.configService.token());
     fd.append('module', target);
     fd.append('id', this.id);
-
-    console.log(fd, this.configService.token());
     this.http.post(environment.api + 'upload/attachment', fd, {
       //    reportProgress: true,
       //  observe: 'events'
@@ -220,14 +206,14 @@ export class ContactDetailComponent implements OnInit {
       .subscribe(
         /*  event => {
             if(event.type === HttpEventType.UploadProgress){
-              console.log(event ); // handle event here
+             
             }else if( event.type === HttpEventType.Response ){
-              console.log(event ); // handle event here
+            
             }
            
           },*/
         data => {
-          // console.log(data); 
+         
           this.attachment = data['result']['attachment'];
           this.httpGet();
           this.selectedFile = "";
@@ -245,14 +231,13 @@ export class ContactDetailComponent implements OnInit {
       headers: this.configService.headers()
     }).subscribe(
       data => {
-        console.log(data);
+       
         this.loading = false;
         var objIndex = this.attachment.findIndex((obj => obj.id == x.id));
         this.attachment.splice(objIndex, 1);
       },
       error => {
-        console.log(error);
-        console.log(error.error.text);
+     
       }
     );
   }

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import { ConfigService } from './../service/config.service';
-import { environment } from './../../environments/environment';
+import { environment } from 'src/environments/environment';
 import { Newlead } from './leads';
 
 declare var $;
@@ -37,7 +37,11 @@ export class LeadsComponent implements OnInit {
     }, false);
     this.httpGet();
     this.httpSelected();
-
+    this.jquery();
+  }
+  
+  jquery(){
+    
     $(".toggle-searchbox").click(function () {
       var a = $("#search").hasClass("show");
       if (a) {
@@ -77,7 +81,6 @@ export class LeadsComponent implements OnInit {
     this.http.get<any>(environment.api + 'lead/index', {
       headers: this.configService.headers()
     }).subscribe(data => {
-      console.log(data);
       this.loading = false;
       this.items = data['data'].map(row => ({
         id: row[0],
@@ -88,8 +91,7 @@ export class LeadsComponent implements OnInit {
         source: row[6],
         color: row[8],
       }));
-      console.log(this.items);
-    }, error => { 
+    }, error => {  
       this.loading = false;
       this.configService.errorConnection(); 
     });
@@ -102,7 +104,6 @@ export class LeadsComponent implements OnInit {
     }).subscribe(data => {
 
       this.selected = data['result'];
-      console.log(this.selected);
     });
   }
 
@@ -111,7 +112,6 @@ export class LeadsComponent implements OnInit {
       headers: this.configService.headers()
     }).subscribe(data => {
       this.selectedCompany = data['result']['data'];
-      console.log(this.selectedCompany);
     });
   }
 
@@ -128,7 +128,6 @@ export class LeadsComponent implements OnInit {
       headers: this.configService.headers()
     }).subscribe(data => {
       this.loading = false;
-      console.log(data);
       this.model['isDuplicate'] = true;
       this.model['website'] = data['result']['data'][0]['website'];
       this.model['phone'] = data['result']['data'][0]['phone'];
@@ -144,7 +143,6 @@ export class LeadsComponent implements OnInit {
 
 
       // this.selectedCompany = data['result']['data'];
-      // console.log(this.selectedCompany);
     });
   }
 
@@ -161,13 +159,9 @@ export class LeadsComponent implements OnInit {
         this.submit = false;
         $('#ModalBasic').modal('hide');
         this.router.navigate(['/lead/', data['result']['id_lead']]);
-
-
-
       },
       error => {
-        console.log(error);
-        console.log(error.error.text);
+     
       }
     );
   }

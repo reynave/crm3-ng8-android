@@ -37,7 +37,7 @@ export class PriceListModalComponent implements OnInit {
 
   module:string = this.activatedRoute.snapshot.url[0].path;
   ngOnInit() {
-    console.log(this.activatedRoute.snapshot.url[0].path );
+ 
     this.id = this.activatedRoute.snapshot.params.id;
     this.httpGet();
   }
@@ -47,13 +47,12 @@ export class PriceListModalComponent implements OnInit {
     this.http.get(environment.api+ 'pricelist/modal/'+this.module+'/'+ this.id, {
       headers: this.configService.headers()
     }).subscribe(data => {
-      console.log(data);
+ 
       this.loading = false;
       this.items = data['result']['data'];
       this.pricelist = data['result']['data'];
     }, error => {
-      console.log(error);
-      console.log(error.error.text);
+
     });
   }
  
@@ -71,11 +70,10 @@ export class PriceListModalComponent implements OnInit {
     }
     this.addProduct.push(temp); // from top as bottom
     this.total = this.addProduct.length;
-    console.log(this.addProduct);
   }
 
   removeList(x) {
-    console.log(x);
+
     var objIndex = this.addProduct.findIndex((obj => obj.id == x.id));
     this.addProduct.splice(objIndex, 1);
     this.total = this.addProduct.length;
@@ -83,9 +81,7 @@ export class PriceListModalComponent implements OnInit {
 
 
 
-  save() {
-    console.log(this.id);
-
+  save() { 
     this.loading = true;
     this.http.post(environment.api+ 'pricelist/insermodule/',
       {
@@ -95,13 +91,10 @@ export class PriceListModalComponent implements OnInit {
       }, {
       headers: this.configService.headers()
     }).subscribe(data => {
-      console.log(data);
       this.loading = false;
       this.uploaded.emit('complete');
     //  location.reload();
     }, error => {
-      console.log(error);
-      console.log(error.error.text);
     });
   }
 }

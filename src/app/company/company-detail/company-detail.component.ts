@@ -72,7 +72,7 @@ export class CompanyDetailComponent implements OnInit {
     this.http.get<CompanyDetail[]>( environment.api  + 'company/detail/'+ this.id, {
       headers: this.configService.headers()
     }).subscribe(data => {
-      console.log(data);
+
       this.allow_access_data = data['result']['allow_access_data'];
       this.items = data['result']['data'];
       this.myContact = data['result']['contact'];
@@ -113,8 +113,7 @@ export class CompanyDetailComponent implements OnInit {
  
  
     },error => {
-      console.log(error);
-      console.log(error.error.text);
+     
       this.loading = false;
       this.configService.errorConnection(); 
     });
@@ -145,8 +144,7 @@ export class CompanyDetailComponent implements OnInit {
 
         },
         error => {
-          console.log(error);
-          console.log(error.error.text);
+         
         }
       );
     
@@ -164,13 +162,12 @@ export class CompanyDetailComponent implements OnInit {
         headers: this.configService.headers()
       }).subscribe(
         data => {
-          console.log(data); 
+        
           this.httpGet();
           this.loading = false;
         },
         error => {
-          console.log(error);
-          console.log(error.error.text);
+        
         }
       );
   }
@@ -192,8 +189,7 @@ export class CompanyDetailComponent implements OnInit {
           this.modelContact =  new NewContact('0','','','','','0',"1",this.id,'','');
         },
         error => {
-          console.log(error);
-          console.log(error.error.text);
+        
         }
       );
   }
@@ -210,7 +206,7 @@ export class CompanyDetailComponent implements OnInit {
     fd.append('module', target);
     fd.append('id', this.id);
 
-    console.log(fd, this.configService.token());
+
     this.http.post(environment.api + 'upload/attachment', fd, {
       //    reportProgress: true,
       //  observe: 'events'
@@ -218,14 +214,13 @@ export class CompanyDetailComponent implements OnInit {
       .subscribe(
         /*  event => {
             if(event.type === HttpEventType.UploadProgress){
-              console.log(event ); // handle event here
+              
             }else if( event.type === HttpEventType.Response ){
-              console.log(event ); // handle event here
+      
             }
            
           },*/
         data => {
-          // console.log(data); 
           this.attachment = data['result']['attachment'];
           this.httpGet();
           this.selectedFile = "";
@@ -243,14 +238,12 @@ export class CompanyDetailComponent implements OnInit {
       headers: this.configService.headers()
     }).subscribe(
       data => {
-        console.log(data);
+
         this.loading = false;
         var objIndex = this.attachment.findIndex((obj => obj.id == x.id));
         this.attachment.splice(objIndex, 1);
       },
       error => {
-        console.log(error);
-        console.log(error.error.text);
       }
     );
   }
