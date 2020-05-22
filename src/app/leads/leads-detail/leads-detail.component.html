@@ -25,16 +25,17 @@
             <div class="modal-body">
                 <ul class="action-button-list">
                     <li>
+                        <a href="javascript:;" class="btn btn-list" data-toggle="modal" data-target="#converModal" data-dismiss="modal">
+                            <span>Convert to Opportunity</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="javascript:;" (click)="edit();" class="btn btn-list text-primary" data-dismiss="modal">
                             <span>Edit</span>
                         </a>
                     </li>
 
-                    <li>
-                        <a href="javascript:;" class="btn btn-list" data-toggle="modal" data-target="#converModal" data-dismiss="modal">
-                            <span>Convert to Opportunity</span>
-                        </a>
-                    </li>
+                  
 
                     <li>
                         <a href="javascript:;" class="btn btn-list" data-dismiss="modal" (click)="fn_delete();">
@@ -510,7 +511,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Price List</h5>
+                <h5 class="modal-title">Products</h5>
                 <a href="javascript:;" data-dismiss="modal">Close</a>
             </div>
             <div class="modal-body">

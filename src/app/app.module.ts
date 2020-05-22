@@ -31,6 +31,9 @@ import { ActivityComponent } from './activity/activity.component';
 import { WidgetActivityComponent } from './activity/widget-activity/widget-activity.component';
 import { DashboardLeadComponent } from './dashboard/dashboard-lead/dashboard-lead.component';
 import { ErrorConnectionComponent } from './global/error-connection/error-connection.component';
+import { DashboardSalesComponent } from './dashboard/dashboard-sales/dashboard-sales.component';
+import { CheckInComponent } from './activity/check-in/check-in.component';
+import { CheckOutComponent } from './activity/check-out/check-out.component';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "right",
@@ -67,6 +70,9 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     WidgetActivityComponent,
     DashboardLeadComponent,
     ErrorConnectionComponent,
+    DashboardSalesComponent,
+    CheckInComponent,
+    CheckOutComponent,
     
   ],
   imports: [

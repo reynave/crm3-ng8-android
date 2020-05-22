@@ -2,3 +2,21 @@
     border-left: 2px solid #c00 !important;
     padding-left: 2px !important;
 }
+
+.icon-light{
+    background-color:#B9B9B9;
+}
+
+.icon-green{
+    background-color:#008000
+}
+
+
+.icon-brown{
+    background-color:#A52A2A
+}
+
+
+.icon-red{
+    background-color:#FF0000
+}

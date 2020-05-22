@@ -30,7 +30,7 @@ export class LeadsComponent implements OnInit {
 
   ngOnInit() {
     this.id_user = this.configService.id_user();
-    this.model = new Newlead(this.id_user, '1', '1', '0', '', '', '', '', '', '', '', '', '', '', '', '', '', '', "", "", "", "", "1", {
+    this.model = new Newlead(this.id_user, '1', '1', '0', '', '', '', '', '', '', '', '', '', '', '', '', '0', '', "", "", "", "", "1", {
       "year": 1980,
       "month": 3,
       "day": 5
@@ -82,6 +82,7 @@ export class LeadsComponent implements OnInit {
       headers: this.configService.headers()
     }).subscribe(data => {
       this.loading = false;
+      
       this.items = data['data'].map(row => ({
         id: row[0],
         status: row[1],
@@ -90,7 +91,14 @@ export class LeadsComponent implements OnInit {
         industry: row[5],
         source: row[6],
         color: row[8],
-      }));
+      })).sort(function(a, b){
+        if(a. name < b. name) { return -1; }
+        if(a. name > b. name) { return 1; }
+        return 0;
+      });
+      
+      console.log(this.items);
+     
     }, error => {  
       this.loading = false;
       this.configService.errorConnection(); 
@@ -161,7 +169,8 @@ export class LeadsComponent implements OnInit {
         this.router.navigate(['/lead/', data['result']['id_lead']]);
       },
       error => {
-     
+        console.log(error);
+        console.log(error.error)
       }
     );
   }

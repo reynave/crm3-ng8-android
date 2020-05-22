@@ -74,7 +74,7 @@ export class WidgetActivityComponent implements OnInit {
       headers: this.configService.headers()
     }).subscribe(
       data => {
-
+        console.log(data);
         this.loading = false;
         this.activityLatest = data['result']['latest'];
         this.activityHistory = data['result']['history'];
@@ -119,7 +119,7 @@ export class WidgetActivityComponent implements OnInit {
       headers: this.configService.headers()
     }).subscribe(
       data => {
-
+      
         this.loading = false;
         this.items = data['result']['data'];
         this.model = new WidgetActivty(this.id_activity_type, this.id_user, "", "0", '', '', this.date, this.date, this.date, "00:00", "00:00", data['result']['data']['id_company'], data['result']['data']['id_opporunty'], 0);

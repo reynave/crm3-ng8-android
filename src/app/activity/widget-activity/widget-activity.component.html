@@ -21,7 +21,7 @@
                                         <div class="form-group basic mb-1">
                                             <div class="input-wrapper">
                                                 <label class="label"> <b>Subject </b> </label>
-                                                <input type="text" [(ngModel)]="model.subject" name="subject" class="form-control" placeholder="Subject" required>
+                                                <input type="text" [(ngModel)]="model.subject" name="subject" class="form-control required" placeholder="Subject" required>
                                             </div>
                                         </div>
 
@@ -76,7 +76,7 @@
                                         <div class="form-group basic mb-1">
                                             <div class="input-wrapper">
                                                 <label class="label"> <b>Subject</b></label>
-                                                <input type="text" [(ngModel)]="model.subject" name="subject" class="form-control" placeholder="Subject" required>
+                                                <input type="text" [(ngModel)]="model.subject" name="subject" class="form-control required" placeholder="Subject" required>
                                             </div>
                                         </div>
 
@@ -131,7 +131,8 @@
                                         <div class="form-group basic mb-1">
                                             <div class="input-wrapper">
                                                 <label class="label"> <b> Subject</b></label>
-                                                <input type="text" [(ngModel)]="model.subject" name="subject" class="form-control" required>
+                                                <input type="text" [(ngModel)]="model.subject" name="subject" class="form-control required" placeholder="Subject" required>
+
                                             </div>
                                         </div>
 
@@ -213,7 +214,7 @@
                                         <div class="form-group basic mb-1">
                                             <div class="input-wrapper">
                                                 <label class="label"> <b>Subject</b></label>
-                                                <input type="text" [(ngModel)]="model.subject" name="subject" class="form-control" placeholder="Subject" required>
+                                                <input type="text" [(ngModel)]="model.subject" name="subject" class="form-control required" placeholder="Subject" required>
                                             </div>
                                         </div>
 
@@ -283,8 +284,7 @@
                                             </div>
                                         </div>
 
-                                    </div>
-
+                                    </div> 
                                 </ng-template>
                             </ngb-tab>
 
@@ -296,7 +296,7 @@
                                         <div class="form-group basic mb-1">
                                             <div class="input-wrapper">
                                                 <label class="label"> <b>Subject</b></label>
-                                                <input type="text" [(ngModel)]="model.subject" name="subject" class="form-control" placeholder="Subject" required>
+                                                <input type="text" [(ngModel)]="model.subject" name="subject" class="form-control required" placeholder="Subject" required>
                                             </div>
                                         </div>
 
@@ -332,9 +332,9 @@
 <!-- * Modal Basic -->
 
 
-<div class="p-2">
-    <button type="button" class="btn btn-whatsapp btn-block" data-toggle="modal" data-target="#modalActivity">
-         New Activity
+<div class="p-2" >
+    <button type="button" [hidden]="module == 'activity'" class="btn btn-whatsapp btn-block" data-toggle="modal" data-target="#modalActivity">
+         New Activity  
     </button>
 </div>
 
@@ -354,7 +354,7 @@
     <div class="px-3 py-2" [ngClass]="{'bg-odd': i%2==0}">
         <div class="row">
             <div class="col-12">
-                <small> {{x.due_date | date:'mediumDate'}} <code>{{x.activity_type.name}}</code></small>
+                <small> {{x.input_date | date:'mediumDate'}}  {{x.input_date | date:'shortTime'}}  <code>{{x.activity_type.name}}</code></small>
             </div>
 
             <div class="col-12">
@@ -370,7 +370,7 @@
         <div>
 
             <small class="btn btn-sm btn-classic py-0 mr-2" [hidden]="!x.person.origin">{{x.person.origin}}</small>
-            <small>Assigned To <span class="text-primary"> {{x.user}}</span> for <span class="text-primary">
+            <small>Assigned To <span class="text-primary"> {{x.user}}</span> <br> for <span class="text-primary">
                     {{x.person.name}} </span> <span [hidden]="!x.person.company"> ({{x.person.company}}) </span> </small>
 
         </div>
@@ -410,13 +410,13 @@
         </div>
 
         <div [hidden]="!x.show">
-            <div class="p-2 mt-2 border rounded">
+            <div class="p-2 mt-2 border   bg-white">
                 <div class="bg-light" [innerHTML]="x.description" [hidden]="!x.description" style=" white-space: pre-line; font-size: 14px;"></div>
                 <small [innerHTML]="x.log"></small>
             </div>
 
             <div class=" mt-2 ml-3" *ngFor="let a of x.activity_comment">
-                <div class="p-2 border rounded">
+                <div class="p-2 border ">
                     <small [innerHTML]="a.comment"></small>
                 </div>
                 <small> {{a.input_date | date:'mediumDate'}}, {{a.input_date | date:'shortTime'}} </small>
@@ -428,14 +428,11 @@
             <div class="ml-3">
                 <textarea class="form-control p-1" rows="4" [(ngModel)]="x.comments"></textarea>
             </div>
-            <div class="row mt-1">
-                <div class="col-6">
-                    <button type="button" class="btn btn-outline-primary rounded-0 btn-block" (click)="x.show = false">Cancel</button>
-                </div>
-                <div class="col-6">
-                    <button type="button" class="btn btn-primary btn-block rounded-0" (click)="fn_comments(x.comments,x.id,i,0); x.comments = ''">Post</button>
-                </div>
-
+            <div class="mt-1 text-right ">
+              
+                    <button type="button" class="px-3 py-0 btn btn-sm bg-white mx-1 border  rounded-0" (click)="x.show = false">Cancel</button> 
+                    <button type="button" class="px-3 py-0 btn btn-sm btn-primary rounded-0" (click)="fn_comments(x.comments,x.id,i,0); x.comments = ''">Post</button>
+              
 
             </div>
         </div>
@@ -454,8 +451,9 @@
     <div class="px-3 py-2" [ngClass]="{'bg-odd': i%2==0}">
         <div class="row">
             <div class="col-12">
-                <small> {{x.due_date | date:'mediumDate'}} <span [hidden]="x.activity_type.id != 100"> {{x.due_date | date:'shortTime'}} </span>
-                    <code>{{x.activity_type.name}}</code></small>
+                <small>  {{x.input_date | date:'mediumDate'}}  {{x.input_date | date:'shortTime'}}
+                    <code>{{x.activity_type.name}}</code>
+                </small>
             </div>
             <div class="col-12">
                 <a href="javascript:;" (click)="showHistory(i)"> <b class="text-primary">{{x.subject}}</b> </a>
@@ -468,7 +466,8 @@
 
         <div>
             <small class="btn btn-sm btn-classic py-0 mr-2" [hidden]="!x.person.origin">{{x.person.origin}}</small>
-            <small>Assigned To <span class="text-primary"> {{x.user}}</span> for <span class="text-primary">
+            <small>Assigned To <span class="text-primary"> {{x.user}}</span> 
+                <br>for <span class="text-primary">
                     {{x.person.name}} </span> <span [hidden]="!x.person.company"> ({{x.person.company}}) </span> </small>
         </div>
 
@@ -491,7 +490,7 @@
 
 
         <div [hidden]="!x.show">
-            <div class="p-2 mt-2 border rounded">
+            <div class="p-2 mt-2 border   bg-white">
                 <div class="text" [innerHTML]="x.description" [hidden]="!x.description" style=" white-space: pre-line; font-size: 14px;"></div>
 
 
@@ -504,7 +503,7 @@
             </div>
 
             <div class=" mt-2 ml-3" *ngFor="let a of x.activity_comment">
-                <div class="p-2 border rounded">
+                <div class="p-2 border ">
                     <small [innerHTML]="a.comment"></small>
                 </div>
                 <small> {{a.input_date | date:'mediumDate'}}, {{a.input_date | date:'shortTime'}} </small>
@@ -517,8 +516,9 @@
             <div class="ml-3">
                 <textarea class="form-control p-1" rows="4" [(ngModel)]="x.comments"></textarea>
             </div>
-            <div class="mt-1 text-right">
-                <a href="javascript:;" (click)="x.show = false" class="px-3 py-0 btn btn-sm btn-classic mx-1">Cancel</a> <a href="javascript:;" class="px-3 py-0 btn btn-sm btn-primary" (click)="fn_comments(x.comments,x.id,i,1); x.comments = ''">Post</a>
+            <div class="mt-1 text-right ">
+                <a href="javascript:;" (click)="x.show = false" class="px-3 py-0 btn btn-sm bg-white mx-1 border  rounded-0">Cancel</a> 
+                <a href="javascript:;" class="px-3 py-0 btn btn-sm btn-primary rounded-0" (click)="fn_comments(x.comments,x.id,i,1); x.comments = ''">Post</a>
             </div>
         </div>
 

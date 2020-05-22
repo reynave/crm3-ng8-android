@@ -99,7 +99,11 @@ export class CompanyComponent implements OnInit {
         name: row[1],
         industry: row[4],
         class: row[5],
-      }));
+      })).sort(function(a, b){
+        if(a. name < b. name) { return -1; }
+        if(a. name > b. name) { return 1; }
+        return 0;
+      });
   
     }, () => {
       this.loading = false;

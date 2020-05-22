@@ -21,13 +21,34 @@
     </div>
   </app-root>
 
+  <script>
+    (function () {
+      'use strict';
 
+      window.addEventListener = function () {
+        EventTarget.prototype.addEventListener.apply(this, arguments);
+      };
+
+      window.removeEventListener = function () {
+        EventTarget.prototype.removeEventListener.apply(this, arguments);
+      };
+
+      document.addEventListener = function () {
+        EventTarget.prototype.addEventListener.apply(this, arguments);
+      };
+
+      document.removeEventListener = function () {
+        EventTarget.prototype.removeEventListener.apply(this, arguments);
+      };
+    })();
+  </script>
   <script type="text/javascript" src="cordova.js"></script>
   <script type="text/javascript" src="./assets/js/lib/jquery-3.4.1.min.js"></script>
   <script type="text/javascript" src="./assets/js/lib/popper.min.js"></script>
   <script type="text/javascript" src="./assets/js/lib/bootstrap.min.js"></script>
   <script type="text/javascript" src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script> 
   <script type="text/javascript" src="./assets/js/plugins/jquery-circle-progress/circle-progress.min.js"></script>
+  <script type="text/javascript" src="./assets/js/plugins/owl-carousel/owl.carousel.min.js"></script>
   <script type="text/javascript" src="./assets/js/base.custom.js"></script>
   <script type="text/javascript" src="./assets/js/d3-funnel.min.js"></script> 
   

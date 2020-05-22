@@ -13,6 +13,9 @@ import { CompanyDetailComponent } from './company/company-detail/company-detail.
 import { DashboardLeadComponent } from './dashboard/dashboard-lead/dashboard-lead.component';
 import { ActivityComponent } from './activity/activity.component';
 import { ErrorConnectionComponent } from './global/error-connection/error-connection.component';
+import { DashboardSalesComponent } from './dashboard/dashboard-sales/dashboard-sales.component';
+import { CheckInComponent } from './activity/check-in/check-in.component';
+import { CheckOutComponent } from './activity/check-out/check-out.component';
 
 
 const routes: Routes = [
@@ -22,8 +25,12 @@ const routes: Routes = [
   
   { path: 'dashLead', component: DashboardLeadComponent },
   { path: 'dashLead/:period', component: DashboardLeadComponent },
-  
+
+  { path: 'dashSales', component: DashboardSalesComponent }, 
+ 
   { path: 'activity', component: ActivityComponent },
+  { path: 'checkIn', component: CheckInComponent },
+  { path: 'checkOut', component: CheckOutComponent },
   
   { path: 'lead', component: LeadsComponent },
   { path: 'lead/:id', component: LeadsDetailComponent },

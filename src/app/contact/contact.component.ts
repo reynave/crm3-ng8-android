@@ -72,8 +72,14 @@ export class ContactComponent implements OnInit {
         name: row[1],
         company: row[2],
         position: row[3],
-      }));
-
+      })).sort(function(a, b){
+        if(a. name < b. name) { return -1; }
+        if(a. name > b. name) { return 1; }
+        return 0;
+      });
+      
+      console.log(this.items);
+      
     }, () =>{
       this.loading = false;
       this.configService.errorConnection(); 

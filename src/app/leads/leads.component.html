@@ -1,14 +1,12 @@
- 
-
 <!-- App Header -->
 <div class="appHeader bg-success text-light">
     <div class="left">
-        <a [routerLink]="[ '/home' ]"  class="headerButton">
+        <a [routerLink]="[ '/home' ]" class="headerButton">
             <ion-icon name="arrow-back-outline"></ion-icon>
         </a>
     </div>
     <div class="pageTitle">
-        Leads
+        Leads <small> ({{items.length}})</small>
     </div>
     <div class="right">
         <a href="javascript:;" class="headerButton toggle-searchbox">
@@ -26,7 +24,7 @@
 <div id="search" class="appHeader">
     <form class="search-form">
         <div class="form-group searchbox">
-            <input type="text" class="form-control" placeholder="Search..."  [(ngModel)]="search"  [ngModelOptions]="{standalone: true}" >
+            <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="search" [ngModelOptions]="{standalone: true}">
             <i class="input-icon">
                 <ion-icon name="search-outline"></ion-icon>
             </i>
@@ -40,14 +38,12 @@
 
 
 <!-- App Capsule -->
-<div id="appCapsule">
- 
-
+<div id="appCapsule"> 
 
     <ul class="listview image-listview">
         <li *ngFor="let x of items   | searchPipe:'name':search  ">
             <a [routerLink]="[ '/lead', x.id ]" class="item">
-                <div class="image border p-2 shadow-sm" [ngStyle]="{'background-color': x.color}"></div>
+                <div class="image border p-2 shadow-sm  icon-{{x.color}}"></div>
                 <div class="in">
                     <div>
                         <header> {{x.company}}</header>
@@ -55,16 +51,17 @@
                         <footer> {{x.status}}</footer>
                     </div>
                     <span class="text-muted">view</span>
+                    
                 </div>
             </a>
         </li>
     </ul>
 
-   <div class="row" [hidden]="!loading">
-       <div class="col-12 text-center py-5">
+    <div class="row" [hidden]="!loading">
+        <div class="col-12 text-center py-5">
             <div class="spinner-border text-primary" role="status"></div>
-       </div>
-   </div>
+        </div>
+    </div>
 </div>
 <!-- * App Capsule -->
 
@@ -81,17 +78,16 @@
                 </div>
                 <div class="modal-body">
 
- 
+
                     <small><b>Lead Detail </b></small>
                     <div class="section full mb-2">
- 
+
                         <div class="row ">
                             <div class="col-3">
                                 <div class="form-group basic animated">
                                     <div class="input-wrapper">
                                         <label class="label" for="h77">title</label>
-                                        <select class="form-control" [(ngModel)]="model.id_title" name="id_title"
-                                            id="h77">
+                                        <select class="form-control" [(ngModel)]="model.id_title" name="id_title" id="h77">
                                             <option [ngValue]="x.id" *ngFor="let x of selected.title">{{x.name}}
                                             </option>
                                         </select>
@@ -102,9 +98,7 @@
                                 <div class="form-group basic animated">
                                     <div class="input-wrapper">
                                         <label class="label" for="h1">First Name</label>
-                                        <input type="text" class="form-control required" [(ngModel)]="model.first_name"
-                                            name="first_name" #first_name="ngModel" id="h1" required
-                                            placeholder="First Name">
+                                        <input type="text" class="form-control required" [(ngModel)]="model.first_name" name="first_name" #first_name="ngModel" id="h1" required placeholder="First Name">
                                         <small [hidden]="first_name.valid || first_name.pristine" class="text-danger">
                                             First name is required</small>
                                     </div>
@@ -116,24 +110,21 @@
                         <div class="form-group basic animated">
                             <div class="input-wrapper">
                                 <label class="label" for="h2">Last Name</label>
-                                <input type="text" class="form-control" [(ngModel)]="model.last_name" name="last_name"
-                                    id="h2" placeholder="Last Name">
+                                <input type="text" class="form-control" [(ngModel)]="model.last_name" name="last_name" id="h2" placeholder="Last Name">
                             </div>
                         </div>
 
                         <div class="form-group basic animated">
                             <div class="input-wrapper">
                                 <label for="h3" class="label">Email</label>
-                                <input type="email" class="form-control" [(ngModel)]="model.email" name="email" id="h3"
-                                    placeholder="Email">
+                                <input type="email" class="form-control" [(ngModel)]="model.email" name="email" id="h3" placeholder="Email">
                             </div>
                         </div>
 
                         <div class="form-group basic animated">
                             <div class="input-wrapper">
                                 <label for="mobile" class="label">Mobile</label>
-                                <input type="text" class="form-control" [(ngModel)]="model.mobile" name="mobile"
-                                    id="mobile" placeholder="mobile">
+                                <input type="text" class="form-control" [(ngModel)]="model.mobile" name="mobile" id="mobile" placeholder="mobile">
                             </div>
                         </div>
 
@@ -154,8 +145,7 @@
                                 <div class="form-group basic">
                                     <div class="input-wrapper">
 
-                                        <select class="form-control" [(ngModel)]="model.id_lead_status"
-                                            name="id_lead_status" id="id_lead_status">
+                                        <select class="form-control" [(ngModel)]="model.id_lead_status" name="id_lead_status" id="id_lead_status">
                                             <option value="" [hidden]="model.id_lead_status">- Lead Status -</option>
                                             <option [ngValue]="x.id" *ngFor="let x of selected.status">{{x.name}}
                                             </option>
@@ -173,8 +163,7 @@
                                 <div class="form-group basic animated">
                                     <div class="input-wrapper">
                                         <label for="birthdate" class="label">Birthdate</label>
-                                        <input type="date" class="form-control" [(ngModel)]="model.birthdate"
-                                            name="birthdate" id="birthdate" placeholder="Birthdate">
+                                        <input type="date" class="form-control" [(ngModel)]="model.birthdate" name="birthdate" id="birthdate" placeholder="Birthdate">
                                     </div>
                                 </div>
                             </div>
@@ -184,8 +173,7 @@
                                 <div class="form-group basic animated">
                                     <div class="input-wrapper">
                                         <label for="position" class="label">Position</label>
-                                        <input type="text" class="form-control" [(ngModel)]="model.position"
-                                            name="position" id="position" placeholder="Position">
+                                        <input type="text" class="form-control" [(ngModel)]="model.position" name="position" id="position" placeholder="Position">
                                     </div>
                                 </div>
                             </div>
@@ -197,8 +185,7 @@
                         <div class="form-group basic animated">
                             <div class="input-wrapper">
                                 <label for="department" class="label">Department</label>
-                                <input type="text" class="form-control " [(ngModel)]="model.department"
-                                    name="department" id="department" placeholder="department">
+                                <input type="text" class="form-control " [(ngModel)]="model.department" name="department" id="department" placeholder="department">
                             </div>
                         </div>
 
@@ -206,8 +193,7 @@
                         <div class="form-group basic">
                             <div class="input-wrapper">
                                 <label for="id_lead_status" class="label">Lead Source</label>
-                                <select class="form-control " [(ngModel)]="model.id_lead_source" name="id_lead_source"
-                                    id="id_lead_status">
+                                <select class="form-control " [(ngModel)]="model.id_lead_source" name="id_lead_source" id="id_lead_status">
                                     <option [ngValue]="x.id" *ngFor="let x of selected.lead_source">{{x.name}}</option>
                                 </select>
                             </div>
@@ -216,7 +202,7 @@
 
                     </div>
 
- 
+
 
                     <small><b>Company Detail</b></small>
                     <div class="section full mb-2">
@@ -225,15 +211,13 @@
 
                             <div class="form-group basic">
                                 <div class="input-wrapper">
-                                    <select class="form-control required" id="h14" [(ngModel)]="model.id_company"
-                                        name="id_company" id="h20" required (change)="fnRequestCompanyData();">
-                                        <option value="" [hidden]="model.id_company"> - Select Company - </option>
+                                    <select class="form-control" id="h14" [(ngModel)]="model.id_company" name="id_company" id="h20"  (change)="fnRequestCompanyData();">
+                                        <option value="0" [hidden]="model.id_company"> - Select Company - </option>
                                         <option [ngValue]="x.id" *ngFor="let x of selectedCompany">{{x.name}}
                                         </option>
                                     </select>
                                     <div>
-                                        <small><a href="javascript:;"
-                                                (click)="dbCompany=false; model.company ='';">Back</a></small>
+                                        <small><a href="javascript:;" (click)="dbCompany=false; model.company ='';">Back</a></small>
                                     </div>
                                 </div>
                             </div>
@@ -244,13 +228,8 @@
                             <div class="form-group basic animated">
                                 <div class="input-wrapper">
                                     <label class="label" for="h12">Company*</label>
-                                    <input type="text" class="form-control required" [(ngModel)]="model.company" name="company"
-                                        id="h12" #company="ngModel" id="h12" required placeholder="Company Name">
-                                    <small [hidden]="company.valid || company.pristine" class="text-danger"> Company
-                                        is required</small>
-                                    <div><small><a href="javascript:;"
-                                                (click)="dbCompany=true; model.company ='null';httpCompany(); ">Select
-                                                from database</a></small></div>
+                                    <input type="text" class="form-control" [(ngModel)]="model.company" name="company" id="h12" placeholder="Company Name">
+                                    <div><small><a href="javascript:;" (click)="dbCompany=true; model.company ='null';httpCompany(); ">Select from database</a></small></div>
                                 </div>
                             </div>
                         </span>
@@ -258,9 +237,8 @@
                         <div class="form-group basic animated">
                             <div class="input-wrapper">
                                 <label class="label" for="h14">Company Class</label>
-                                <select class="form-control" [(ngModel)]="model.id_company_class"
-                                    [ngModelOptions]="{standalone: true}" id="h12">
-                                    <option value="" [hidden]="model.id_company_class"> - Select Company - </option>
+                                <select class="form-control" [(ngModel)]="model.id_company_class" [ngModelOptions]="{standalone: true}" id="h12">
+                                    <option value="" [hidden]="model.id_company_class"> - Select Class - </option>
                                     <option value="{{x.id}}" *ngFor="let x of selected.company_class"> {{x.name}}
                                     </option>
                                 </select>
@@ -271,8 +249,7 @@
                         <div class="form-group basic animated">
                             <div class="input-wrapper">
                                 <label for="h15" class="label">Website</label>
-                                <input type="text" class="form-control " [(ngModel)]="model.website" name="website"
-                                    id="h15" placeholder="Website">
+                                <input type="text" class="form-control " [(ngModel)]="model.website" name="website" id="h15" placeholder="Website">
                             </div>
                         </div>
 
@@ -280,8 +257,7 @@
                         <div class="form-group basic animated">
                             <div class="input-wrapper">
                                 <label for="hp01" class="label">Phone</label>
-                                <input type="text" class="form-control " [(ngModel)]="model.phone" placeholder="Phone"
-                                    name="phone" id="hp01">
+                                <input type="text" class="form-control " [(ngModel)]="model.phone" placeholder="Phone" name="phone" id="hp01">
                             </div>
                         </div>
 
@@ -289,8 +265,7 @@
                         <div class="form-group basic animated">
                             <div class="input-wrapper">
                                 <label for="pf01" class="label">Fax</label>
-                                <input type="text" class="form-control " [(ngModel)]="model.fax" name="fax"
-                                    placeholder="Fax" id="pf01">
+                                <input type="text" class="form-control " [(ngModel)]="model.fax" name="fax" placeholder="Fax" id="pf01">
                             </div>
                         </div>
 
@@ -298,8 +273,7 @@
 
                         <div class="form-group basic">
                             <div class="input-wrapper">
-                                <select class="form-control " id="h14" [(ngModel)]="model.id_industry"
-                                    name="id_industry">
+                                <select class="form-control " id="h14" [(ngModel)]="model.id_industry" name="id_industry">
                                     <option value="0" [hidden]="model.id_industry"> - Select Industry - </option>
                                     <option [ngValue]="x.id" *ngFor="let x of selected.industry">{{x.name}}</option>
                                 </select>
@@ -310,8 +284,7 @@
                         <div class="form-group basic animated">
                             <div class="input-wrapper">
                                 <label class="label" for="h21a">Address</label>
-                                <textarea class="form-control " rows="4" [(ngModel)]="model.address_street"
-                                    placeholder="Street" name="address_street" id="h21a"> </textarea>
+                                <textarea class="form-control " rows="4" [(ngModel)]="model.address_street" placeholder="Street" name="address_street" id="h21a"> </textarea>
                             </div>
                         </div>
 
@@ -319,8 +292,7 @@
                         <div class="form-group basic animated">
                             <div class="input-wrapper">
                                 <label for="h21b" class="label">City</label>
-                                <input type="text" class="form-control " maxlength="250"
-                                    [(ngModel)]="model.address_city" placeholder="City" name="address_city" id="h21b">
+                                <input type="text" class="form-control " maxlength="250" [(ngModel)]="model.address_city" placeholder="City" name="address_city" id="h21b">
                             </div>
                         </div>
 
@@ -330,9 +302,7 @@
                                 <div class="form-group basic animated">
                                     <div class="input-wrapper">
                                         <label for="h21c" class="label">State</label>
-                                        <input type="text" class="form-control " maxlength="250"
-                                            [(ngModel)]="model.address_state" placeholder="State" name="address_state"
-                                            id="h21c">
+                                        <input type="text" class="form-control " maxlength="250" [(ngModel)]="model.address_state" placeholder="State" name="address_state" id="h21c">
                                     </div>
                                 </div>
                             </div>
@@ -340,9 +310,7 @@
                                 <div class="form-group basic animated">
                                     <div class="input-wrapper">
                                         <label for="h21d" class="label">Code</label>
-                                        <input type="text" class="form-control " maxlength="6"
-                                            [(ngModel)]="model.address_code" placeholder="Postal Code"
-                                            name="address_code" id="h21d">
+                                        <input type="text" class="form-control " maxlength="6" [(ngModel)]="model.address_code" placeholder="Postal Code" name="address_code" id="h21d">
                                     </div>
                                 </div>
 
@@ -356,23 +324,21 @@
                         <div class="form-group basic animated">
                             <div class="input-wrapper">
                                 <label for="h21e" class="label">Country</label>
-                                <input type="text" class="form-control " maxlength="250"
-                                    [(ngModel)]="model.address_country" placeholder="Country" name="address_country"
-                                    id="h21e">
+                                <input type="text" class="form-control " maxlength="250" [(ngModel)]="model.address_country" placeholder="Country" name="address_country" id="h21e">
                             </div>
                         </div>
- 
+
 
 
                     </div>
 
- 
+
 
                 </div>
 
                 <div class="modal-footer">
                     <span [hidden]="!submit">Saving, Please wait...</span>
-                    <button type="button" class="btn btn-light mx-1" data-dismiss="modal">Cancel</button> 
+                    <button type="button" class="btn btn-light mx-1" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-primary" [disabled]="!myForm.form.valid">Save</button>
                 </div>
             </div>
