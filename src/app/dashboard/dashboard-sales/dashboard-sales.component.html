@@ -5,7 +5,7 @@
         </a>
     </div>
 
-    <div class="pageTitle">Target salesman</div>
+    <div class="pageTitle"> Dashboard</div>
 
 
 </div>
@@ -26,26 +26,26 @@
                 <div class="card">
                     <div class="card-body pt-2 text-center">
                         <h4 class="pb-0 mb-0"> Quarter 1</h4>
-                        <small>Achieve / Target</small> 
+                        <small>Achieve / Target</small>
                         <div class="py-1" *ngFor="let x of target; let i = index">
-                           
-                            <div  [hidden]="i > 0">
-                                <span>{{currency}}</span> {{x.q1['achieve'] / 1000000 | number }} milion / 
+
+                            <div [hidden]="i > 0">
+                                <span>{{currency}}</span> {{x.q1['achieve'] / 1000000 | number }} milion /
                                 <span>{{currency}}</span> {{x.q1['target']  / 1000000 | number}} milion
                             </div>
- 
-                            <div  [hidden]="i < 1">
-                                 {{x.q1['achieve']  | number }}  /    {{x.q1['target']  | number}} 
+
+                            <div [hidden]="i < 1">
+                                {{x.q1['achieve']  | number }} / {{x.q1['target']  | number}}
                             </div>
-                              
-                              
-                            <div> 
+
+
+                            <div>
                                 <span [ngStyle]="{'color': x.background}">
                                     <ion-icon name="square"></ion-icon>
-                                </span> 
-                                <small>  {{x.name}}</small>
+                                </span>
+                                <small> {{x.name}}</small>
                             </div>
-                        </div> 
+                        </div>
                     </div>
                 </div>
             </div>
@@ -53,27 +53,27 @@
             <div class="item">
                 <div class="card">
                     <div class="card-body pt-2 text-center">
-                        <h4 class="pb-0 mb-0"> Quarter 1</h4>
-                        <small>Achieve / Target</small> 
+                        <h4 class="pb-0 mb-0"> Quarter 2</h4>
+                        <small>Achieve / Target</small>
                         <div class="py-1" *ngFor="let x of target; let i = index">
-                           
-                            <div  [hidden]="i > 0">
-                                <span>{{currency}}</span> {{x.q2['achieve'] / 1000000 | number }} milion / 
+
+                            <div [hidden]="i > 0">
+                                <span>{{currency}}</span> {{x.q2['achieve'] / 1000000 | number }} milion /
                                 <span>{{currency}}</span> {{x.q2['target']  / 1000000 | number}} milion
                             </div>
- 
-                            <div  [hidden]="i < 1">
-                                 {{x.q2['achieve']  | number }}  /    {{x.q2['target']  | number}} 
+
+                            <div [hidden]="i < 1">
+                                {{x.q2['achieve']  | number }} / {{x.q2['target']  | number}}
                             </div>
-                              
-                              
-                            <div> 
+
+
+                            <div>
                                 <span [ngStyle]="{'color': x.background}">
                                     <ion-icon name="square"></ion-icon>
-                                </span> 
-                                <small>  {{x.name}}</small>
+                                </span>
+                                <small> {{x.name}}</small>
                             </div>
-                        </div> 
+                        </div>
                     </div>
                 </div>
             </div>
@@ -82,27 +82,27 @@
             <div class="item">
                 <div class="card">
                     <div class="card-body pt-2 text-center">
-                        <h4 class="pb-0 mb-0"> Quarter 1</h4>
-                        <small>Achieve / Target</small> 
+                        <h4 class="pb-0 mb-0"> Quarter 3</h4>
+                        <small>Achieve / Target</small>
                         <div class="py-1" *ngFor="let x of target; let i = index">
-                           
-                            <div  [hidden]="i > 0">
-                                <span>{{currency}}</span> {{x.q3['achieve'] / 1000000 | number }} milion / 
+
+                            <div [hidden]="i > 0">
+                                <span>{{currency}}</span> {{x.q3['achieve'] / 1000000 | number }} milion /
                                 <span>{{currency}}</span> {{x.q3['target']  / 1000000 | number}} milion
                             </div>
- 
-                            <div  [hidden]="i < 1">
-                                 {{x.q3['achieve']  | number }}  /    {{x.q3['target']  | number}} 
+
+                            <div [hidden]="i < 1">
+                                {{x.q3['achieve']  | number }} / {{x.q3['target']  | number}}
                             </div>
-                              
-                              
-                            <div> 
+
+
+                            <div>
                                 <span [ngStyle]="{'color': x.background}">
                                     <ion-icon name="square"></ion-icon>
-                                </span> 
-                                <small>  {{x.name}}</small>
+                                </span>
+                                <small> {{x.name}}</small>
                             </div>
-                        </div> 
+                        </div>
                     </div>
                 </div>
             </div>
@@ -111,26 +111,26 @@
                 <div class="card">
                     <div class="card-body pt-2 text-center">
                         <h4 class="pb-0 mb-0"> Quarter 4</h4>
-                        <small>Achieve / Target</small> 
+                        <small>Achieve / Target</small>
                         <div class="py-1" *ngFor="let x of target; let i = index">
-                           
-                            <div  [hidden]="i > 0">
-                                <span>{{currency}}</span> {{x.q4['achieve'] / 1000000 | number }} milion / 
+
+                            <div [hidden]="i > 0">
+                                <span>{{currency}}</span> {{x.q4['achieve'] / 1000000 | number }} milion /
                                 <span>{{currency}}</span> {{x.q4['target']  / 1000000 | number}} milion
                             </div>
- 
-                            <div  [hidden]="i < 1">
-                                 {{x.q4['achieve']  | number }}  /    {{x.q4['target']  | number}} 
+
+                            <div [hidden]="i < 1">
+                                {{x.q4['achieve']  | number }} / {{x.q4['target']  | number}}
                             </div>
-                              
-                              
-                            <div> 
+
+
+                            <div>
                                 <span [ngStyle]="{'color': x.background}">
                                     <ion-icon name="square"></ion-icon>
-                                </span> 
-                                <small>  {{x.name}}</small>
+                                </span>
+                                <small> {{x.name}}</small>
                             </div>
-                        </div> 
+                        </div>
                     </div>
                 </div>
             </div>
@@ -139,25 +139,34 @@
         </div>
     </div>
 
- 
 
-    <div class="section mb-2">
-        <h3> BAR TARGET SALESMAN THIS YEAR </h3>
-        <div class="border bg-white py-2">
-            <div class="chart-wrapper">
-                <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
-                </canvas>
+
+    <div class="section py-4">
+        <h3>Bar Target Salesman This Year </h3>
+        <div class="card">
+
+            <div class="card-body">
+                <div class="chart-wrapper">
+                    <canvas baseChart [datasets]="salesmanData" [labels]="salesmanLabels" [options]="salesmanOptions" [plugins]="salesmanPlugins" [legend]="salesmanLegend" [chartType]="salesmanType">
+                    </canvas>
+                </div>
+                <div class="px-2"><small>(In 100 Million)</small></div>
             </div>
+
         </div>
     </div>
 
     <div class="section mb-2">
-        <h3> BAR TARGET LEADS, OPPORTUNITIES, AND QUOTES THIS YEAR </h3>
-        <div class="border bg-white py-2">
-            <div class="chart-wrapper">
-                <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
-                </canvas>
+        <h3>Bar Target Leads, Opportunities, and Quotes This Year </h3>
+        <div class="card">
+
+            <div class="card-body">
+                <div class="chart-wrapper">
+                    <canvas baseChart [datasets]="targetBarData" [labels]="targetBarLabels" [options]="targetBarOptions" [plugins]="targetBarPlugins" [legend]="targetBarLegend" [chartType]="targetBarType">
+                    </canvas>
+                </div>
             </div>
+
         </div>
     </div>
 

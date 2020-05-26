@@ -101,7 +101,7 @@ export class DashboardLeadComponent implements OnInit {
 
   httpGet(id) {
     this.loading = true;
-    var url = environment.api + 'dashboard/index/?id=' + id + "&period=" + this.period;
+    var url = environment.api + 'dashboard/lead/?id=' + id + "&period=" + this.period;
  
     this.http.get(url, {
       headers: this.configService.headers()

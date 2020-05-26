@@ -1,5 +1,5 @@
 <!-- App Header -->
-<div class="appHeader bg-light text-dark">
+<div class="appHeader bg-white text-dark">
 
     <div class="pageTitle">Sales Trax</div>
     <div class="right">
@@ -68,27 +68,7 @@
 
 <!-- App Capsule -->
 <div id="appCapsule">
-
-    <div class="section my-2">
-        <div class="row">
-            <div class="col-12">
-                <h4>
-                    Check In & Check Out
-                </h4>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-6" *ngFor="let x of linksCheckIn">
-                <div class="{{iconClass}}">
-                    <a [routerLink]="[ '/',x.routerLink ]">
-                        <img [src]="x.icon" width="30">
-                        <div><small>{{x.name}}</small> </div>
-                    </a>
-                </div>
-
-            </div>
-        </div>
-    </div>
+ 
 
     <div class="section my-2">
         <div class="row">
@@ -156,10 +136,10 @@
 
                                 <div class="row">
                                     <div class="col-6">
-                                        <small>{{x.input_date | date}} </small>
+                                        <small>{{x.so_number}}</small>
                                     </div>
                                     <div class="col-6 text-right">
-                                        <small>SO {{x.so_number}}</small>
+                                        <small>{{x.input_date | date}} </small>
                                     </div>
                                 </div>
                                 <div><b>{{x.company}}</b> </div>
@@ -181,10 +161,10 @@
 
                                 <div class="row">
                                     <div class="col-6">
-                                        <small>{{x.input_date | date}}</small>
+                                        <small>{{x.quotes_number}}</small>
                                     </div>
                                     <div class="col-6 text-right">
-                                        <small>SO {{x.quote_number}}</small>
+                                        <small>{{x.input_date | date}}</small>
                                     </div>
                                 </div>
 
@@ -204,7 +184,7 @@
                             </h4>
 
                             <div class="py-2 " [ngClass]="{'border-top': i > 0}" *ngFor="let x of event; let i = index">
-                                <small>{{x.start_datetime | date}}</small>
+                                <small>{{x.start_datetime | date:'medium'}}</small>
                                 <div><b>{{x.subject}}</b> </div>
                                 <div>{{x.name}} <code>{{x.module}}</code> </div>
                             </div>
@@ -221,7 +201,7 @@
                             </h4>
 
                             <div class="py-2 " [ngClass]="{'border-top': i > 0}" *ngFor="let x of visit; let i = index">
-                                <small>{{x.start_datetime | date}}</small>
+                                <small>{{x.start_datetime | date:'medium'}}</small>
                                 <div><b>{{x.subject}}</b> </div>
                                 <div>{{x.name}} <code>{{x.module}}</code> </div>
                             </div>

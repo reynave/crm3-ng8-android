@@ -6,8 +6,8 @@ import { Color, Label } from 'ng2-charts';
 import { ConfigService } from './../../service/config.service';
 import { environment } from 'src/environments/environment';
 
-declare var $; 
-declare var Chart; 
+declare var $;
+declare var Chart;
 
 @Component({
   selector: 'app-dashboard-sales',
@@ -31,42 +31,69 @@ export class DashboardSalesComponent implements OnInit {
   }
   id: string = "0";
   period: string;
-  currency: string;
+  currency: string = "Rp";
   account_manager: any = [];
   target: any = [];
   id_user_select: string;
-  totalLS : number = 0;
-  totalLI : number = 0;
+  totalLS: number = 0;
+  totalLI: number = 0;
 
-
-
-  
-  leadPerDistributionLabels: Label[] = ['Label1', 'label2', 'label3', ' label4','Label5', 'label6', 'label7', ' label8'];
-  leadPerDistributionData: any = [  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ];
-  
-  pie: any = 'pie';
-
-  leadPerIndustryLabels: Label[] = ['Label1', 'label2', 'label3', ' label4','Label5', 'label6', 'label7', ' label8'];
-  leadPerIndustryData: any = [  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ] ];
-  
 
   //doc https://www.positronx.io/angular-chart-js-tutorial-with-ng2-charts-examples/ 
-  barChartOptions: ChartOptions = {
-    responsive: true,
-  };
-  barChartLabels: Label[] = ['Apple', 'Banana', 'Kiwifruit', 'Blueberry', 'Orange', 'Grapes'];
-  barChartType: any = 'bar';
-  barChartLegend = true;
-  barChartPlugins = [];
-
-  barChartData: ChartDataSets[] = [
-    { data: [45, 37, 60, 70, 46, 33], label: 'Best Fruits' }
+  salesmanOptions: ChartOptions = { responsive: true, };
+  salesmanLabels: Label[] = ['Quater 1', 'Quater 2', 'Quater 3', 'Quater 4'];
+  salesmanType: any = 'bar';
+  salesmanLegend = true;
+  salesmanPlugins = [];
+  salesmanData: ChartDataSets[] = [
+    {
+      data: [0, 0, 0, 0,],
+      label: 'Loading...',
+      backgroundColor: "rgb(30, 178, 166)",
+      borderColor: "rgba(255,99,132,1)",
+      hoverBackgroundColor: "rgba(255,99,132,0.8)",
+      hoverBorderColor: "rgba(255,99,132,1)"
+    }
   ];
 
 
+  targetBarOptions: ChartOptions = {
+    title: {
+      display: false,
+      text: 'Target Per Years'
+    },
+    legend: {
+      display: false,
+    },
+    tooltips: {
+      mode: 'nearest',
+      intersect: false
+    },
+    responsive: true,
+    scales: {
+      xAxes: [{
+        stacked: true,
 
+      }],
+      yAxes: [{
+        stacked: true,
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    }
+  };
+  targetBarLabels: Label[] = ['Quater 1', 'Quater 2', 'Quater 3', 'Quater 4'];
+  targetBarType: any = 'bar';
+  targetBarLegend = true;
+  targetBarPlugins = [];
+  targetBarData: ChartDataSets[] = [
+    {
+      data: [0, 0, 0, 0,],
+      label: 'Loading...',
+    }
+  ];
  
-
   constructor(
     private http: HttpClient,
     private activatedRoute: ActivatedRoute,
@@ -75,10 +102,10 @@ export class DashboardSalesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.period = this.activatedRoute.snapshot.params.period; 
+    this.period = this.activatedRoute.snapshot.params.period;
     if (!this.activatedRoute.snapshot.params.period) {
       this.period = 'quarter';
-    } 
+    }
     this.httpGet(0);
     this.jquery();
   }
@@ -86,42 +113,50 @@ export class DashboardSalesComponent implements OnInit {
 
   jquery() {
     $('.carousel-multiple').owlCarousel({
-      stagePadding: 32, 
+      stagePadding: 32,
       margin: 16,
       nav: false,
       items: 1,
       dots: true,
-      responsiveClass: true, 
+      responsiveClass: true,
     });
   }
 
-   
+
   onUser(id) {
     this.id = id;
     this.httpGet(id);
   }
- 
+
 
   httpGet(id) {
+    var formatter = new Intl.NumberFormat('en-US');
     this.loading = true;
-    var url = environment.api + 'dashboard/index/?id=' + id + "&period=" + this.period;
- 
+    var url = environment.api + 'dashboard/sales/?id=' + id + "&period=" + this.period;
+
     this.http.get(url, {
       headers: this.configService.headers()
     }).subscribe(data => {
-      console.log(data['result']['target']);
+      console.log(data['result']['barChartDataQty']);
       this.currency = data['result']['currency'];
       this.id_user_select = id;
-      this.target = data['result']['target']; 
-       
-       
+      this.target = data['result']['target'];
+
+      this.salesmanLabels = data['result']['barChartDataAmount']['labels'];
+      this.salesmanData = data['result']['barChartDataAmount']['datasets'];
+
+
+      this.targetBarLabels = data['result']['barChartDataQty']['labels'];
+      this.targetBarData = data['result']['barChartDataQty']['datasets'];
+
+
       this.loading = false;
-    }, () =>{
+    }, () => {
       this.loading = false;
-      this.configService.errorConnection(); 
+      this.configService.errorConnection();
     });
   }
 
-  
+
 
 }

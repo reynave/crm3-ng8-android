@@ -71,8 +71,19 @@ export class HomeComponent implements OnInit {
 
     {
       routerLink: " ",
-      icon: "./assets/img/icon/archived.png",
-      name: "Archived"
+      icon: "./assets/img/icon/report.png",
+      name: "Reports"
+    },
+
+    {
+      routerLink: "checkIn",
+      icon: "./assets/img/icon/check-in.png",
+      name: "Check In"
+    },
+    {
+      routerLink: "checkOut",
+      icon: "./assets/img/icon/check-out.png",
+      name: "Check Out"
     },
   ]
 
@@ -89,18 +100,7 @@ export class HomeComponent implements OnInit {
     },
   ]
 
-  linksCheckIn: any = [
-    {
-      routerLink: "checkIn",
-      icon: "./assets/img/icon/check-in.png",
-      name: "Check In"
-    },
-    {
-      routerLink: "checkOut",
-      icon: "./assets/img/icon/check-out.png",
-      name: "Check Out"
-    },
-  ]
+  
 
   name: string = "Loading...";
   company: string = "Loading...";
