@@ -58,7 +58,11 @@ export class PriceListComponent implements OnInit {
           price: row[4],
           type: row[5],
           qty: row[6],
-        }));
+        })).sort(function(a, b){
+          if(a. name < b. name) { return -1; }
+          if(a. name > b. name) { return 1; }
+          return 0;
+        });
       
 
     }, error=>{

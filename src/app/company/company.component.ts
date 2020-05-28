@@ -105,6 +105,8 @@ export class CompanyComponent implements OnInit {
         return 0;
       });
   
+      console.log(this.items, data['data']);
+
     }, () => {
       this.loading = false;
       this.configService.errorConnection(); 

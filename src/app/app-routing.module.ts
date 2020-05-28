@@ -16,6 +16,7 @@ import { ErrorConnectionComponent } from './global/error-connection/error-connec
 import { DashboardSalesComponent } from './dashboard/dashboard-sales/dashboard-sales.component';
 import { CheckInComponent } from './activity/check-in/check-in.component';
 import { CheckOutComponent } from './activity/check-out/check-out.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 const routes: Routes = [
@@ -23,11 +24,15 @@ const routes: Routes = [
   { path: '', component: LoginComponent },  
   { path: 'home', component: HomeComponent },  
   
+  { path: 'dash', component: DashboardComponent }, 
+
   { path: 'dashLead', component: DashboardLeadComponent },
   { path: 'dashLead/:period', component: DashboardLeadComponent },
 
   { path: 'dashSales', component: DashboardSalesComponent }, 
+  { path: 'dashSales/:period', component: DashboardSalesComponent }, 
  
+
   { path: 'activity', component: ActivityComponent },
   { path: 'checkIn', component: CheckInComponent },
   { path: 'checkOut', component: CheckOutComponent },

@@ -34,6 +34,7 @@ import { ErrorConnectionComponent } from './global/error-connection/error-connec
 import { DashboardSalesComponent } from './dashboard/dashboard-sales/dashboard-sales.component';
 import { CheckInComponent } from './activity/check-in/check-in.component';
 import { CheckOutComponent } from './activity/check-out/check-out.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "right",
@@ -73,6 +74,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     DashboardSalesComponent,
     CheckInComponent,
     CheckOutComponent,
+    DashboardComponent,
     
   ],
   imports: [

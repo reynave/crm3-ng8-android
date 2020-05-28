@@ -163,7 +163,9 @@
                                 <div class="form-group basic animated">
                                     <div class="input-wrapper">
                                         <label for="birthdate" class="label">Birthdate</label>
-                                        <input type="date" class="form-control" [(ngModel)]="model.birthdate" name="birthdate" id="birthdate" placeholder="Birthdate">
+                                        <input type="text" class="form-control" id="birthdate" [(ngModel)]="model.birthdate"
+                                        (click)="bd.toggle()" ngbDatepicker #bd="ngbDatepicker" name="birthdate"
+                                        [startDate]="{year: 1980, month: 1}">
                                     </div>
                                 </div>
                             </div>
@@ -238,7 +240,7 @@
                             <div class="input-wrapper">
                                 <label class="label" for="h14">Company Class</label>
                                 <select class="form-control" [(ngModel)]="model.id_company_class" [ngModelOptions]="{standalone: true}" id="h12">
-                                    <option value="" [hidden]="model.id_company_class"> - Select Class - </option>
+                                    <option value="" [hidden]="model.id_company_class"> - Select Company Class - </option>
                                     <option value="{{x.id}}" *ngFor="let x of selected.company_class"> {{x.name}}
                                     </option>
                                 </select>
@@ -334,8 +336,7 @@
 
 
 
-                </div>
-
+                </div> 
                 <div class="modal-footer">
                     <span [hidden]="!submit">Saving, Please wait...</span>
                     <button type="button" class="btn btn-light mx-1" data-dismiss="modal">Cancel</button>

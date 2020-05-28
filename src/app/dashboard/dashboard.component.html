@@ -1,0 +1,47 @@
+<!-- App Header -->
+<div class="appHeader bg-white text-dark">
+    <div class="left">
+        <a [routerLink]="[ '/home' ]" class="headerButton">
+            <ion-icon name="arrow-back-outline"></ion-icon>
+        </a>
+    </div>
+    <div class="pageTitle">Dashboards</div>
+     
+</div>
+<!-- * App Header -->
+
+ 
+
+
+<!-- App Capsule -->
+<div id="appCapsule">
+
+
+    <div class="section my-2">
+        
+        <div class="row">
+            <div class="col-4" *ngFor="let x of links">
+                <div class="{{iconClass}}">
+                    <a [routerLink]="[ '/',x.routerLink ]">
+                        <img [src]="x.icon" width="30">
+                        <div><small>{{x.name}}</small> </div>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+ 
+
+
+
+</div>
+<!-- * App Capsule -->
+
+
+
+
+
+
+<app-app-bottom-menu></app-app-bottom-menu>

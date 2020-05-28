@@ -45,9 +45,9 @@
                         {{x.name}}
                         <footer>{{x.currency}} {{x.price | number}}</footer>
                     </div>
-                    <span class="text-muted text-center">
+                    <span class="text-muted text-center" [hidden]="x.type == 'Service'  ">
                         <div><small>Qty</small> </div> 
-                        {{x.qty}}</span>
+                        {{x.qty ? x.qty : 0}}</span>
                 </div>
             </span>
         </li>

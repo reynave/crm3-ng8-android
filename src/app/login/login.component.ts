@@ -65,5 +65,21 @@ export class LoginComponent implements OnInit {
   onResetPass(){
     this.loading = true;
     console.log(this.repass);
+    this.http.post<any>(environment.api + 'login/forgetpass', { 
+      data: this.repass, 
+    }).subscribe(data => { 
+      console.log(data);
+      this.loading = false;
+      if(data['error'] == 0){
+        $('#DialogFormForgetPass').modal('hide');
+        $('#DialogReturnForgetPass').modal('show');
+      }else{
+        alert("Error ! Auth fail");
+      }
+ 
+    }, error=>{
+      this.loading = false;
+      alert("Server Error or Internet problem ");
+    });
   }
 }

@@ -20,7 +20,8 @@ export class HomeComponent implements OnInit {
   recentwins: any = [];
   recentQuotation: any = [];
   currency: string;
-
+  user:any =[];
+  id: string = "0";
   links: any = [
     {
       routerLink: "activity",
@@ -85,6 +86,11 @@ export class HomeComponent implements OnInit {
       icon: "./assets/img/icon/check-out.png",
       name: "Check Out"
     },
+     {
+      routerLink: "dash",
+      icon: "./assets/img/icon/dashboard.png",
+      name: "Dashboard"
+    },
   ]
 
   linksDashboard: any = [
@@ -112,7 +118,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.localData();
-    this.httpGet();
+    this.httpGet(0);
     this.jquery();
   }
 
@@ -130,11 +136,16 @@ export class HomeComponent implements OnInit {
       this.company = data['result']['user']['company'];
     }
   }
+  onUser(id) {
+    this.id = id;
+    this.httpGet(id);
+  }
 
-
-  httpGet() {
-    this.loading = true;
-    var url = environment.api + 'dashboard/home/';
+  id_user_select: string;
+  httpGet(id) {
+    this.id_user_select = id;
+    this.loading = true; 
+    var url = environment.api + 'dashboard/home/?id=' + id;
 
     this.http.get<any>(url, {
       headers: this.configService.headers()
@@ -147,13 +158,14 @@ export class HomeComponent implements OnInit {
       this.recentwins = data['result']['recentwins'];
       this.recentQuotation = data['result']['recentQuotation'];
       this.name = data['result']['user']['name'];
-      this.company = data['result']['user']['company'];
+      this.company = data['result']['user']['company']; 
+      this.user = data['result']['user'];
 
       this.loading = false;
     }, error => {
       this.loading = false;
-      ///console.log(error);
-      this.configService.errorConnection();
+      console.log(error);
+     // this.configService.errorConnection();
     });
   }
 

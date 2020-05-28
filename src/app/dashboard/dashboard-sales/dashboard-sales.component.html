@@ -7,9 +7,74 @@
 
     <div class="pageTitle"> Dashboard</div>
 
-
+    <div class="right">
+        <a href="javascript:;" class="headerButton text-white" data-toggle="modal" data-target="#DialogIconedInfo">
+            <ion-icon name="settings-outline"></ion-icon>
+        </a>
+    </div>
 </div>
 <!-- * App Header -->
+<!-- DialogIconedInfo -->
+<div class="modal fade dialogbox" id="DialogIconedInfo" data-backdrop="static" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <ion-icon name="settings-outline"></ion-icon> Select Period or User
+                </h5>
+            </div>
+            <div class="modal-body">
+
+
+                <div class="row no-gutters">
+
+
+                    <div class="col-12 mb-3">
+                        <div class="m2-3"> Select User : </div>
+                        <select class="form-control form-control-sm" (change)="onUser($event.target.value)" [(ngModel)]="id_user_select">
+                            <option value="0">All Group</option>
+                            <option *ngFor="let x of user" value="{{x.id}}"> {{x.name}} </option>
+                        </select>
+                    </div>
+
+
+
+                    <div class="col-12 ">
+                        <b> Select Period : </b>
+                    </div>
+
+                    <div class="row my-3">
+                        <div class="col-4">
+                            <button type="button" class="btn  btn-block" [ngClass]="{'btn-primary': period === 'month', 'btn-light'  : period != 'month' }" (click)="onPeriod('month');" [routerLink]="[ '/dashSales/month' ]">This Month</button>
+                        </div>
+                        <div class="col-4">
+                            <button type="button" class="btn   btn-block" [ngClass]="{'btn-primary': period === 'quarter', 'btn-light'  : period != 'quarter' }" (click)="onPeriod('quarter');" [routerLink]="[ '/dashSales/quarter' ]">This Quarter </button>
+                        </div>
+                        <div class="col-4">
+                            <button type="button" class="btn  btn-block " [ngClass]="{'btn-primary': period === 'year', 'btn-light'  : period != 'year' }" (click)="onPeriod('year');" [routerLink]="[ '/dashSales/year' ]">This Year</button>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+
+
+
+            </div>
+            <div class="modal-footer">
+                <div class="btn-inline">
+                    <a href="#" class="btn" data-dismiss="modal">Close</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- * DialogIconedInfo -->
+
 
 
 <div id="appCapsule" class="mt-2">

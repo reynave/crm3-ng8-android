@@ -123,6 +123,16 @@ export class DashboardSalesComponent implements OnInit {
   }
 
 
+  onPeriod(period) {
+    this.period = period;
+    this.httpGet(this.id);
+    this.loading = true;
+    this.router.navigate(['/dashSales/',period ]);
+    // setInterval(function(){ 
+    //   window.location.reload(); 
+    //  }, 300);
+    $('#DialogIconedInfo').modal('hide');
+  }
   onUser(id) {
     this.id = id;
     this.httpGet(id);
@@ -137,9 +147,10 @@ export class DashboardSalesComponent implements OnInit {
     this.http.get(url, {
       headers: this.configService.headers()
     }).subscribe(data => {
-      console.log(data['result']['barChartDataQty']);
+      console.log(data['result']);
       this.currency = data['result']['currency'];
       this.id_user_select = id;
+      this.user = data['result']['user'];
       this.target = data['result']['target'];
 
       this.salesmanLabels = data['result']['barChartDataAmount']['labels'];
