@@ -146,7 +146,7 @@
                             <div class="input-wrapper">
                                 <label for="h24z" class="label">Company Owner</label>
 
-                                <select class="form-control " id="h24z" [(ngModel)]="model.id_user" name="id_user">
+                                <select class="form-control " id="h24z" disabled [(ngModel)]="model.id_user" name="id_user">
                                     <option [ngValue]="x.id" *ngFor="let x of selected.user">{{x.name}}</option>
                                 </select>
 

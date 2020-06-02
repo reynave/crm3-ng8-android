@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
       }); 
     }   
   }
+  
   goHome(){
     $('#DialogIconedSuccess').modal('hide');
     this.route.navigate(['home']);

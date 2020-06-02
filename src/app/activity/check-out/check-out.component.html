@@ -1,1 +1,160 @@
-<p>check-out works!</p>
+<!-- App Header -->
+<div class="appHeader bg-whatsapp text-light">
+    <div class="left">
+        <a [routerLink]="[ '/home' ]" class="headerButton">
+            <ion-icon name="arrow-back-outline"></ion-icon>
+        </a>
+    </div>
+    <div class="pageTitle">Check Out ({{activityLatest.length}})</div> 
+</div>
+<!-- * App Header -->
+
+<div id="appCapsule" class="border rounded px-1 bg-white">
+    <div class="text-center" [hidden]="!loading"><small> Loading...</small> </div>
+ 
+
+    
+
+    <div class="activity-log act-{{x.activity_type.id}}" *ngFor="let x of activityLatest; let i = index">
+
+
+        <div class="px-3 py-2" [ngClass]="{'bg-odd': i%2==0}">
+            <div class="row">
+                <div class="col-8">
+                    <small> {{x.input_date | date:'mediumDate'}} {{x.input_date | date:'shortTime'}}, {{x.activity_type.name}}</small> 
+                   
+                </div>
+                <div class="col-4 text-right">
+                    <img [hidden]="!x.checkIn" class="bg-white border px-1 mx-1" src="./assets/img/icon/check-in.png" height="30">
+                    <img [hidden]="!x.checkOut" class="bg-white border px-1" src="./assets/img/icon/check-out.png" height="30">
+                </div>
+
+                <div class="col-12">
+                    <a href="javascript:;" (click)="x.description ? showLatest(i) : false;"> <b class="text-primary">{{x.subject}}</b> </a>
+                    <a class="ml-2 text-gray py-0" [hidden]="!x.description" (click)="x.description ? showLatest(i) : false;">
+                        <ion-icon name="caret-down-outline"></ion-icon>
+                    </a>
+                </div>
+ 
+            </div>
+
+            <div>
+
+                <small class="btn btn-sm btn-classic py-0 mr-2" [hidden]="!x.person.origin">{{x.person.origin}}</small>
+                <small>Assigned To <span class="text-primary"> {{x.user}}</span> <br> for <span class="text-primary">
+                        {{x.person.name}} </span> <span [hidden]="!x.person.company"> ({{x.person.company}}) </span> </small>
+
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <button type="button" class="btn btn-classic btn-block" (click)="actionSheetForm(x);" data-toggle="modal" data-target="#actionSheetForm"> 
+                        <img src="./assets/img/icon/check-out.png" height="30"> Check Out
+                    </button>
+                </div> 
+            </div>
+
+            <div [hidden]="!x.closed_area" class="text-right">
+
+                <textarea class="form-control form-control-sm my-2 p-1" rows="8" [(ngModel)]="x.comment" placeholder="Closed this activity. Note your comment"></textarea>
+
+                <div class="row">
+                    <div class="col-6">
+                        <button class="btn  btn-outline-primary btn-block rounded-0" (click)="fn_closed_area(i);">Cancel</button>
+                    </div>
+                    <div class="col-6">
+                        <button class="btn  btn-primary btn-block rounded-0" (click)="fn_closed(x)">Closed</button>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div [hidden]="!x.show">
+                <div class="p-2 mt-2 border   bg-white">
+                    <div class="bg-light" [innerHTML]="x.description" [hidden]="!x.description" style=" white-space: pre-line; font-size: 14px;"></div>
+                    <small [innerHTML]="x.log"></small>
+                </div>
+
+                <div class=" mt-2 ml-3" *ngFor="let a of x.activity_comment">
+                    <div class="p-2 border ">
+                        <small [innerHTML]="a.comment"></small>
+                    </div>
+                    <small> {{a.input_date | date:'mediumDate'}}, {{a.input_date | date:'shortTime'}} </small>
+                </div>
+
+            </div>
+
+            <div [hidden]="!x.show" class="mt-3">
+                <div class="ml-3">
+                    <textarea class="form-control p-1" rows="4" [(ngModel)]="x.comments"></textarea>
+                </div>
+                <div class="mt-1 text-right ">
+
+                    <button type="button" class="px-3 py-0 btn btn-sm bg-white mx-1 border  rounded-0" (click)="x.show = false">Cancel</button>
+                    <button type="button" class="px-3 py-0 btn btn-sm btn-primary rounded-0" (click)="fn_comments(x.comments,x.id,i,0); x.comments = ''">Post</button>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Form Action Sheet -->
+<div class="modal fade action-sheet" id="actionSheetForm" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{checkData['subject']}} (Check Out)</h5>
+               
+            </div>
+            <div class="modal-body">
+                <div class="action-sheet-content">
+                    <form (ngSubmit)="checkOutSubmit()" #checkForm="ngForm">
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label" for="a23">Date and Time</label>
+                                <input type="text" class="form-control" id="a23" readonly value="{{datetime}}">
+                            </div> 
+                        </div> 
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label" for="name3">Note</label>
+                                <textarea  class="form-control" rows="4" id="name3" [(ngModel)]="checkModel.note" [ngModelOptions]="{standalone: true}"  placeholder="Notes"></textarea>
+                                 
+                            </div>
+                            <div class="input-info">Notes (optional)</div>
+                        </div> 
+                       
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label" for="password3">Coordinate</label>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <input type="text" readonly class="form-control" [ngModelOptions]="{standalone: true}" [(ngModel)]="checkModel.lat" placeholder="latitude" >
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="text" readonly class="form-control"  [ngModelOptions]="{standalone: true}" [(ngModel)]="checkModel.long" placeholder="longitude" >
+                                    </div>
+                                </div> 
+                            </div> 
+                        </div>
+                      
+                        <div class="form-group basic">
+                            <button type="submit" class="btn btn-outline-secondary btn-block btn-lg" [disabled]="!checkForm.form.valid"> 
+                                <img src="./assets/img/icon/check-out.png" height="30"> Check Out
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- * Form Action Sheet -->
+
+
+<app-app-bottom-menu></app-app-bottom-menu>

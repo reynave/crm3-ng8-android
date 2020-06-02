@@ -125,15 +125,18 @@ export class HomeComponent implements OnInit {
   localData() {
     if ( localStorage.getItem("crm3.home.dat") ) {
 
-
+  
       const data = JSON.parse(localStorage.getItem("crm3.home.dat"));
+      console.log(data);
       this.currency = data['result']['currency'];
       this.event = data['result']['event'];
       this.visit = data['result']['visit'];
       this.recentwins = data['result']['recentwins'];
       this.recentQuotation = data['result']['recentQuotation'];
-      this.name = data['result']['user']['name'];
-      this.company = data['result']['user']['company'];
+      this.company = data['result']['company']; 
+      this.name = data['result']['name']; 
+      
+      this.user = data['result']['user'];
     }
   }
   onUser(id) {
@@ -152,14 +155,7 @@ export class HomeComponent implements OnInit {
     }).subscribe(data => {
       console.log(data);
       localStorage.setItem("crm3.home.dat", JSON.stringify(data));
-      this.currency = data['result']['currency'];
-      this.event = data['result']['event'];
-      this.visit = data['result']['visit'];
-      this.recentwins = data['result']['recentwins'];
-      this.recentQuotation = data['result']['recentQuotation'];
-      this.name = data['result']['user']['name'];
-      this.company = data['result']['user']['company']; 
-      this.user = data['result']['user'];
+      this.localData();
 
       this.loading = false;
     }, error => {
@@ -182,6 +178,8 @@ export class HomeComponent implements OnInit {
 
   logout() {
     localStorage.removeItem("cmr3ng8Token");
+    localStorage.removeItem("crm3.home.dat");
+    
     $('#sidebarPanel').modal("hide");
     window.location.href = '';
   }

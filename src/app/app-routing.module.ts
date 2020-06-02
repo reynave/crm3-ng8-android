@@ -34,6 +34,8 @@ const routes: Routes = [
  
 
   { path: 'activity', component: ActivityComponent },
+  { path: 'activity/:filter', component: ActivityComponent },
+  
   { path: 'checkIn', component: CheckInComponent },
   { path: 'checkOut', component: CheckOutComponent },
   

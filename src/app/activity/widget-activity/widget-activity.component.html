@@ -284,7 +284,7 @@
                                             </div>
                                         </div>
 
-                                    </div> 
+                                    </div>
                                 </ng-template>
                             </ngb-tab>
 
@@ -332,9 +332,9 @@
 <!-- * Modal Basic -->
 
 
-<div class="p-2" >
+<div class="p-2">
     <button type="button" [hidden]="module == 'activity'" class="btn btn-whatsapp btn-block" data-toggle="modal" data-target="#modalActivity">
-         New Activity  
+        New Activity
     </button>
 </div>
 
@@ -346,15 +346,22 @@
     <h3> Latest Activities ({{activityLatest.length}}) </h3>
 </div>
 
-
+<div class="bg-light px-2" [hidden]="activityLatest.length > 0">
+    <h3 class="text-center"> Empty </h3>
+</div>
 
 <div class="activity-log act-{{x.activity_type.id}}" *ngFor="let x of activityLatest; let i = index">
 
 
     <div class="px-3 py-2" [ngClass]="{'bg-odd': i%2==0}">
         <div class="row">
-            <div class="col-12">
-                <small> {{x.input_date | date:'mediumDate'}}  {{x.input_date | date:'shortTime'}},  {{x.activity_type.name}}</small>
+            <div class="col-8">
+                <small> {{x.input_date | date:'mediumDate'}} {{x.input_date | date:'shortTime'}}, {{x.activity_type.name}}</small>
+
+            </div>
+            <div class="col-4 text-right">
+                <img [hidden]="!x.checkIn" class="bg-white border px-1 mx-1" src="./assets/img/icon/check-in.png" height="30">
+                <img [hidden]="!x.checkOut" class="bg-white border px-1" src="./assets/img/icon/check-out.png" height="30">
             </div>
 
             <div class="col-12">
@@ -375,23 +382,7 @@
 
         </div>
 
-        <div class="row no-gutters">
-            <div class="col-3">
-                <button type="button" class="btn btn-primary btn-block btn-sm rounded-0" (click)="fn_closed_area(i);">Closed</button>
-            </div>
-            <div class="col-3">
-                <button type="button" class="btn btn-danger btn-block btn-sm rounded-0" (click)="fn_remove(x);">Remove</button>
-            </div>
-            <div class="col-3">
-                <button type="button" class="btn btn-whatsapp btn-block btn-sm rounded-0" (click)="showLatest(i);">Reply</button>
-            </div>
-            <div class="col-3" [hidden]="x.activity_comment.length < 1">
-                <button type="button" class="btn btn-warning btn-block btn-sm rounded-0" (click)="showLatest(i);">
-                    <ion-icon name="chatbox-ellipses-outline"></ion-icon> {{x.activity_comment.length}}
-                </button>
-            </div>
 
-        </div>
 
         <div [hidden]="!x.closed_area" class="text-right">
 
@@ -410,9 +401,18 @@
         </div>
 
         <div [hidden]="!x.show">
-            <div class="p-2 mt-2 border   bg-white">
+            Check In
+            {{x.checkIn | json}}
+            <hr>
+            Check Out
+            {{x.checkOut | json}}
+            <hr>
+            <code>blom ada design, masih dibuat</code>
+
+
+            <div class="p-2 mt-2 border   bg-white"> 
                 <div class="bg-light" [innerHTML]="x.description" [hidden]="!x.description" style=" white-space: pre-line; font-size: 14px;"></div>
-                <small [innerHTML]="x.log"></small>
+                <small [innerHTML]="x.log"></small> 
             </div>
 
             <div class=" mt-2 ml-3" *ngFor="let a of x.activity_comment">
@@ -429,14 +429,31 @@
                 <textarea class="form-control p-1" rows="4" [(ngModel)]="x.comments"></textarea>
             </div>
             <div class="mt-1 text-right ">
-              
-                    <button type="button" class="px-3 py-0 btn btn-sm bg-white mx-1 border  rounded-0" (click)="x.show = false">Cancel</button> 
-                    <button type="button" class="px-3 py-0 btn btn-sm btn-primary rounded-0" (click)="fn_comments(x.comments,x.id,i,0); x.comments = ''">Post</button>
-              
+
+                <button type="button" class="px-3 py-0 btn btn-sm bg-white mx-1 border  rounded-0" (click)="x.show = false">Cancel</button>
+                <button type="button" class="px-3 py-0 btn btn-sm btn-primary rounded-0" (click)="fn_comments(x.comments,x.id,i,0); x.comments = ''">Post</button>
+
 
             </div>
         </div>
 
+        <div class="row no-gutters mt-1">
+            <div class="col-3">
+                <button type="button" class="btn btn-primary btn-block btn-sm rounded-0" (click)="fn_closed_area(i);">Closed</button>
+            </div>
+            <div class="col-3">
+                <button type="button" class="btn btn-danger btn-block btn-sm rounded-0" (click)="fn_remove(x);">Remove</button>
+            </div>
+            <div class="col-3">
+                <button type="button" class="btn btn-whatsapp btn-block btn-sm rounded-0" (click)="showLatest(i);">Reply</button>
+            </div>
+            <div class="col-3" [hidden]="x.activity_comment.length < 1">
+                <button type="button" class="btn btn-warning btn-block btn-sm rounded-0" (click)="showLatest(i);">
+                    <ion-icon name="chatbox-ellipses-outline"></ion-icon> {{x.activity_comment.length}}
+                </button>
+            </div>
+
+        </div>
     </div>
 </div>
 
@@ -450,10 +467,15 @@
 
     <div class="px-3 py-2" [ngClass]="{'bg-odd': i%2==0}">
         <div class="row">
-            <div class="col-12">
-                <small>  {{x.input_date | date:'mediumDate'}}  {{x.input_date | date:'shortTime'}}, {{x.activity_type.name}}
-                </small>
+            <div class="col-8">
+                <small> {{x.input_date | date:'mediumDate'}} {{x.input_date | date:'shortTime'}}, {{x.activity_type.name}}</small>
+
             </div>
+            <div class="col-4 text-right">
+                <img [hidden]="!x.checkIn" class="bg-white border px-1 mx-1" src="./assets/img/icon/check-in.png" height="30">
+                <img [hidden]="!x.checkOut" class="bg-white border px-1" src="./assets/img/icon/check-out.png" height="30">
+            </div>
+
             <div class="col-12">
                 <a href="javascript:;" (click)="showHistory(i)"> <b class="text-primary">{{x.subject}}</b> </a>
                 <a class="ml-2 text-gray py-0" [hidden]="!x.description && !x.comment" (click)="showHistory(i)">
@@ -465,29 +487,12 @@
 
         <div>
             <small class="btn btn-sm btn-classic py-0 mr-2" [hidden]="!x.person.origin">{{x.person.origin}}</small>
-            <small>Assigned To <span class="text-primary"> {{x.user}}</span> 
+            <small>Assigned To <span class="text-primary"> {{x.user}}</span>
                 <br>for <span class="text-primary">
                     {{x.person.name}} </span> <span [hidden]="!x.person.company"> ({{x.person.company}}) </span> </small>
         </div>
 
-
-        <div class="row no-gutters">
-            <div class="col-3">
-                <button type="button" class="btn btn-whatsapp btn-block btn-sm rounded-0" (click)="showHistory(i)">Reply</button>
-            </div>
-            <div class="col-3" [hidden]="x.activity_comment.length < 1">
-                <button type="button" class="btn btn-warning btn-block btn-sm rounded-0" (click)="x.description ? showHistory(i) : false;">
-                    <ion-icon name="chatbox-ellipses-outline"></ion-icon>
-                    {{x.activity_comment.length}}
-                </button>
-            </div>
-
-
-        </div>
-
-
-
-
+ 
         <div [hidden]="!x.show">
             <div class="p-2 mt-2 border   bg-white">
                 <div class="text" [innerHTML]="x.description" [hidden]="!x.description" style=" white-space: pre-line; font-size: 14px;"></div>
@@ -516,11 +521,25 @@
                 <textarea class="form-control p-1" rows="4" [(ngModel)]="x.comments"></textarea>
             </div>
             <div class="mt-1 text-right ">
-                <a href="javascript:;" (click)="x.show = false" class="px-3 py-0 btn btn-sm bg-white mx-1 border  rounded-0">Cancel</a> 
+                <a href="javascript:;" (click)="x.show = false" class="px-3 py-0 btn btn-sm bg-white mx-1 border  rounded-0">Cancel</a>
                 <a href="javascript:;" class="px-3 py-0 btn btn-sm btn-primary rounded-0" (click)="fn_comments(x.comments,x.id,i,1); x.comments = ''">Post</a>
             </div>
         </div>
 
+
+        <div class="row no-gutters mt-1">
+            <div class="col-3">
+                <button type="button" class="btn btn-whatsapp btn-block btn-sm rounded-0" (click)="showHistory(i)">Reply</button>
+            </div>
+            <div class="col-3" [hidden]="x.activity_comment.length < 1">
+                <button type="button" class="btn btn-warning btn-block btn-sm rounded-0" (click)="x.description ? showHistory(i) : false;">
+                    <ion-icon name="chatbox-ellipses-outline"></ion-icon>
+                    {{x.activity_comment.length}}
+                </button>
+            </div>
+
+
+        </div>
 
 
 
