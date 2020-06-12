@@ -1,0 +1,56 @@
+<!-- App Header -->
+<div class="appHeader bg-white text-dark">
+    <div class="left">
+        <a [routerLink]="[ '/home' ]" class="headerButton">
+            <ion-icon name="arrow-back-outline"></ion-icon>
+        </a>
+    </div>
+    <div class="pageTitle">Report</div> 
+</div>
+<!-- * App Header -->
+
+ 
+
+
+<!-- App Capsule -->
+<div id="appCapsule">
+
+
+    <div class="section my-2">
+        
+        <div class="row">
+            <div class="col-4">
+                <div class="{{iconClass}}">
+                    <a [routerLink]="[ '/','lead','converted']">
+                        <img [src]="links[0]['icon']" width="30">
+                        <div><small>{{links[0]['name']}}</small> </div>
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="col-4">
+                <div class="{{iconClass}}">
+                    <a [routerLink]="[ '/','lost']">
+                        <img [src]="links[1]['icon']" width="30">
+                        <div><small>{{links[1]['name']}}</small> </div>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+ 
+
+
+
+</div>
+<!-- * App Capsule -->
+
+
+
+
+
+
+<app-app-bottom-menu></app-app-bottom-menu>

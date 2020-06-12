@@ -1,48 +1,39 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { ConfigService } from './../service/config.service';
-import { NgbModal, ModalDismissReasons, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { Opportunity } from './opportunity';
-import { environment } from 'src/environments/environment';
+
+import { ConfigService } from 'src/app/service/config.service';
+import { environment } from 'src/environments/environment'; 
 
 declare var $;
-
-
 @Component({
-  selector: 'app-opportunity',
-  templateUrl: './opportunity.component.html',
-  styleUrls: ['./opportunity.component.css']
+  selector: 'app-lost',
+  templateUrl: './lost.component.html',
+  styleUrls: ['./lost.component.css']
 })
-export class OpportunityComponent implements OnInit {
+export class LostComponent implements OnInit {
   search: string;
-  public label: any;
   public items: any = [];
-  public itemsSelected: any = [];
+  id_user:string;
   public loading: boolean = true;
-  loadingSelected: boolean = true;
-  selected: any = [];
   public id: number;
-  public closeResult: string;
-  newContact: boolean = false;
-  objIndex: any;
-  selectModal: string = "0";
-  id_user: string = "1";
-  model: any;
-
+  total:string;
   constructor(
-    private configService: ConfigService,
-    private router: Router,
-    private http: HttpClient
-  ) { }
+    private http: HttpClient,
+    private router: Router, 
+    private configService: ConfigService
+  ) { 
+  }
 
   ngOnInit() {
+    this.id_user = this.configService.id_user();
     this.httpGet();
     this.jquery();
   }
 
-  jquery() {
-
+  
+  jquery(){
+    
     $(".toggle-searchbox").click(function () {
       var a = $("#search").hasClass("show");
       if (a) {
@@ -77,40 +68,30 @@ export class OpportunityComponent implements OnInit {
       }
     });
   }
-
   
   httpGet() {
-   
-    this.http.get<any>(environment.api + 'opportunity/index/', {
+    this.loading = true;
+    this.http.get<any>( environment.api  + 'lost/index/', {
       headers: this.configService.headers()
-    }).subscribe(data => {
-      this.loading = false;
-      console.log(data);
+    }).subscribe(data => {  
+      console.log(data);  
+
       this.items = data['data'].map(row => ({
         id: row[0],
-        name: row[1], 
-        company: row[2],
-        stage: row[3], 
+        company: row[1],
+        name: row[2], 
+        amount: row[4],
+        currency: row[7],  
       })).sort(function(a, b){
         if(a. name < b. name) { return -1; }
         if(a. name > b. name) { return 1; }
         return 0;
       });
       
-      
-     
-    }, error => {  
+      console.log(this.items);
+
+
       this.loading = false;
-      this.configService.errorConnection(); 
     });
   }
-
-  requestEmit(event) {
-    if (event) {
-      this.router.navigate(['opportunity', event]);
-    }
-
-    $('#ModalBasic').modal('hide');
-  }
-
 }

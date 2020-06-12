@@ -72,5 +72,23 @@ export class PriceListComponent implements OnInit {
     });
 
   }
+  productLocationData : any = [];
+  productDetailData : any = [];
+  attachmentData : any = [];
+
+  productDetail(id){
+    console.log(id);
+     this.loading = true;
+    this.http.get(environment.api  + 'pricelist/detail/' + id, {
+      headers: this.configService.headers()
+    }).subscribe(data => {
+
+      this.productDetailData = data['result']['data'];
+      this.productLocationData = data['result']['product_location']; 
+      this.attachmentData = data['result']['attachment'];
+   
+      this.loading = false;
+    });
+  }
 }
  

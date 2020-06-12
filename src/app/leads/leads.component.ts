@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-import { ConfigService } from './../service/config.service';
+import { ConfigService } from 'src/app/service/config.service';
 import { environment } from 'src/environments/environment';
 import { Newlead } from './leads';
 
@@ -123,10 +123,7 @@ export class LeadsComponent implements OnInit {
     });
   }
 
-  fnSearch() {
-    alert(this.search)
-    //$("#loader").show();
-  }
+  
 
 
   fnRequestCompanyData() {

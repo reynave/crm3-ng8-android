@@ -1,0 +1,60 @@
+<!-- App Header -->
+<div class="appHeader bg-dark text-light">
+    <div class="left">
+        <a [routerLink]="[ '/lead/converted' ]" class="headerButton">
+            <ion-icon name="arrow-back-outline"></ion-icon>
+        </a>
+    </div>
+    <div class="pageTitle">
+        Lead Conversion
+    </div>
+    <div class="right">
+
+    </div>
+</div>
+<!-- * App Header -->
+
+<div id="appCapsule">
+    <div class="section full mb-2">
+        <div class="section-title">Lead Origin </div>
+        <div class="wide-block pb-1 pt-1">
+
+            <div class="form-group basic">
+                <div class="input-wrapper">
+                    <label class="label" for="name3">Lead Name</label>
+                    <input type="text" class="form-control" id="name3" value="{{items.lead.name}}" readonly> 
+                </div> 
+            </div> 
+
+        </div>
+        <div class="section-title">Converted Date {{items.input_date | date:'medium'}}</div>
+        <div class="wide-block pb-1 pt-1">
+
+            <div class="form-group basic">
+                <div class="input-wrapper">
+                    <label class="label" for="name3">Name</label>
+                    <input type="text" class="form-control" id="name3" value="{{items.contact.name}}" readonly> 
+                </div> 
+            </div>
+
+            <div class="form-group basic">
+                <div class="input-wrapper">
+                    <label class="label" for="name3">Company</label>
+                    <input type="text" class="form-control" id="name3" value="{{items.company.name}}" readonly> 
+                </div> 
+            </div>
+
+ 
+            <div class="form-group basic">
+                <div class="input-wrapper">
+                    <label class="label" for="name3">Opportunity</label>
+                    <input type="text" class="form-control" id="name3" value="{{items.opportunity.name}}" readonly> 
+                </div> 
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<app-app-bottom-menu></app-app-bottom-menu>

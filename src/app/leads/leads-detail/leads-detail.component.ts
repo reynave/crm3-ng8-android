@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ConfigService } from './../../service/config.service';
+import { ConfigService } from 'src/app/service/config.service';
 import { NgbModal, ModalDismissReasons, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LeadDetail, SelectUser, Opportunity, UpdateLead, LeadConvert } from './../leads';
 import { environment } from 'src/environments/environment';
@@ -243,6 +243,8 @@ export class LeadsDetailComponent implements OnInit {
         this.loadingConvert = false;
         this.loading = false;
       //  this.modalService.dismissAll('just closed');
+        
+       $('#converModal').modal('hide');
         this.router.navigate(['/lead/converted/', this.id]);
       },
       error => {

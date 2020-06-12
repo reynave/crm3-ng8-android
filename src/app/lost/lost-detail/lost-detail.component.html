@@ -1,0 +1,323 @@
+<!-- App Header -->
+<div class="appHeader bg-dark text-light">
+    <div class="left">
+        <a [routerLink]="[ '/lost' ]" class="headerButton goBack">
+            <ion-icon name="chevron-back-outline"></ion-icon>
+        </a>
+    </div>
+    <div class="pageTitle">Opportunity Lost</div>
+    <div class="right">
+        <a href="javascript:;" class="headerButton" data-toggle="modal" data-target="#actionSheetInset">
+            <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+        </a>
+    </div>
+</div>
+<!-- * App Header -->
+
+
+<!-- Default Action Sheet Inset -->
+<div class="modal fade action-sheet inset" id="actionSheetInset" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <ul class="action-button-list">
+                    <li>
+                        <a href="javascript:;" (click)="rollback();" class="btn btn-list" data-toggle="modal" data-target="#converModal" data-dismiss="modal">
+                            <span>Rollback To Opportunity</span>
+                        </a>
+                    </li>
+
+                    <li class="action-divider"></li>
+                    <li>
+                        <a href="javascript:;" class="btn btn-list text-danger" data-dismiss="modal">
+                            <span>Close</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- * Default Action Sheet Inset -->
+
+<div id="appCapsule">
+
+    <div class="row" [hidden]="!loading">
+        <div class="col-12 text-center py-5">
+            <div class="spinner-border text-primary" role="status"></div>
+        </div>
+    </div>
+
+    <div class="section mt-2">
+        <div class="profile-head">
+
+            <div class="in">
+                <h3 class="name"> {{items.name}}</h3>
+                <h5 class="subtext">{{items.company}}</h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="section full mt-2">
+        <div class="profile-stats pl-2 pr-2" [hidden]="!isReadOnly">
+
+            <span class="item">
+                <strong> {{items.currency}} {{items.amount | number}} &nbsp;</strong>
+                <div>Amount </div>
+            </span>
+
+            <span class="item">
+                <strong> {{items.closed_reason }} &nbsp;</strong>
+                <div>Reason Lost</div>
+            </span>
+        </div>
+
+    </div>
+
+
+
+
+
+    <div class="section full">
+        <div class="wide-block transparent p-0">
+            <ul class="nav nav-tabs lined iconed" role="tablist">
+
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#details" role="tab">
+                        <ion-icon name="document-text-outline"></ion-icon>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#related" role="tab">
+                        <ion-icon name="pricetags-outline"></ion-icon>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#product" role="tab">
+                        <ion-icon name="basket-outline"></ion-icon>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+
+    <!-- tab content -->
+    <div class="section full">
+        <div class="tab-content">
+
+
+
+            <!-- * details -->
+            <div class="tab-pane fade show active bg-white" id="details" role="tabpanel">
+
+                <div class="section-title">Detail</div>
+                <div class="wide-block pb-1 pt-1">
+                    <div class="form-group basic">
+                        <div class="input-wrapper">
+                            <label class="label">Contact</label>
+                            <input type="text" class="form-control" value="{{items.contact}}" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group basic">
+                        <div class="input-wrapper">
+                            <label class="label">Lead Source</label>
+                            <input type="text" class="form-control" value="{{items.lead_source}}" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group basic">
+                        <div class="input-wrapper">
+                            <label class="label">Industry</label>
+                            <input type="text" class="form-control" value="{{items.industry}}" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group basic">
+                        <div class="input-wrapper">
+                            <label class="label"> Started Date</label>
+                            <input type="text" class="form-control" value="{{items.start_date | date:'d MMM y  hh:mm a'}}" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group basic">
+                        <div class="input-wrapper">
+                            <label class="label"> Expecting Closing Date </label>
+                            <input type="text" class="form-control" value="{{items.expecting_closing_date | date:'d MMM y  hh:mm a'}}" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group basic">
+                        <div class="input-wrapper">
+                            <label class="label"> Amount </label>
+                            <input type="text" class="form-control" value="{{items.currency}} {{items.amount |number}}" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group basic">
+                        <div class="input-wrapper">
+                            <label class="label"> Stage </label>
+                            <input type="text" class="form-control" value="{{items.stage}}" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group basic">
+                        <div class="input-wrapper">
+                            <label class="label"> Probability (%) </label>
+                            <input type="text" class="form-control" value="{{items.progress}} %" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group basic">
+                        <div class="input-wrapper">
+                            <label class="label">Created Date </label>
+                            <input type="text" class="form-control" value="{{items.input_date | date:'d MMM y  hh:mm a'}}" readonly>
+                            <small> by {{items.update_by}} </small>
+                        </div>
+                    </div>
+
+                    <div class="form-group basic">
+                        <div class="input-wrapper">
+                            <label class="label"> Update Date </label>
+                            <input type="text" class="form-control" value="{{items.update_date | date:'d MMM y  hh:mm a'}}" readonly>
+                            <small> by {{items.update_by}} </small>
+                        </div>
+                    </div>
+                </div>
+
+ 
+                <div class="section-title">More Information</div>
+                <div class="wide-block pb-1 pt-1">
+                    <div class="form-group basic">
+                        <div class="input-wrapper">
+                            <label class="label"> Opportunity Budget (IDR) </label>
+                            <input type="text" class="form-control" value="{{items.currency}} {{items.budget | number}}" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group basic">
+                        <div class="input-wrapper">
+                            <label class="label"> Competitor </label>
+                            <input type="text" class="form-control" value="{{items.competitor}}" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group basic">
+                        <div class="input-wrapper">
+                            <label class="label"> Comparison with competitor </label>
+                            <input type="text" class="form-control" value="{{items.comparison_with_competitor}}" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group basic">
+                        <div class="input-wrapper">
+                            <label class="label"> Critical point </label>
+                            <input type="text" class="form-control" value="{{items.critical_point}}" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group basic">
+                        <div class="input-wrapper">
+                            <label class="label"> Our proposal </label>
+                            <input type="text" class="form-control" value="{{items.our_proposal}}" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group basic">
+                        <div class="input-wrapper">
+                            <label class="label"> Other of Analysis </label>
+                            <input type="text" class="form-control" value="{{items.notes1}}" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group basic">
+                        <div class="input-wrapper">
+                            <label class="label"> Attachment of Proposal </label>
+                            <a href="{{x.url}}" target="_blank" class="border px-2 bg-light mr-1" *ngFor="let x of attachment" >   {{x.file_name}} </a>
+                        </div>
+                    </div>
+
+                    <div class="form-group basic">
+                        <div class="input-wrapper">
+                            <label class="label"> Notes of Proposal </label>
+                            <textarea  class="form-control" readonly>{{items.notes2}}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group basic">
+                        <div class="input-wrapper">
+                            <label class="label"> Notes of Negotation </label>
+                            <textarea  class="form-control" readonly>{{items.notes3}}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group basic">
+                        <div class="input-wrapper">
+                            <label class="label"> Attachment Purchased Order </label>
+                            <div *ngFor="let x of attachmentPO">
+                                <a href="{{x.url}}" target="_blank" class="border px-2 bg-light mr-1"  >   {{x.file_name}} </a>
+                            </div>
+                      
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+            </div>
+            <!-- * details -->
+
+            <div class="tab-pane fade  bg-white" id="related" role="tabpanel">
+                <div class="section-title">Contact Roles</div> 
+
+                <ul class="listview image-listview media  ">
+                    <li *ngFor="let x of contact ">
+                        <span class="item">
+                            <div class="in">
+                                <div>
+                                    <a [routerLink]="[ '/contact', x.id ]"> 
+                                        {{x.name}}
+                                        <footer>{{x.position}}</footer>
+                                    </a>
+                                </div>
+                            </div>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="tab-pane fade" id="product" role="tabpanel">
+                <div class="section-title">Contact Roles</div> 
+
+                <ul class="listview image-listview media  ">
+                    <li *ngFor="let x of product ">
+                        <span class="item">
+                            <div class="in">
+                                <div>
+                                    <header> {{x.product['sku']}}</header>
+                                    {{x.product['name']}}
+                                    <footer>{{x.currency}} {{x.price | number}}</footer>
+                                </div>
+                            </div>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+
+
+
+        </div>
+    </div>
+    <!-- * tab content -->
+
+</div>
+
+
+<app-app-bottom-menu></app-app-bottom-menu>

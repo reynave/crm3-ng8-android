@@ -17,6 +17,14 @@ import { DashboardSalesComponent } from './dashboard/dashboard-sales/dashboard-s
 import { CheckInComponent } from './activity/check-in/check-in.component';
 import { CheckOutComponent } from './activity/check-out/check-out.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ReportComponent } from './report/report.component';
+import { ConvertedComponent } from './leads/converted/converted.component';
+import { LeadConvertedComponent } from './leads/lead-converted/lead-converted.component';
+import { LostComponent } from './lost/lost.component';
+import { LostDetailComponent } from './lost/lost-detail/lost-detail.component';
+import { OpportunityComponent } from './opportunity/opportunity.component';
+import { OpportunityDetailComponent } from './opportunity/opportunity-detail/opportunity-detail.component';
+import { OpportunityNewComponent } from './opportunity/opportunity-new/opportunity-new.component';
 
 
 const routes: Routes = [
@@ -40,7 +48,12 @@ const routes: Routes = [
   { path: 'checkOut', component: CheckOutComponent },
   
   { path: 'lead', component: LeadsComponent },
+  { path: 'lead/converted', component : ConvertedComponent },
+  { path: 'lead/converted/:id', component: LeadConvertedComponent },
   { path: 'lead/:id', component: LeadsDetailComponent },
+
+  { path: 'lost', component: LostComponent },
+  { path: 'lost/:id', component: LostDetailComponent },
 
   { path: 'contact', component: ContactComponent },
   { path: 'contact/:id', component: ContactDetailComponent },
@@ -48,7 +61,13 @@ const routes: Routes = [
   { path: 'company', component: CompanyComponent },
   { path: 'company/:id', component: CompanyDetailComponent },
 
+  { path : 'opportunity', component: OpportunityComponent},
+  { path : 'opportunity/:id', component: OpportunityDetailComponent},
+  { path : 'opportunity/new/:id_company/:id_contact', component: OpportunityNewComponent}, 
+  
 
+  { path: 'report', component: ReportComponent },
+ 
 
   { path: 'priceList', component: PriceListComponent },  
   

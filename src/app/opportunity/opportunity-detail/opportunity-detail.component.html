@@ -1,1 +1,876 @@
-<p>opportunity-detail works!</p>
+<!-- App Header -->
+<div class="appHeader bg-pinterest text-light">
+    <div class="left">
+        <a [routerLink]="[ '/opportunity' ]" class="headerButton goBack">
+            <ion-icon name="chevron-back-outline"></ion-icon>
+        </a>
+    </div>
+    <div class="pageTitle">Opportunity</div>
+    <div class="right">
+        <a href="javascript:;" class="headerButton" data-toggle="modal" data-target="#actionSheetInset">
+            <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+        </a>
+    </div>
+</div>
+<!-- * App Header -->
+
+
+<!-- Default Action Sheet Inset -->
+<div class="modal fade action-sheet inset" id="actionSheetInset" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <ul class="action-button-list">
+                    <li [hidden]="!items.final_stage">
+                        <a href="javascript:;" (click)="openLg('win')" class="btn btn-list" data-toggle="modal" data-target="#converModal" data-dismiss="modal">
+                            <span> Closed Deal</span>
+                        </a>
+                    </li>
+
+                    <li [hidden]="!items.final_stage">
+                        <a href="javascript:;" (click)="openLg('lose')" class="btn btn-list" data-toggle="modal" data-target="#converModal" data-dismiss="modal">
+                            <span> Closed Lose</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="javascript:;" (click)="edit();" class="btn btn-list" data-dismiss="modal">
+                            <span> Edit</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="javascript:;" (click)="fn_delete();" class="btn btn-list" data-dismiss="modal">
+                            <span> Delete</span>
+                        </a>
+                    </li>
+
+                    <li class="action-divider"></li>
+                    <li>
+                        <a href="javascript:;" class="btn btn-list text-danger" data-dismiss="modal">
+                            <span>Close</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- * Default Action Sheet Inset -->
+
+<form (ngSubmit)="fn_update()" #mainForm="ngForm">
+    <div id="appCapsule">
+
+        <div class="row" [hidden]="!loading">
+            <div class="col-12 text-center py-5">
+                <div class="spinner-border text-primary" role="status"></div>
+            </div>
+        </div>
+
+        <div class="section mt-2">
+            <div class="profile-head">
+
+                <div class="in">
+                    <h3 class="name"> {{items.name}}</h3>
+                    <h5 class="subtext">{{items.company}}</h5>
+                </div>
+            </div>
+
+            <div class="profile-head my-2">
+
+                <div class="in">
+                    <h3 class="name"> {{items.currency}} {{items.amount | number}}</h3>
+                    <h5 class="subtext"> Amount </h5>
+                </div>
+            </div>
+        </div>
+
+
+ 
+
+
+        <div class="section">
+            <div class="row no-gutters">
+                <div *ngFor="let x of stage" class="col-3 ">  
+                    <button type="button" class="btn  {{ x.done ? 'btn-pinterest':'btn-warning' }} border-left btn-block rounded-0" (click)="nextStage(x);"><b> {{x.name}}</b>
+                       
+                    </button>
+                </div>
+            </div>
+        </div>
+
+      
+
+        <!-- STEP -->
+        <div class="section border bg-white m-2 py-2">
+
+            <div [hidden]="id_stage != '100'">
+                <div class="form-group basic">
+                    <div class="input-wrapper">
+                        <label class="label">Expected Close Date <a href="javascript:;" (click)="updateQuiz();"> <small>Update</small> </a></label>
+                        <input type="text" class="form-control " placeholder="yyyy-mm-dd" (click)="dd.toggle()" readonly name="dd" id="c01" [(ngModel)]="updateOpportunity.expecting_closing_date" ngbDatepicker #dd="ngbDatepicker">
+
+                    </div>
+                </div>
+                <div class="form-group basic">
+                    <div class="input-wrapper">
+                        <label class="label">Opportunity Budget (IDR) <a href="javascript:;" (click)="updateQuiz();"> <small>Update</small> </a></label>
+                        <input type="text" class="form-control" name="budget" currencyMask (change)="updateQuiz();" [(ngModel)]="updateOpportunity.budget" id="c02">
+                    </div>
+                </div>
+
+                <div class="form-group basic">
+                    <div class="input-wrapper">
+                        <label for="c02" class="label"> Opportunity product ({{product.length}}) <a href="javscript:;" data-toggle="modal" data-target="#addPriceList">Add new products</a></label>
+                        <span *ngFor="let x of product; let i = index" class="btn btn-outline-dark mt-1 mr-1 py-0">
+                            {{x.product.name}} <a href="javascript:;" (click)="fn_delete_prorduct(x);" class="text-danger">
+                                <ion-icon name="trash-sharp"></ion-icon>
+                            </a>
+                        </span>
+
+                        <input [hidden]="product.length" type="text" class="form-control" readonly data-toggle="modal" data-target="#addPriceList">
+
+                    </div>
+                </div>
+
+
+                <div class="form-group basic">
+                    <div class="input-wrapper">
+                        <label for="c091" class="label">Competitor</label>
+                        <input type="text" class="form-control " name="competitor" (change)="updateQuiz();" [(ngModel)]="updateOpportunity.competitor" id="c091">
+                    </div>
+                </div>
+
+
+                <div class="form-group basic">
+                    <div class="input-wrapper">
+                        <label for="c02123" class="label"> Contact Person</label>
+                        <select id="c02123" class="form-control" [(ngModel)]="updateOpportunity.id_contact" (change)="updateQuiz();" [ngModelOptions]="{standalone: true}">
+                            <option value="{{x.id}}" *ngFor="let x of contact">{{x.name}} </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 py-2"> {{loadingUpdateQuiz}} {{updateOpportunity.done}} </div>
+                    <div class="col-6">
+                        <button type="button" (click)="updateQuiz();" class="btn btn-outline-warning btn-block"> Save Only </button>
+                    </div>
+                    <div class="col-6">
+                        <button type="button" (click)="updateStep(100,0)" class="btn btn-pinterest btn-block"> Done and Next Step </button>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div [hidden]="id_stage != '101'">
+
+                <div class="form-group basic">
+                    <div class="input-wrapper">
+                        <label class="label"> Comparison with competitor </label>
+                        <textarea class="form-control" name="comparison_with_competitor" (change)="updateQuiz();" [(ngModel)]="updateOpportunity.comparison_with_competitor" id="b101"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group basic">
+                    <div class="input-wrapper">
+                        <label for="b102" class="label">Critical point </label>
+                        <textarea class="form-control" name="critical_point" (change)="updateQuiz();" [(ngModel)]="updateOpportunity.critical_point" id="b102"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group basic">
+                    <div class="input-wrapper">
+                        <label for="b103" class="label">Our proposal </label>
+                        <textarea class="form-control" name="our_proposal" [(ngModel)]="updateOpportunity.our_proposal" (change)="updateQuiz();" id="b103"></textarea>
+                    </div>
+                </div>
+
+
+                <div class="form-group basic">
+                    <div class="input-wrapper">
+                        <label for="b104" class="label">Other </label>
+                        <textarea class="form-control" name="notes1" [(ngModel)]="updateOpportunity.notes1" (change)="updateQuiz();" id="b104"></textarea>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-6">
+                        <button type="button" (click)="updateQuiz();" class="btn  btn-outline-warning btn-block mr-2"> Save Only</button>
+                    </div>
+                    <div class="col-6">
+                        <button type="button" (click)="updateStep(101,0)" class="btn btn-pinterest btn-block "> Done and Next Step</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div [hidden]="id_stage != '103'">
+
+                <div class="form-group basic">
+                    <div class="input-wrapper">
+                        <label for="b301" class="label">Quotation</label>
+
+                        <select id="b301" class="form-control" [(ngModel)]="updateOpportunity.id_quote" (change)="updateQuiz();" name="c_id_quote" required [ngModelOptions]="{standalone: true}">
+                            <option value="{{x.id}}" *ngFor="let x of quotes">{{x.quotes_number}} ver {{x.version}} - {{x.name}}
+                                {{x.syncing ? "(Syncing)":""}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="form-group basic">
+                    <div class="input-wrapper">
+                        <label for="b302" class="label">Attachment</label>
+
+
+
+                        <div class="row">
+
+                            <div class="col-9 text-right">
+                                <input class="form-control form-control-sm" type="file" (change)="onFileSelected($event)">
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-light   border btn-block" (click)="onUpload('opportunity');">Upload</button>
+                            </div>
+
+                            <div class="col-12 my-1" *ngFor="let x of attachment">
+                                <div class="border bg-white p-1 rounded">
+                                    <a href="{{x.url}}" target="_blank"><small> {{x.file_name}} </small> </a> &nbsp;
+                                    <a href="javascript:;" (click)="fn_attach_delete(x);">
+                                        <ion-icon name="trash-sharp"></ion-icon>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="form-group basic">
+                    <div class="input-wrapper">
+                        <label for="b304" class="label">Notes </label>
+                        <textarea class="form-control" name="notes2" [(ngModel)]="updateOpportunity.notes2" (change)="updateQuiz();" id="b304"></textarea>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-6">
+                        <button type="button" (click)="updateQuiz();" class="btn  btn-outline-warning btn-block"> Save Only </button>
+                    </div>
+
+                    <div class="col-6">
+                        <button type="button" (click)="updateStep(103,0)" class="btn btn-pinterest btn-block"> Done and Next Step </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div [hidden]="id_stage != '104'">
+
+
+
+                <div class="form-group basic">
+                    <div class="input-wrapper">
+                        <label for="b302" class="label">Attachment Purchased Order</label>
+
+                        <div class="row">
+
+                            <div class="col-9 text-right">
+                                <input class="form-control form-control-sm" type="file" (change)="onFileSelected($event)">
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-classic btn-sm" (click)="onUpload('po');">Upload</button>
+                            </div>
+
+                            <div class="col-12 my-1" *ngFor="let x of attachmentPO">
+                                <div class="border bg-white p-1 rounded">
+                                    <a href="{{x.url}}" target="_blank"><small> {{x.file_name}} </small> </a> &nbsp;
+                                    <a href="javascript:;" (click)="fn_attach_delete(x);">
+                                        <ion-icon name="trash-sharp"></ion-icon>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="form-group basic">
+                    <div class="input-wrapper">
+                        <label for="d104" class="label">Notes </label>
+                        <textarea class="form-control" name="notes3" [(ngModel)]="updateOpportunity.notes3" (change)="updateQuiz();" id="d104"></textarea>
+                    </div>
+                </div>
+
+
+                <div class="form-group basic">
+                    <div class="input-wrapper">
+                        <label for="d104" class="label"> Final Decision</label>
+                        <div class="row">
+                            <div class="col-6">
+                                <input type="radio" id="z01" name="closed_lose" value="0" [(ngModel)]="reason" [ngModelOptions]="{standalone: true}">
+                                <label for="z01" class="px-2 text-danger">
+                                    <i class="fas fa-thumbs-down"></i> &nbsp; <b class="">Closed Lose </b>
+                                </label>
+                            </div>
+                            <div class="col-6">
+                                <input type="radio" id="z02" name="closed_deal" value="1" [(ngModel)]="reason" [ngModelOptions]="{standalone: true}">
+                                <label for="z02" class="px-2 text-primary">
+                                    <i class="fas fa-thumbs-up"></i> &nbsp; <b class=""> Closed Deal</b>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+                <div class="form-group basic" [hidden]="!reason">
+                    <div class="input-wrapper">
+
+                        <div [hidden]="reason != '1'">
+                            <label class="label"> Why win project ?</label>
+                            <select class="form-control" [(ngModel)]="id_closed_reason" [ngModelOptions]="{standalone: true}">
+                                <option *ngFor="let x of reason_win" value="{{x.id}}">{{x.note}}</option>
+                            </select>
+                        </div>
+
+                        <div [hidden]="reason != '0'">
+                            <label class="label"> Why lose project ?</label>
+                            <select class="form-control" [(ngModel)]="id_closed_reason" [ngModelOptions]="{standalone: true}">
+                                <option *ngFor="let x of reason_lose" value="{{x.id}}">{{x.note}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="row ">
+                    <div class="col-6">
+                        <button type="button" (click)="updateQuiz();" class="btn  btn-outline-warning btn-block"> Save Only </button>
+                    </div>
+                    <div class="col-6">
+                        <button type="button" (click)="closeOpportunity(104);" [disabled]="!id_closed_reason" class="btn btn-pinterest btn-block"><b><i class="fas fa-check"></i> Submit</b> </button>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+        <!-- END STEP -->
+
+
+
+
+        <div class="section full">
+            <div class="wide-block transparent p-0">
+                <ul class="nav nav-tabs lined iconed" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#activities" role="tab">
+                            <ion-icon name="list-circle-outline"></ion-icon>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#details" role="tab">
+                            <ion-icon name="document-text-outline"></ion-icon>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#related" role="tab">
+                            <ion-icon name="pricetags-outline"></ion-icon>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#product" role="tab">
+                            <ion-icon name="basket-outline"></ion-icon>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#quote" role="tab">
+                            <ion-icon name="cash-outline"></ion-icon>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+
+
+        <!-- tab content -->
+        <div class="section full">
+            <div class="tab-content">
+
+                <!-- activities -->
+                <div class="tab-pane fade show active bg-white" id="activities" role="tabpanel">
+                    <app-widget-activity></app-widget-activity>
+                </div>
+                <!-- * activities -->
+
+                <!-- * details -->
+                <div class="tab-pane fade bg-white" id="details" role="tabpanel">
+
+                    <div class="section-title">Detail</div>
+
+                    <div class="wide-block pb-1 pt-1">
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label">Opportunity Name</label>
+                                <input type="text" class="form-control" id="name" required [(ngModel)]="updateOpportunity.name" name="name" #name="ngModel" [readonly]="isReadOnly">
+                                <div [hidden]="name.valid || name.pristine" class="alert alert-danger"> Name is required </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label">Account Manager</label>
+                                <select class="form-control" [disabled]="isReadOnly" [(ngModel)]="updateOpportunity.id_user" [ngModelOptions]="{standalone: true}">
+                                    <option value="{{x.id}}" *ngFor="let x of user">{{x.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label">Contact</label>
+                                <select class="form-control" [disabled]="isReadOnly" [(ngModel)]="updateOpportunity.id_contact" [ngModelOptions]="{standalone: true}">
+                                    <option value="{{x.id}}" *ngFor="let x of contact">{{x.name}} </option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label">Lead Source</label>
+                                <select class="form-control" [disabled]="isReadOnly" required [(ngModel)]="updateOpportunity.id_lead_source" [ngModelOptions]="{standalone: true}">
+                                    <option value="{{x.id}}" *ngFor="let x of lead_source">{{x.name}} </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label">Industry </label>
+                                <input type="text" class="form-control" value="{{items.industry}}" readonly>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label"> Started Date </label>
+
+                                <input type="text" class="form-control " placeholder="yyyy-mm-dd" (click)="d.toggle()" readonly name="d" [(ngModel)]="updateOpportunity.start_date" ngbDatepicker #d="ngbDatepicker" required>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label">Expected Close Date </label>
+
+                                <input type="text" class="form-control " placeholder="yyyy-mm-dd" (click)="de.toggle()" readonly name="de" [(ngModel)]="updateOpportunity.expecting_closing_date" ngbDatepicker #de="ngbDatepicker" required>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label">Amount </label>
+                                <input type="text" class="form-control" currencyMask id="amount" [(ngModel)]="updateOpportunity.amount" name="amount" [readonly]="isReadOnly">
+
+                            </div>
+                        </div>
+
+
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label">Stage </label>
+                                <input type="text" readonly class="form-control" value="{{items.stage}}">
+                            </div>
+                        </div>
+
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label">Probability (%) </label>
+                                <input type="text" readonly class="form-control" value="{{items.progress}} % ">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label">Created Date</label>
+                                <input type="text" readonly class="form-control" value="{{items.input_date | date:'d MMM y  hh:mm a'}}">
+                                <small> by {{items.input_by}}</small>
+                            </div>
+                        </div>
+
+
+                        <div [hidden]="items.update_by == false" class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label">Update Date</label>
+                                <input type="text" readonly class="form-control" value="{{items.update_date | date:'d MMM y  hh:mm a'}}">
+
+                                <small> by {{items.update_by}} </small>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+
+
+
+                </div>
+                <!-- * details -->
+
+                <div class="tab-pane fade bg-white" id="related" role="tabpanel">
+                    <div class="section-title">Contact Roles</div>
+
+                    <ul class="listview image-listview media  ">
+                        <li *ngFor="let x of contact ">
+                            <span class="item">
+                                <div class="in">
+                                    <div>
+                                        <a [routerLink]="[ '/contact', x.id ]">
+                                            {{x.name}}
+                                            <footer>{{x.position}}</footer>
+                                        </a>
+                                    </div>
+                                </div>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="tab-pane fade bg-white" id="product" role="tabpanel">
+                    <div class="section-title">Contact Roles</div>
+
+                    <ul class="listview image-listview media  ">
+                        <li *ngFor="let x of product ">
+                            <span class="item">
+                                <div class="in">
+                                    <div>
+                                        <header> {{x.product['sku']}}</header>
+                                        {{x.product['name']}}
+                                        <footer>{{x.currency}} {{x.price | number}}</footer>
+                                    </div>
+                                </div>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+
+
+                <div class="tab-pane fade bg-white" id="quote" role="tabpanel">
+                    <div class="p-2">
+                        <a href="javascript:;" class="btn btn-youtube btn-block" data-toggle="modal" data-target="#ModalNewQuotes">
+                            <ion-icon name="add-outline"></ion-icon> New Quote
+                        </a>
+                    </div>
+
+                    <div class="section-title">Quotations</div>
+
+                    <ul class="listview image-listview media  ">
+                        <li *ngFor="let x of quotes; let i = index">
+                            <span class="item">
+                                <div class="in">
+                                    <div>
+                                        <a [routerLink]="[ '/quote', x.id ]"> {{x.quotes_number}}
+                                            <footer> Grand Total : {{x.currency}} {{x.grand_total | number}}</footer>
+                                            <footer>Expired {{x.expired_date | date}}</footer>
+                                        </a>
+                                    </div>
+                                </div>
+                            </span>
+                        </li>
+                    </ul>
+
+                    
+                </div>
+
+            </div>
+        </div>
+        <!-- * tab content -->
+
+
+    </div>
+
+
+    <span [hidden]="isReadOnly">
+        <!-- App Bottom Menu -->
+        <div class="appBottomMenu">
+            <div class="row">
+                <div class="col-6">
+                    <button type="button" class="btn  btn-outline-warning" (click)="isReadOnly=true;httpGet();"> Cancel </button>
+                </div>
+                <div class="col-6">
+                    <button type="submit" class="btn btn-pinterest" (click)="isReadOnly=true" [disabled]="!mainForm.form.valid"> Save </button>
+                </div>
+            </div>
+
+        </div>
+        <!-- * App Bottom Menu -->
+    </span>
+
+</form>
+
+<span [hidden]="!isReadOnly">
+    <app-app-bottom-menu></app-app-bottom-menu>
+</span>
+
+
+<div class="modal fade modalbox" id="ModalNewQuotes" data-backdrop="static" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <form (ngSubmit)="fn_newQuote()" #quoteForm="ngForm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <strong class="modal-title" id="modal-basic-title">New Quote </strong>
+                    <button type="button" class="close" aria-label="Close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body bg-white">
+
+
+                    <div class="section-title">Quotes Information</div>
+
+                    <div class="wide-block pb-1 pt-1">
+
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label">Quotes Name</label>
+                                <input type="text" class="form-control required" id="q_name" required [(ngModel)]="quoteModel.name" name="q_name" #q_name="ngModel">
+                                <small [hidden]="q_name.valid || q_name.pristine" class="alert alert-danger"> Name is required </small>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label">Opportunity Name</label>
+                                <input type="text" class="form-control " value="{{items.name}}" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label"> Company Name</label>
+                                <input type="text" class="form-control " value="{{items.company}}" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label"> Account Manager </label>
+                                <select class="form-control " [(ngModel)]="quoteModel.id_user" name="q_id_user">
+                                    <option value="{{x.id}}" *ngFor="let x of user">{{x.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label"> Expiration Date </label>
+                                <input type="text" class="form-control required" placeholder="yyyy-mm-dd" (click)="q_d.toggle()" readonly name="q_d" [(ngModel)]="quoteModel.expirationDate" ngbDatepicker #q_d="ngbDatepicker" required>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label"> Syncing </label>
+                                <input type="checkbox" checked [(ngModel)]="quoteModel.syncing" name="q_syncing">
+                            </div>
+                        </div>
+
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label"> Status </label>
+                                <select class="form-control ">
+                                    <option value="1">Draft</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label"> Description </label>
+                                <textarea class="form-control " [(ngModel)]="quoteModel.description" name="q_description"></textarea>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+
+                    <div class="section-title">Prepared For</div>
+
+                    <div class="wide-block pb-1 pt-1">
+
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label">Contact Name</label>
+                                <select class="form-control " [(ngModel)]="quoteModel.id_contact" name="q_id_contact" (change)="lookingContact($event)">
+                                    <option value="{{x.id}}" *ngFor="let x of contact">{{x.name}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label">Email</label>
+                                <input type="text" class="form-control " [(ngModel)]="quoteModel.email" name="q_email">
+                            </div>
+                        </div>
+
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label">Phone</label>
+                                <input type="text" class="form-control " [(ngModel)]="quoteModel.phone" name="q_phone">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label">Fax</label>
+                                <input type="text" class="form-control " id="" [(ngModel)]="quoteModel.fax" name="q_fax">
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="section-title">Bill Address Information</div>
+                    <div class="wide-block pb-1 pt-1">
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label">Bill To Name</label>
+                                <input type="text" class="form-control " [(ngModel)]="quoteModel.bill_name" name="q_bill_name">
+                            </div>
+                        </div>
+
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label">Bill To Street</label>
+                                <textarea class="form-control " [(ngModel)]="quoteModel.bill_street1" name="q_bill_street1"> </textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label">Bill To City</label>
+                                <input type="text" class="form-control " [(ngModel)]="quoteModel.bill_city" name="q_bill_city">
+                            </div>
+                        </div>
+
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label">Bill To State / Province</label>
+                                <input type="text" class="form-control " [(ngModel)]="quoteModel.bill_state" name="q_bill_state">
+                            </div>
+                        </div>
+
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label">Bill To Postal Code</label>
+                                <input type="text" class="form-control " [(ngModel)]="quoteModel.bill_code" name="q_bill_code">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="section-title">Ship Address Information</div>
+                    <div class="wide-block pb-1 pt-1">
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label">Ship To Name</label>
+                                <input type="text" class="form-control " [(ngModel)]="quoteModel.ship_name" name="q_ship_name">
+                            </div>
+                        </div>
+
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label">Ship To Street</label>
+                                <textarea class="form-control " [(ngModel)]="quoteModel.ship_street1" name="q_ship_street1"> </textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label">Ship To City</label>
+                                <input type="text" class="form-control " [(ngModel)]="quoteModel.ship_city" name="q_ship_city">
+                            </div>
+                        </div>
+
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label">Ship To State / Province</label>
+                                <input type="text" class="form-control " [(ngModel)]="quoteModel.ship_state" name="q_ship_state">
+                            </div>
+                        </div>
+
+                        <div class="form-group basic">
+                            <div class="input-wrapper">
+                                <label class="label">Ship To Postal Code</label>
+                                <input type="text" class="form-control " [(ngModel)]="quoteModel.ship_code" name="q_ship_code">
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light mx-1" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success" [disabled]="!quoteForm.form.valid">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!-- Modal Basic -->
+<div class="modal fade modalbox" id="addPriceList" data-backdrop="static" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Product</h5>
+                <a href="javascript:;" data-dismiss="modal">Close</a>
+            </div>
+
+            <div class="modal-body">
+                <app-price-list-modal (uploaded)="requestEmit($event)"></app-price-list-modal>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- * Modal Basic -->

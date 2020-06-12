@@ -1,21 +1,17 @@
 <!-- App Header -->
-<div class="appHeader bg-pinterest text-light">
+<div class="appHeader bg-dark text-light">
     <div class="left">
-        <a [routerLink]="[ '/home' ]" class="headerButton">
+        <a [routerLink]="[ '/report' ]" class="headerButton">
             <ion-icon name="arrow-back-outline"></ion-icon>
         </a>
     </div>
     <div class="pageTitle">
-         Opportunties  ({{items.length}}) 
+        Leads Conversion <small> ({{total}})</small>
     </div>
     <div class="right">
         <a href="javascript:;" class="headerButton toggle-searchbox">
             <ion-icon name="search-outline"></ion-icon>
-        </a>
-        <a href="javascript:;" class="headerButton" data-toggle="modal" data-target="#ModalBasic">
-            <ion-icon name="add-outline"></ion-icon>
-        </a>
-
+        </a> 
     </div>
 </div>
 <!-- * App Header -->
@@ -38,22 +34,23 @@
 
 
 <!-- App Capsule -->
-<div id="appCapsule">
-
+<div id="appCapsule">     
     <ul class="listview image-listview">
-        <li *ngFor="let x of items   | searchPipe:'name':search  ">
-            <a [routerLink]="[ '/opportunity', x.id ]" class="item">
+  
+        <li *ngFor="let x of items    | searchPipe:'lead':search ">
+            <a [routerLink]="[ '/lead/converted/',x.id_lead]" class="item"> 
                 <div class="in">
                     <div>
-                        <header> {{x.company}}</header>
-                        {{x.name}}
-                        <footer> {{x.stage}}</footer>
+                        <header>{{x.convert_date | date:'medium'}}</header>
+                        {{x.lead}}
+                        <footer> {{x.company}}</footer>
                     </div>
                     <span class="text-muted">view</span>
-
+                    
                 </div>
             </a>
         </li>
+
     </ul>
 
     <div class="row" [hidden]="!loading">
@@ -64,27 +61,6 @@
 </div>
 <!-- * App Capsule -->
 
-
-
-<!-- Modal Basic -->
-<div class="modal fade modalbox" id="ModalBasic" data-backdrop="static" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">New Opportunty</h5>
-                <a href="javascript:;" data-dismiss="modal">Close</a>
-            </div>
-
-            <div class="modal-body">  
-                <app-opportunity-new (uploaded)="requestEmit($event)"></app-opportunity-new> 
-            </div> 
-
-        </div>
-
-    </div>
-      
-</div>
-<!-- * Modal Basic -->
 
 
 <app-app-bottom-menu></app-app-bottom-menu>

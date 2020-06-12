@@ -35,6 +35,14 @@ import { DashboardSalesComponent } from './dashboard/dashboard-sales/dashboard-s
 import { CheckInComponent } from './activity/check-in/check-in.component';
 import { CheckOutComponent } from './activity/check-out/check-out.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { PriceListDetailComponent } from './price-list/price-list-detail/price-list-detail.component';
+import { ReportComponent } from './report/report.component';
+import { ConvertedComponent } from './leads/converted/converted.component';
+import { LeadConvertedComponent } from './leads/lead-converted/lead-converted.component';
+import { LostComponent } from './lost/lost.component';
+import { LostDetailComponent } from './lost/lost-detail/lost-detail.component';
+import { ModalOpportunityComponent } from './opportunity/modal-opportunity/modal-opportunity.component';
+import { QuoteComponent } from './quote/quote.component';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "right",
@@ -75,6 +83,14 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     CheckInComponent,
     CheckOutComponent,
     DashboardComponent,
+    PriceListDetailComponent,
+    ReportComponent,
+    ConvertedComponent,
+    LeadConvertedComponent,
+    LostComponent,
+    LostDetailComponent,
+    ModalOpportunityComponent,
+    QuoteComponent,
     
   ],
   imports: [

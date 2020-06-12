@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit {
       name: "Companies"
     },
     {
-      routerLink: "",
+      routerLink: "opportunity",
       icon: "./assets/img/icon/opportunity.png",
       name: "Opportunities"
     },
@@ -71,7 +71,7 @@ export class HomeComponent implements OnInit {
     },
 
     {
-      routerLink: " ",
+      routerLink: "report",
       icon: "./assets/img/icon/report.png",
       name: "Reports"
     },
@@ -92,20 +92,7 @@ export class HomeComponent implements OnInit {
       name: "Dashboard"
     },
   ]
-
-  linksDashboard: any = [
-    {
-      routerLink: "dashLead",
-      icon: "./assets/img/icon/pie-chart.png",
-      name: "Leads"
-    },
-    {
-      routerLink: "dashSales",
-      icon: "./assets/img/icon/bar.png",
-      name: "Sales"
-    },
-  ]
-
+ 
   
 
   name: string = "Loading...";

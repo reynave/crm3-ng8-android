@@ -360,13 +360,13 @@
 
             </div>
             <div class="col-4 text-right">
-                <img [hidden]="!x.checkIn" class="bg-white border px-1 mx-1" src="./assets/img/icon/check-in.png" height="30">
-                <img [hidden]="!x.checkOut" class="bg-white border px-1" src="./assets/img/icon/check-out.png" height="30">
+                <img [hidden]="!x.checkIn" (click)="showLatest(i)" class="bg-white border px-1 mx-1" src="./assets/img/icon/check-in.png" height="30">
+                <img [hidden]="!x.checkOut" (click)="showLatest(i)" class="bg-white border px-1" src="./assets/img/icon/check-out.png" height="30">
             </div>
 
             <div class="col-12">
-                <a href="javascript:;" (click)="x.description ? showLatest(i) : false;"> <b class="text-primary">{{x.subject}}</b> </a>
-                <a class="ml-2 text-gray py-0" [hidden]="!x.description" (click)="x.description ? showLatest(i) : false;">
+                <a href="javascript:;" (click)="showLatest(i)"> <b class="text-primary">{{x.subject}}</b> </a>
+                <a class="ml-2 text-gray py-0" [hidden]="!x.description" (click)="showLatest(i)">
                     <ion-icon name="caret-down-outline"></ion-icon>
                 </a>
             </div>
@@ -401,13 +401,82 @@
         </div>
 
         <div [hidden]="!x.show">
-            Check In
-            {{x.checkIn | json}}
-            <hr>
-            Check Out
-            {{x.checkOut | json}}
-            <hr>
-            <code>blom ada design, masih dibuat</code>
+           
+            <div class="row" [hidden]="!x.checkIn"> 
+                <div class="col-12">
+                   
+                    <div class="border bg-white px-2 rounded-0 shadow-sm my-1">
+                    <table class="text-dark">
+                        <tr>
+                            <td></td>
+                            <td> <b><small>  Check In  </small></b></td>
+                        </tr>
+                        <tr>
+                            <td width="30"> <ion-icon name="time-outline"></ion-icon>  </td>
+                            <td> {{x.checkIn['datetime'] | date:'medium'}}</td>
+                        </tr>
+
+                        <tr>
+                            <td><ion-icon name="map-outline"></ion-icon></td>
+                            <td> 
+                                <!-- <a href="javascript:;" (click)="mapping(x.checkIn)" data-toggle="modal" data-target="#ModalBasic"> {{x.checkIn['lat']}}, {{x.checkIn['long']}}</a>   -->
+                                <a href="https://www.google.com/maps/search/{{x.checkIn['lat']}},+{{x.checkIn['long']}}" target="_blank">{{x.checkIn['lat']}}, {{x.checkIn['long']}}</a>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td> <ion-icon name="clipboard-outline"></ion-icon> </td>
+                            <td> {{x.checkIn['note']}} </td>
+                        </tr>
+                        <tr>
+                            <td> <ion-icon name="person-circle-outline"></ion-icon></td>
+                            <td>  {{x.checkIn['by']}} </td>
+                        </tr>
+                    </table>
+                   </div>
+                    
+                   
+             
+                </div>
+            </div> 
+          
+            <div class="row" [hidden]="!x.checkOut"> 
+                <div class="col-12">
+                   
+                   <div class="border bg-white px-2 rounded-0 shadow-sm my-1">
+                    <table class="text-dark">
+                        <tr>
+                            <td></td>
+                            <td> <b><small>  Check Out  </small></b></td>
+                        </tr>
+                        <tr>
+                            <td width="30"> <ion-icon name="time-outline"></ion-icon>  </td>
+                            <td> {{x.checkOut['datetime'] | date:'medium'}}</td>
+                        </tr>
+
+                        <tr>
+                            <td><ion-icon name="map-outline"></ion-icon></td>
+                            <td> 
+                                <!-- <a href="javascript:;" (click)="mapping(x.checkOut)" data-toggle="modal" data-target="#ModalBasic"> {{x.checkOut['lat']}}, {{x.checkOut['long']}}</a>   -->
+                                <a href="https://www.google.com/maps/search/{{x.checkOut['lat']}},+{{x.checkOut['long']}}" target="_blank">{{x.checkOut['lat']}}, {{x.checkOut['long']}}</a>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td> <ion-icon name="clipboard-outline"></ion-icon> </td>
+                            <td> {{x.checkOut['note']}} </td>
+                        </tr>
+                        <tr>
+                            <td> <ion-icon name="person-circle-outline"></ion-icon></td>
+                            <td>  {{x.checkOut['by']}} </td>
+                        </tr>
+                    </table>
+                   </div>
+                    
+                   
+             
+                </div>
+            </div>
 
 
             <div class="p-2 mt-2 border   bg-white"> 
@@ -494,9 +563,88 @@
 
  
         <div [hidden]="!x.show">
+
+            <div class="row" [hidden]="!x.checkIn"> 
+                <div class="col-12">
+                   
+                    <div class="border bg-white px-2 rounded-0 shadow-sm my-1">
+                    <table class="text-dark">
+                        <tr>
+                            <td></td>
+                            <td> <b><small>  Check In  </small></b></td>
+                        </tr>
+                        <tr>
+                            <td width="30"> <ion-icon name="time-outline"></ion-icon>  </td>
+                            <td> {{x.checkIn['datetime'] | date:'medium'}}</td>
+                        </tr>
+
+                        <tr>
+                            <td><ion-icon name="map-outline"></ion-icon></td>
+                            <td> 
+                                <!-- <a href="javascript:;" (click)="mapping(x.checkIn)" data-toggle="modal" data-target="#ModalBasic"> {{x.checkIn['lat']}}, {{x.checkIn['long']}}</a>   -->
+                                <a href="https://www.google.com/maps/search/{{x.checkIn['lat']}},+{{x.checkIn['long']}}" target="_blank">{{x.checkIn['lat']}}, {{x.checkIn['long']}}</a>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td> <ion-icon name="clipboard-outline"></ion-icon> </td>
+                            <td> {{x.checkIn['note']}} </td>
+                        </tr>
+                        <tr>
+                            <td> <ion-icon name="person-circle-outline"></ion-icon></td>
+                            <td>  {{x.checkIn['by']}} </td>
+                        </tr>
+                    </table>
+                   </div>
+                    
+                   
+             
+                </div>
+            </div> 
+          
+            <div class="row" [hidden]="!x.checkOut"> 
+                <div class="col-12">
+                   
+                   <div class="border bg-white px-2 rounded-0 shadow-sm my-1">
+                    <table class="text-dark">
+                        <tr>
+                            <td></td>
+                            <td> <b><small>  Check Out  </small></b></td>
+                        </tr>
+                        <tr>
+                            <td width="30"> <ion-icon name="time-outline"></ion-icon>  </td>
+                            <td> {{x.checkOut['datetime'] | date:'medium'}}</td>
+                        </tr>
+
+                        <tr>
+                            <td><ion-icon name="map-outline"></ion-icon></td>
+                            <td> 
+                                <!-- <a href="javascript:;" (click)="mapping(x.checkOut)" data-toggle="modal" data-target="#ModalBasic"> {{x.checkOut['lat']}}, {{x.checkOut['long']}}</a>   -->
+                                <a href="https://www.google.com/maps/search/{{x.checkOut['lat']}},+{{x.checkOut['long']}}" target="_blank">{{x.checkOut['lat']}}, {{x.checkOut['long']}}</a>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td> <ion-icon name="clipboard-outline"></ion-icon> </td>
+                            <td> {{x.checkOut['note']}} </td>
+                        </tr>
+                        <tr>
+                            <td> <ion-icon name="person-circle-outline"></ion-icon></td>
+                            <td>  {{x.checkOut['by']}} </td>
+                        </tr>
+                    </table>
+                   </div>
+                    
+                   
+             
+                </div>
+            </div>
+
+
+
+
             <div class="p-2 mt-2 border   bg-white">
                 <div class="text" [innerHTML]="x.description" [hidden]="!x.description" style=" white-space: pre-line; font-size: 14px;"></div>
-
 
                 <fieldset class="border p-2 bg-light" [hidden]="!x.comment">
                     <legend class="w-auto"> <small>Closed Note </small></legend>
@@ -547,3 +695,21 @@
 
     </div>
 </div>
+
+
+
+
+<!-- Modal Basic -->
+<div class="modal fade modalbox" id="ModalBasic" data-backdrop="static" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><a [href]="urlGmap" target="_blank"><ion-icon name="open-outline"></ion-icon> Go To Gmap</a></h5>
+                <a href="javascript:;" data-dismiss="modal">Close</a>
+            </div> 
+                <iframe [src]="urlSafe"   width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+    
+        </div>
+    </div>
+</div>
+<!-- * Modal Basic -->
