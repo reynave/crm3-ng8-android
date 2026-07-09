@@ -7,29 +7,31 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class ConfigService {
-  varKey: string = "mXTSxrEKSErYnZb33LyBus5RpVtGNfcgEBqxp5Unk5azj4ZgdWfhkfVDKJ3KSLFG7DtecSehXe7Q67NGFWGehU3ANexas3ZbrkfU";
+  varKey: any = "";
   varToken: string;
 
   constructor(
     private http: HttpClient,
     private router: Router,
   ) { 
-    this.varToken = localStorage.getItem('cmr3ng8Token'); 
+    this.varToken = localStorage.getItem('tokenCrmCoId') || ""; 
   }
 
 
   getToken() {
-    return localStorage.getItem('cmr3ng8Token') ? localStorage.getItem('cmr3ng8Token') : false;
+     this.varToken = localStorage.getItem('tokenCrmCoId') || ""; 
+    return this.varToken ? this.varToken : false;
   }
 
   checkSession(){
     return this.http.post<any>(environment.api + 'login/checkSession', {
-      token: localStorage.getItem('cmr3ng8Token'), 
+      token: this.varToken, 
     })
   }
 
   setToken(value="") {
-    localStorage.setItem("cmr3ng8Token",value);
+    localStorage.setItem("tokenCrmCoId",value);
+    this.varToken = value;
     return value ? true:false;
   } 
  
@@ -37,12 +39,13 @@ export class ConfigService {
     return new HttpHeaders({
       'Content-Type': 'application/json',
       'Key': this.varKey,
-      'Token':  localStorage.getItem('cmr3ng8Token'),
+      'Token':  this.varToken,
     });
   }
 
   token() {
-    return  localStorage.getItem('cmr3ng8Token');
+     this.varToken = localStorage.getItem('tokenCrmCoId') || "";
+    return  this.varToken;
   }
 
   id_user() {
@@ -54,4 +57,29 @@ export class ConfigService {
     this.router.navigate(['/error/connection/']);
   }
 
+
+  parseJwt(token: string): any {
+    if (!token) {
+      return null;
+    }
+
+    const parts = token.split(".");
+
+    if (parts.length !== 3) {
+      throw new Error("Format token tidak valid");
+    }
+
+    const payload = parts[1];
+
+    const base64 = payload.replace(/-/g, "+").replace(/_/g, "/");
+
+    const padded = base64.padEnd(
+      base64.length + ((4 - (base64.length % 4)) % 4),
+      "=",
+    );
+
+    const decoded = atob(padded);
+
+    return JSON.parse(decoded);
+  }
 }

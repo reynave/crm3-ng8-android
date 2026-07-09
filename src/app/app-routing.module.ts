@@ -25,53 +25,56 @@ import { LostDetailComponent } from './lost/lost-detail/lost-detail.component';
 import { OpportunityComponent } from './opportunity/opportunity.component';
 import { OpportunityDetailComponent } from './opportunity/opportunity-detail/opportunity-detail.component';
 import { OpportunityNewComponent } from './opportunity/opportunity-new/opportunity-new.component';
-
+import { ActiveGuardGuard } from './guard/active-guard.guard';
+import { ReloginComponent } from './login/relogin/relogin.component';
 
 const routes: Routes = [
   
-  { path: '', component: LoginComponent },  
-  { path: 'home', component: HomeComponent },  
+  { path: '', component: LoginComponent }, 
+  { path: 'relogin', component: ReloginComponent }, 
+ 
+  { path: 'home', component: HomeComponent , canActivate: [ActiveGuardGuard]},  
   
-  { path: 'dash', component: DashboardComponent }, 
+  { path: 'dash', component: DashboardComponent , canActivate: [ActiveGuardGuard]}, 
 
-  { path: 'dashLead', component: DashboardLeadComponent },
-  { path: 'dashLead/:period', component: DashboardLeadComponent },
+  { path: 'dashLead', component: DashboardLeadComponent , canActivate: [ActiveGuardGuard]},
+  { path: 'dashLead/:period', component: DashboardLeadComponent , canActivate: [ActiveGuardGuard]},
 
-  { path: 'dashSales', component: DashboardSalesComponent }, 
-  { path: 'dashSales/:period', component: DashboardSalesComponent }, 
+  { path: 'dashSales', component: DashboardSalesComponent , canActivate: [ActiveGuardGuard]}, 
+  { path: 'dashSales/:period', component: DashboardSalesComponent , canActivate: [ActiveGuardGuard]}, 
  
 
-  { path: 'activity', component: ActivityComponent },
-  { path: 'activity/:filter', component: ActivityComponent },
+  { path: 'activity', component: ActivityComponent , canActivate: [ActiveGuardGuard]},
+  { path: 'activity/:filter', component: ActivityComponent , canActivate: [ActiveGuardGuard]},
   
-  { path: 'checkIn', component: CheckInComponent },
-  { path: 'checkOut', component: CheckOutComponent },
+  { path: 'checkIn', component: CheckInComponent , canActivate: [ActiveGuardGuard]},
+  { path: 'checkOut', component: CheckOutComponent , canActivate: [ActiveGuardGuard]},
   
-  { path: 'lead', component: LeadsComponent },
-  { path: 'lead/converted', component : ConvertedComponent },
-  { path: 'lead/converted/:id', component: LeadConvertedComponent },
-  { path: 'lead/:id', component: LeadsDetailComponent },
+  { path: 'lead', component: LeadsComponent , canActivate: [ActiveGuardGuard]},
+  { path: 'lead/converted', component : ConvertedComponent , canActivate: [ActiveGuardGuard]},
+  { path: 'lead/converted/:id', component: LeadConvertedComponent , canActivate: [ActiveGuardGuard]},
+  { path: 'lead/:id', component: LeadsDetailComponent , canActivate: [ActiveGuardGuard]},
 
-  { path: 'lost', component: LostComponent },
-  { path: 'lost/:id', component: LostDetailComponent },
+  { path: 'lost', component: LostComponent , canActivate: [ActiveGuardGuard]},
+  { path: 'lost/:id', component: LostDetailComponent , canActivate: [ActiveGuardGuard]},
 
-  { path: 'contact', component: ContactComponent },
-  { path: 'contact/:id', component: ContactDetailComponent },
+  { path: 'contact', component: ContactComponent , canActivate: [ActiveGuardGuard]},
+  { path: 'contact/:id', component: ContactDetailComponent , canActivate: [ActiveGuardGuard]},
 
-  { path: 'company', component: CompanyComponent },
-  { path: 'company/:id', component: CompanyDetailComponent },
+  { path: 'company', component: CompanyComponent , canActivate: [ActiveGuardGuard]},
+  { path: 'company/:id', component: CompanyDetailComponent , canActivate: [ActiveGuardGuard]},
 
-  { path : 'opportunity', component: OpportunityComponent},
-  { path : 'opportunity/:id', component: OpportunityDetailComponent},
-  { path : 'opportunity/new/:id_company/:id_contact', component: OpportunityNewComponent}, 
+  { path : 'opportunity', component: OpportunityComponent , canActivate: [ActiveGuardGuard]},
+  { path : 'opportunity/:id', component: OpportunityDetailComponent , canActivate: [ActiveGuardGuard]},
+  { path : 'opportunity/new/:id_company/:id_contact', component: OpportunityNewComponent , canActivate: [ActiveGuardGuard]}, 
   
 
-  { path: 'report', component: ReportComponent },
+  { path: 'report', component: ReportComponent , canActivate: [ActiveGuardGuard]},
  
 
-  { path: 'priceList', component: PriceListComponent },  
+  { path: 'priceList', component: PriceListComponent , canActivate: [ActiveGuardGuard]},  
   
-  { path: 'error/connection', component: ErrorConnectionComponent },
+  { path: 'error/connection', component: ErrorConnectionComponent }, 
 
 
   { path: '**', component: PagesNotFoundComponent },

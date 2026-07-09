@@ -4,9 +4,8 @@
 
 export const environment = {
   production: false,
-  domain : "https://www.crm.co.id",
-  //api: "https://s02.crm.co.id/api-v1/",
-  api: "http://localhost/application/crm3-ng8/api-v1/",
+  domain : "https://localhost:7344/app/", 
+  api: "http://localhost:7344/crm.co.id/api-v1/",
  
 };
 

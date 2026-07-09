@@ -43,6 +43,7 @@ import { LostComponent } from './lost/lost.component';
 import { LostDetailComponent } from './lost/lost-detail/lost-detail.component';
 import { ModalOpportunityComponent } from './opportunity/modal-opportunity/modal-opportunity.component';
 import { QuoteComponent } from './quote/quote.component';
+import { ReloginComponent } from './login/relogin/relogin.component';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "right",
@@ -91,6 +92,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     LostDetailComponent,
     ModalOpportunityComponent,
     QuoteComponent,
+    ReloginComponent,
     
   ],
   imports: [

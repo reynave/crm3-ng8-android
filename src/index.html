@@ -7,6 +7,7 @@
   content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
   
   <title>Sales Trax ver 1.0</title>
+  <base href="./">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href="./assets/css/style.css">
 
@@ -17,12 +18,13 @@
 
   <app-root>
     <div id="loader">
+     <div> Loading...</div>
       <div class="spinner-border text-primary" role="status"></div>
     </div>
   </app-root>
 
   <script>
-    (function () {
+   /* (function () {
       'use strict';
 
       window.addEventListener = function () {
@@ -41,8 +43,9 @@
         EventTarget.prototype.removeEventListener.apply(this, arguments);
       };
     })();
+    */
   </script>
-  <script type="text/javascript" src="cordova.js"></script>
+  <!-- <script type="text/javascript" src="cordova.js"></script> -->
   <script type="text/javascript" src="./assets/js/lib/jquery-3.4.1.min.js"></script>
   <script type="text/javascript" src="./assets/js/lib/popper.min.js"></script>
   <script type="text/javascript" src="./assets/js/lib/bootstrap.min.js"></script>

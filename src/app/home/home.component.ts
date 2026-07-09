@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-import { Router } from '@angular/router';
-import { ConfigService } from './../service/config.service';
+import { Component, OnInit } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { environment } from "src/environments/environment";
+import { Router } from "@angular/router";
+import { ConfigService } from "./../service/config.service";
 //import { $ } from 'protractor';
 
 declare var $;
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: "app-home",
+  templateUrl: "./home.component.html",
+  styleUrls: ["./home.component.css"],
 })
 export class HomeComponent implements OnInit {
   iconClass: string = "border text-center bg-white shadow-sm rounded py-1 mb-2";
@@ -19,89 +19,88 @@ export class HomeComponent implements OnInit {
   visit: any = [];
   recentwins: any = [];
   recentQuotation: any = [];
-  currency: string;
-  user:any =[];
+  currency: string = "IDR";
+  user: any = [];
   id: string = "0";
   links: any = [
     {
       routerLink: "activity",
       icon: "./assets/img/icon/activity.png",
-      name: "Activities"
+      name: "Activities",
     },
     {
       routerLink: "lead",
       icon: "./assets/img/icon/lead.png",
-      name: "Leads"
+      name: "Leads",
     },
     {
       routerLink: "contact",
       icon: "./assets/img/icon/contact.png",
-      name: "Contacts"
+      name: "Contacts",
     },
     {
       routerLink: "company",
       icon: "./assets/img/icon/company.png",
-      name: "Companies"
+      name: "Companies",
     },
     {
       routerLink: "opportunity",
       icon: "./assets/img/icon/opportunity.png",
-      name: "Opportunities"
+      name: "Opportunities",
     },
     {
       routerLink: "",
       icon: "./assets/img/icon/quotes.png",
-      name: "Quotes"
+      name: "Quotes",
     },
 
     {
       routerLink: "",
       icon: "./assets/img/icon/deal.png",
-      name: "Deals"
+      name: "Deals",
     },
     {
       routerLink: "",
       icon: "./assets/img/icon/sales-order.png",
-      name: "Sales Orders"
+      name: "Sales Orders",
     },
     {
       routerLink: "priceList",
       icon: "./assets/img/icon/product.png",
-      name: "Products"
+      name: "Products",
     },
 
     {
       routerLink: "report",
       icon: "./assets/img/icon/report.png",
-      name: "Reports"
+      name: "Reports",
     },
 
     {
       routerLink: "checkIn",
       icon: "./assets/img/icon/check-in.png",
-      name: "Check In"
+      name: "Check In",
     },
     {
       routerLink: "checkOut",
       icon: "./assets/img/icon/check-out.png",
-      name: "Check Out"
+      name: "Check Out",
     },
-     {
+    {
       routerLink: "dash",
       icon: "./assets/img/icon/dashboard.png",
-      name: "Dashboard"
+      name: "Dashboard",
     },
-  ]
- 
-  
+  ];
 
   name: string = "Loading...";
+  level : string = "Loading...";
   company: string = "Loading...";
   constructor(
     private configService: ConfigService,
     private router: Router,
     private http: HttpClient,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.localData();
@@ -110,50 +109,55 @@ export class HomeComponent implements OnInit {
   }
 
   localData() {
-    if ( localStorage.getItem("crm3.home.dat") ) {
-
-  
-      const data = JSON.parse(localStorage.getItem("crm3.home.dat"));
+    if (localStorage.getItem("tokenCrmCoId")) {
+      const data = this.configService.parseJwt(localStorage.getItem("tokenCrmCoId") || '{}');
       console.log(data);
-      this.currency = data['result']['currency'];
-      this.event = data['result']['event'];
-      this.visit = data['result']['visit'];
-      this.recentwins = data['result']['recentwins'];
-      this.recentQuotation = data['result']['recentQuotation'];
-      this.company = data['result']['company']; 
-      this.name = data['result']['name']; 
-      
-      this.user = data['result']['user'];
+      // this.currency = data["result"]["currency"];
+      // this.event = data["result"]["event"];
+      // this.visit = data["result"]["visit"];
+      // this.recentwins = data["result"]["recentwins"];
+      // this.recentQuotation = data["result"]["recentQuotation"];
+      // this.company = data["result"]["company"];
+        this.name = data["data"]['access_rules']["name"];
+ this.level = data["data"]['access_rules']["level"];
+
+      // this.user = data["result"]["user"];
     }
   }
-  onUser(id) {
+  onUser(id: any) {
     this.id = id;
     this.httpGet(id);
   }
 
-  id_user_select: string;
-  httpGet(id) {
+  id_user_select: string = "";
+  httpGet(id: any) {
     this.id_user_select = id;
-    this.loading = true; 
-    var url = environment.api + 'dashboard/home/?id=' + id;
+    this.loading = true;
 
-    this.http.get<any>(url, {
-      headers: this.configService.headers()
-    }).subscribe(data => {
-      console.log(data);
-      localStorage.setItem("crm3.home.dat", JSON.stringify(data));
-      this.localData();
+    var url = environment.api + "dashboard/?id=" + id;
+    console.log(url);
+    this.http
+      .get<any>(url, {
+        headers: this.configService.headers(),
+      })
+      .subscribe(
+        (data) => {
+          console.log(data);
+          localStorage.setItem("crm3.home.dat", JSON.stringify(data));
+          this.localData();
 
-      this.loading = false;
-    }, error => {
-      this.loading = false;
-      console.log(error);
-     // this.configService.errorConnection();
-    });
+          this.loading = false;
+        },
+        (error) => {
+          this.loading = false;
+          console.log(error);
+          // this.configService.errorConnection();
+        },
+      );
   }
 
   jquery() {
-    $('.carousel-multiple').owlCarousel({
+    $(".carousel-multiple").owlCarousel({
       stagePadding: 32,
       margin: 16,
       nav: false,
@@ -164,11 +168,10 @@ export class HomeComponent implements OnInit {
   }
 
   logout() {
-    localStorage.removeItem("cmr3ng8Token");
+    localStorage.removeItem("tokenCrmCoId");
     localStorage.removeItem("crm3.home.dat");
-    
-    $('#sidebarPanel').modal("hide");
-    window.location.href = '';
-  }
 
+    $("#sidebarPanel").modal("hide");
+    window.location.href = "";
+  }
 }
